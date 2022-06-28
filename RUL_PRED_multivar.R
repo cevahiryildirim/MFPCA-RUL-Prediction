@@ -1,0 +1,1563 @@
+
+library(funData)
+library(ggplot2)
+library(fda)
+library(MFPCA)
+library(ggplot2)
+library(MASS)
+
+#T30
+T30_all_train_test<-read.csv("C:/Users/cevah/Desktop/data_for_registration/test/NEW/2-T30train_test_all.csv", header = TRUE,row.names = 1)
+T30_all_train_test
+T30_all_train_test<-as.matrix(T30_all_train_test)
+
+#### list for 100 test engine - all 101 x number of observation matrix
+list_test_T30_matrix<-list()
+for (i in 1:100)
+{ 
+  T30_test_matrix_length <- matrix(data = NA, nrow=101, ncol=length(na.omit(T30_all_train_test[100+i,])))
+  list_test_T30_matrix[[i]]<-T30_test_matrix_length
+}
+
+#### fill all lists with 100 train + row101 for related  test engine
+for (i in 1:100) { 
+  T30_test_matrix<- matrix(data = NA, nrow=101, ncol=length(as.matrix(list_test_T30_matrix[[i]])[1,]))
+  for (j in 1:101) {
+    T30_test_matrix[j,]<-T30_all_train_test[j,1:length(as.matrix(list_test_T30_matrix[[i]])[1,])]
+    list_test_T30_matrix[[i]][j,]<-T30_test_matrix[j,]
+  }
+  list_test_T30_matrix[[i]][101,]<-T30_all_train_test[100+i, 1:length(as.matrix(list_test_T30_matrix[[i]])[1,])]
+}
+
+
+#### ignore NAs for all
+#####list with ignoring train data with observation less than test data
+list_test_T30_matrix_noNA<-list()
+for (i in 1:100)
+{ 
+  noNA_test_matrix_T30 <- matrix(data = NA, nrow=101, ncol=length(na.omit(list_test_T30_matrix[[i]][101,])))
+  noNA_test_matrix_T30 <-na.omit(list_test_T30_matrix[[i]])
+  list_test_T30_matrix_noNA[[i]]<-noNA_test_matrix_T30
+}
+
+#####list with transpose of each matrix
+
+list_test_T30_matrix_t_noNA<-list()
+for (i in 1:100)
+{ 
+  list_test_T30_matrix_t_noNA[[i]]<-t(list_test_T30_matrix_noNA[[i]])
+}
+
+
+######smoothing for each engine
+list_test_all_smooth_T30<-list()
+list_test_smoothing_T30<-list()
+no_of_splines<-10
+for (j in 1:100) {
+  
+  for (i in 1:nrow(list_test_T30_matrix_noNA[[j]]))
+  {
+    Smooth<- smooth.basis( argvals = seq(1,length(na.omit(list_test_T30_matrix_t_noNA[[j]][,1]))-1, length.out= length(na.omit(list_test_T30_matrix_t_noNA[[j]][,1]))-1),
+                           y= as.vector(list_test_T30_matrix_noNA[[j]][i,2:length(na.omit(list_test_T30_matrix_t_noNA[[j]][,1]))]), 
+                           fdParobj = create.bspline.basis(c(1,length(na.omit(list_test_T30_matrix_t_noNA[[j]][,1]))-1),no_of_splines))
+    list_test_smoothing_T30[[i]]<-Smooth
+  }
+  list_test_all_smooth_T30[[j]]<-list_test_smoothing_T30
+}
+
+#for (j in 2:2) {
+#  
+#  for (i in 1:nrow(list_test_T30_matrix_noNA[[i]]))
+#  {
+#    Smooth<- smooth.basis( argvals = seq(1,length(na.omit(list_test_T30_matrix_t_noNA[[i]][,1]))-1, length.out= length(na.omit(list_test_T30_matrix_t_noNA[[2]][,1]))-1),
+#                           y= as.vector(list_test_T30_matrix_noNA[[i]][i,2:length(na.omit(list_test_T30_matrix_t_noNA[[i]][,1]))]), 
+#                           fdParobj = create.bspline.basis(c(1,length(na.omit(list_test_T30_matrix_t_noNA[[i]][,1]))-1),10))
+#    list_test_smoothing_T30[[i]]<-Smooth
+#  }
+#  list_test_all_smooth_T30[[j]]<-list_test_smoothing_T30
+#}
+
+
+###plot for cutted at observation
+# testengine=45
+# plot(list_test_all_smooth_T30[[testengine]][[1]],xlim=c(0,330), ylim=c(1580,1610))
+# for (i in 1:nrow(list_test_T30_matrix_noNA[[testengine]]))
+# {
+#   lines(list_test_all_smooth_T30[[testengine]][[i]], col="black")
+#   lines(list_test_all_smooth_T30[[testengine]][[nrow(list_test_T30_matrix_noNA[[testengine]])]], col="red")}
+# 
+# ###plot for (full observation trains - cutted test)
+# plot(list_test_all_smooth_T30[[testengine]][[nrow(list_test_T30_matrix_noNA[[testengine]])]],xlim=c(0,370), ylim=c(1580,1610))
+# for (i in as.vector(list_test_T30_matrix_noNA[[testengine]][,1])) {
+#   lines(listeT30[[i]])
+# } 
+# lines(list_test_all_smooth_T30[[testengine]][[nrow(list_test_T30_matrix_noNA[[testengine]])]], col="red")
+
+#####DISTANCE Calculation
+#################DISTANCE########################
+list_for_distance_T30<-list()
+for (j in 1:100) {
+  distancematrixT30<-matrix(NA,nrow(list_test_T30_matrix_noNA[[j]]),no_of_splines) 
+  for(i in 1:nrow(list_test_T30_matrix_noNA[[j]])) {
+    distancematrixT30[i,]<-list_test_all_smooth_T30[[j]][[i]][["fd"]][["coefs"]]
+  }
+  list_for_distance_T30[[j]]<-distancematrixT30
+}
+
+######ALL L2 DISTANCES FOR ALL ENGINES
+library(philentropy)
+
+list_distance_T30<-list()
+for (i in 1:100) {
+  DISTANCE<-distance(list_for_distance_T30[[i]], method = "euclidean" )
+  list_distance_T30[[i]]<-DISTANCE
+}
+
+
+#########################REGISTRATION OF SMOOTHED
+maxT30<-max(na.omit(unlist(list_test_T30_matrix)))
+
+#####REGISTERED NEW DISTANCE Calculation
+#################DISTANCE########################
+list_for_distance_T30_reg<-list()
+for (j in 1:100) {
+  distancematrixT30reg<-matrix(NA,nrow(list_test_T30_matrix_noNA[[j]]),no_of_splines) 
+  for(i in 1:nrow(list_test_T30_matrix_noNA[[j]])) {
+    distancematrixT30reg[i,]<-list_test_all_smooth_T30[[j]][[i]][["fd"]][["coefs"]]/maxT30
+  }
+  list_for_distance_T30_reg[[j]]<-distancematrixT30reg
+}
+
+list_distance_T30_reg<-list()
+for (i in 1:100) {
+  DISTANCE<-distance(list_for_distance_T30_reg[[i]], method = "euclidean" )
+  list_distance_T30_reg[[i]]<-DISTANCE
+}
+
+##########################################################
+##########################################################
+##########################################################
+
+
+#T24
+
+
+T24_all_train_test<-read.csv("C:/Users/cevah/Desktop/data_for_registration/test/NEW/1-T24train_test_all.csv", header = TRUE,row.names = 1)
+T24_all_train_test
+T24_all_train_test<-as.matrix(T24_all_train_test)
+
+#### list for 100 test engine - all 101 x number of observation matrix
+list_test_matrix<-list()
+for (i in 1:100)
+{ 
+  T24_test_matrix_length <- matrix(data = NA, nrow=101, ncol=length(na.omit(T24_all_train_test[100+i,])))
+  list_test_matrix[[i]]<-T24_test_matrix_length
+}
+
+#### fill all lists with 100 train + row101 for related  test engine
+for (i in 1:100) { 
+  T24_test_matrix<- matrix(data = NA, nrow=101, ncol=length(as.matrix(list_test_matrix[[i]])[1,]))
+  for (j in 1:101) {
+    T24_test_matrix[j,]<-T24_all_train_test[j,1:length(as.matrix(list_test_matrix[[i]])[1,])]
+    list_test_matrix[[i]][j,]<-T24_test_matrix[j,]
+  }
+  list_test_matrix[[i]][101,]<-T24_all_train_test[100+i, 1:length(as.matrix(list_test_matrix[[i]])[1,])]
+}
+
+
+#### ignore NAs for all
+#####list with ignoring train data with observation less than test data
+list_test_matrix_noNA<-list()
+for (i in 1:100)
+{ 
+  noNA_test_matrix_T24 <- matrix(data = NA, nrow=101, ncol=length(na.omit(list_test_matrix[[i]][101,])))
+  noNA_test_matrix_T24 <-na.omit(list_test_matrix[[i]])
+  list_test_matrix_noNA[[i]]<-noNA_test_matrix_T24
+}
+
+#####list with transpose of each matrix
+
+list_test_matrix_t_noNA<-list()
+for (i in 1:100)
+{ 
+  list_test_matrix_t_noNA[[i]]<-t(list_test_matrix_noNA[[i]])
+}
+
+
+######smoothing for each engine
+list_test_all_smooth_T24<-list()
+list_test_smoothing_T24<-list()
+no_of_splines<-10
+for (j in 1:100) {
+  
+  for (i in 1:nrow(list_test_matrix_noNA[[j]]))
+  {
+    Smooth<- smooth.basis( argvals = seq(1,length(na.omit(list_test_matrix_t_noNA[[j]][,1]))-1, length.out= length(na.omit(list_test_matrix_t_noNA[[j]][,1]))-1),
+                           y= as.vector(list_test_matrix_noNA[[j]][i,2:length(na.omit(list_test_matrix_t_noNA[[j]][,1]))]), 
+                           fdParobj = create.bspline.basis(c(1,length(na.omit(list_test_matrix_t_noNA[[j]][,1]))-1),no_of_splines))
+    list_test_smoothing_T24[[i]]<-Smooth
+  }
+  list_test_all_smooth_T24[[j]]<-list_test_smoothing_T24
+}
+
+
+# for (j in 2:2) {
+#   
+#   for (i in 1:nrow(list_test_matrix_noNA[[i]]))
+#   {
+#     Smooth<- smooth.basis( argvals = seq(1,length(na.omit(list_test_matrix_t_noNA[[i]][,1]))-1, length.out= length(na.omit(list_test_matrix_t_noNA[[2]][,1]))-1),
+#                            y= as.vector(list_test_matrix_noNA[[i]][i,2:length(na.omit(list_test_matrix_t_noNA[[i]][,1]))]), 
+#                            fdParobj = create.bspline.basis(c(1,length(na.omit(list_test_matrix_t_noNA[[i]][,1]))-1),no_of_splines))
+#     list_test_smoothing_T24[[i]]<-Smooth
+#   }
+#   list_test_all_smooth_T24[[j]]<-list_test_smoothing_T24
+# }
+
+
+###plot for cutted at observation
+# testengine=20
+# plot(list_test_all_smooth_T24[[testengine]][[1]],xlim=c(0,330), ylim=c(641.7,644))
+# for (i in 1:nrow(list_test_matrix_noNA[[testengine]]))
+# {
+#   lines(list_test_all_smooth_T24[[testengine]][[i]], col="black")
+#   lines(list_test_all_smooth_T24[[testengine]][[nrow(list_test_matrix_noNA[[testengine]])]], col="red")}
+# 
+# ###plot for (full observation trains - cutted test)
+# plot(list_test_all_smooth_T24[[testengine]][[nrow(list_test_matrix_noNA[[testengine]])]],xlim=c(0,370), ylim=c(641.7,644))
+# for (i in as.vector(list_test_matrix_noNA[[testengine]][,1])) {
+#   lines(listeT24[[i]])
+# } 
+# lines(list_test_all_smooth_T24[[testengine]][[nrow(list_test_matrix_noNA[[testengine]])]], col="red")
+
+
+#####DISTANCE Calculation
+#################DISTANCE########################
+list_for_distance_T24<-list()
+for (j in 1:100) {
+  distancematrixT24<-matrix(NA,nrow(list_test_matrix_noNA[[j]]),no_of_splines) 
+  for(i in 1:nrow(list_test_matrix_noNA[[j]])) {
+    distancematrixT24[i,]<-list_test_all_smooth_T24[[j]][[i]][["fd"]][["coefs"]]
+  }
+  list_for_distance_T24[[j]]<-distancematrixT24
+}
+
+######ALL L2 DISTANCES FOR ALL ENGINES
+library(philentropy)
+
+list_distance_T24<-list()
+for (i in 1:100) {
+  DISTANCE<-distance(list_for_distance_T24[[i]], method = "euclidean" )
+  list_distance_T24[[i]]<-DISTANCE
+}
+
+
+#########################REGISTRATION OF SMOOTHED
+maxT24<-max(na.omit(unlist(list_test_matrix)))
+
+#####REGISTERED NEW DISTANCE Calculation
+#################DISTANCE########################
+list_for_distance_T24_reg<-list()
+for (j in 1:100) {
+  distancematrixT24reg<-matrix(NA,nrow(list_test_matrix_noNA[[j]]),no_of_splines) 
+  for(i in 1:nrow(list_test_matrix_noNA[[j]])) {
+    distancematrixT24reg[i,]<-list_test_all_smooth_T24[[j]][[i]][["fd"]][["coefs"]]/maxT24
+  }
+  list_for_distance_T24_reg[[j]]<-distancematrixT24reg
+}
+
+list_distance_T24_reg<-list()
+for (i in 1:100) {
+  DISTANCE<-distance(list_for_distance_T24_reg[[i]], method = "euclidean" )
+  list_distance_T24_reg[[i]]<-DISTANCE
+}
+
+#####################################################
+#####################################################
+#####################################################
+#####################################################
+
+#T50
+
+T50_all_train_test<-read.csv("C:/Users/cevah/Desktop/data_for_registration/test/NEW/3-T50train_test_all.csv", header = TRUE,row.names = 1)
+T50_all_train_test
+T50_all_train_test<-as.matrix(T50_all_train_test)
+
+#### list for 100 test engine - all 101 x number of observation matrix
+list_test_T50_matrix<-list()
+for (i in 1:100)
+{ 
+  T50_test_matrix_length <- matrix(data = NA, nrow=101, ncol=length(na.omit(T50_all_train_test[100+i,])))
+  list_test_T50_matrix[[i]]<-T50_test_matrix_length
+}
+
+#### fill all lists with 100 train + row101 for related  test engine
+for (i in 1:100) { 
+  T50_test_matrix<- matrix(data = NA, nrow=101, ncol=length(as.matrix(list_test_T50_matrix[[i]])[1,]))
+  for (j in 1:101) {
+    T50_test_matrix[j,]<-T50_all_train_test[j,1:length(as.matrix(list_test_T50_matrix[[i]])[1,])]
+    list_test_T50_matrix[[i]][j,]<-T50_test_matrix[j,]
+  }
+  list_test_T50_matrix[[i]][101,]<-T50_all_train_test[100+i, 1:length(as.matrix(list_test_T50_matrix[[i]])[1,])]
+}
+
+
+#### ignore NAs for all
+#####list with ignoring train data with observation less than test data
+list_test_T50_matrix_noNA<-list()
+for (i in 1:100)
+{ 
+  noNA_test_matrix_T50 <- matrix(data = NA, nrow=101, ncol=length(na.omit(list_test_T50_matrix[[i]][101,])))
+  noNA_test_matrix_T50 <-na.omit(list_test_T50_matrix[[i]])
+  list_test_T50_matrix_noNA[[i]]<-noNA_test_matrix_T50
+}
+
+#####list with transpose of each matrix
+
+list_test_T50_matrix_t_noNA<-list()
+for (i in 1:100)
+{ 
+  list_test_T50_matrix_t_noNA[[i]]<-t(list_test_T50_matrix_noNA[[i]])
+}
+
+
+######smoothing for each engine
+list_test_all_smooth_T50<-list()
+list_test_smoothing_T50<-list()
+no_of_splines<-10
+for (j in 1:100) {
+  
+  for (i in 1:nrow(list_test_T50_matrix_noNA[[j]]))
+  {
+    Smooth<- smooth.basis( argvals = seq(1,length(na.omit(list_test_T50_matrix_t_noNA[[j]][,1]))-1, length.out= length(na.omit(list_test_T50_matrix_t_noNA[[j]][,1]))-1),
+                           y= as.vector(list_test_T50_matrix_noNA[[j]][i,2:length(na.omit(list_test_T50_matrix_t_noNA[[j]][,1]))]), 
+                           fdParobj = create.bspline.basis(c(1,length(na.omit(list_test_T50_matrix_t_noNA[[j]][,1]))-1),no_of_splines))
+    list_test_smoothing_T50[[i]]<-Smooth
+  }
+  list_test_all_smooth_T50[[j]]<-list_test_smoothing_T50
+}
+
+#for (j in 2:2) {
+#  
+#  for (i in 1:nrow(list_test_T50_matrix_noNA[[i]]))
+#  {
+#    Smooth<- smooth.basis( argvals = seq(1,length(na.omit(list_test_T50_matrix_t_noNA[[i]][,1]))-1, length.out= length(na.omit(list_test_T50_matrix_t_noNA[[2]][,1]))-1),
+#                           y= as.vector(list_test_T50_matrix_noNA[[i]][i,2:length(na.omit(list_test_T50_matrix_t_noNA[[i]][,1]))]), 
+#                           fdParobj = create.bspline.basis(c(1,length(na.omit(list_test_T50_matrix_t_noNA[[i]][,1]))-1),10))
+#    list_test_smoothing_T50[[i]]<-Smooth
+#  }
+#  list_test_all_smooth_T50[[j]]<-list_test_smoothing_T50
+#}
+
+
+###plot for cutted at observation
+# testengine=2
+# plot(list_test_all_smooth_T50[[testengine]][[1]],xlim=c(0,330), ylim=c(1390,1435))
+# for (i in 1:nrow(list_test_T50_matrix_noNA[[testengine]]))
+# {
+#   lines(list_test_all_smooth_T50[[testengine]][[i]], col="black")
+#   lines(list_test_all_smooth_T50[[testengine]][[nrow(list_test_T50_matrix_noNA[[testengine]])]], col="red")}
+# 
+# ###plot for (full observation trains - cutted test)
+# plot(list_test_all_smooth_T50[[testengine]][[nrow(list_test_T50_matrix_noNA[[testengine]])]],xlim=c(0,370), ylim=c(1390,1435))
+# for (i in as.vector(list_test_T50_matrix_noNA[[testengine]][,1])) {
+#   lines(listeT50[[i]])
+# } 
+# lines(list_test_all_smooth_T50[[testengine]][[nrow(list_test_T50_matrix_noNA[[testengine]])]], col="red")
+
+#####DISTANCE Calculation
+#################DISTANCE########################
+list_for_distance_T50<-list()
+for (j in 1:100) {
+  distancematrixT50<-matrix(NA,nrow(list_test_T50_matrix_noNA[[j]]),no_of_splines) 
+  for(i in 1:nrow(list_test_T50_matrix_noNA[[j]])) {
+    distancematrixT50[i,]<-list_test_all_smooth_T50[[j]][[i]][["fd"]][["coefs"]]
+  }
+  list_for_distance_T50[[j]]<-distancematrixT50
+}
+
+######ALL L2 DISTANCES FOR ALL ENGINES
+library(philentropy)
+
+list_distance_T50<-list()
+for (i in 1:100) {
+  DISTANCE<-distance(list_for_distance_T50[[i]], method = "euclidean" )
+  list_distance_T50[[i]]<-DISTANCE
+}
+
+#########################REGISTRATION OF SMOOTHED
+maxT50<-max(na.omit(unlist(list_test_T50_matrix)))
+
+#####REGISTERED NEW DISTANCE Calculation
+#################DISTANCE########################
+list_for_distance_T50_reg<-list()
+for (j in 1:100) {
+  distancematrixT50reg<-matrix(NA,nrow(list_test_T50_matrix_noNA[[j]]),no_of_splines) 
+  for(i in 1:nrow(list_test_T50_matrix_noNA[[j]])) {
+    distancematrixT50reg[i,]<-list_test_all_smooth_T50[[j]][[i]][["fd"]][["coefs"]]/maxT50
+  }
+  list_for_distance_T50_reg[[j]]<-distancematrixT50reg
+}
+
+list_distance_T50_reg<-list()
+for (i in 1:100) {
+  DISTANCE<-distance(list_for_distance_T50_reg[[i]], method = "euclidean" )
+  list_distance_T50_reg[[i]]<-DISTANCE
+}
+
+
+
+##########################################################
+##########################################################
+##########################################################
+##########################################################
+
+P30_all_train_test<-read.csv("C:/Users/cevah/Desktop/data_for_registration/test/NEW/4-P30train_test_all.csv", header = TRUE,row.names = 1)
+P30_all_train_test
+P30_all_train_test<-as.matrix(P30_all_train_test)
+
+#### list for 100 test engine - all 101 x number of observation matrix
+list_test_P30_matrix<-list()
+for (i in 1:100)
+{ 
+  P30_test_matrix_length <- matrix(data = NA, nrow=101, ncol=length(na.omit(P30_all_train_test[100+i,])))
+  list_test_P30_matrix[[i]]<-P30_test_matrix_length
+}
+
+#### fill all lists with 100 train + row101 for related  test engine
+for (i in 1:100) { 
+  P30_test_matrix<- matrix(data = NA, nrow=101, ncol=length(as.matrix(list_test_P30_matrix[[i]])[1,]))
+  for (j in 1:101) {
+    P30_test_matrix[j,]<-P30_all_train_test[j,1:length(as.matrix(list_test_P30_matrix[[i]])[1,])]
+    list_test_P30_matrix[[i]][j,]<-P30_test_matrix[j,]
+  }
+  list_test_P30_matrix[[i]][101,]<-P30_all_train_test[100+i, 1:length(as.matrix(list_test_P30_matrix[[i]])[1,])]
+}
+
+
+#### ignore NAs for all
+#####list with ignoring train data with observation less than test data
+list_test_P30_matrix_noNA<-list()
+for (i in 1:100)
+{ 
+  noNA_test_matrix_P30 <- matrix(data = NA, nrow=101, ncol=length(na.omit(list_test_P30_matrix[[i]][101,])))
+  noNA_test_matrix_P30 <-na.omit(list_test_P30_matrix[[i]])
+  list_test_P30_matrix_noNA[[i]]<-noNA_test_matrix_P30
+}
+
+#####list with transpose of each matrix
+
+list_test_P30_matrix_t_noNA<-list()
+for (i in 1:100)
+{ 
+  list_test_P30_matrix_t_noNA[[i]]<-t(list_test_P30_matrix_noNA[[i]])
+}
+
+
+######smoothing for each engine
+list_test_all_smooth_P30<-list()
+list_test_smoothing_P30<-list()
+no_of_splines<-10
+for (j in 1:100) {
+  
+  for (i in 1:nrow(list_test_P30_matrix_noNA[[j]]))
+  {
+    Smooth<- smooth.basis( argvals = seq(1,length(na.omit(list_test_P30_matrix_t_noNA[[j]][,1]))-1, length.out= length(na.omit(list_test_P30_matrix_t_noNA[[j]][,1]))-1),
+                           y= as.vector(list_test_P30_matrix_noNA[[j]][i,2:length(na.omit(list_test_P30_matrix_t_noNA[[j]][,1]))]), 
+                           fdParobj = create.bspline.basis(c(1,length(na.omit(list_test_P30_matrix_t_noNA[[j]][,1]))-1),no_of_splines))
+    list_test_smoothing_P30[[i]]<-Smooth
+  }
+  list_test_all_smooth_P30[[j]]<-list_test_smoothing_P30
+}
+
+#for (j in 2:2) {
+#  
+#  for (i in 1:nrow(list_test_P30_matrix_noNA[[i]]))
+#  {
+#    Smooth<- smooth.basis( argvals = seq(1,length(na.omit(list_test_P30_matrix_t_noNA[[i]][,1]))-1, length.out= length(na.omit(list_test_P30_matrix_t_noNA[[2]][,1]))-1),
+#                           y= as.vector(list_test_P30_matrix_noNA[[i]][i,2:length(na.omit(list_test_P30_matrix_t_noNA[[i]][,1]))]), 
+#                           fdParobj = create.bspline.basis(c(1,length(na.omit(list_test_P30_matrix_t_noNA[[i]][,1]))-1),10))
+#    list_test_smoothing_P30[[i]]<-Smooth
+#  }
+#  list_test_all_smooth_P30[[j]]<-list_test_smoothing_P30
+#}
+
+
+###plot for cutted at observation
+# testengine=20
+# plot(list_test_all_smooth_P30[[testengine]][[1]],xlim=c(0,330), ylim=c(550.5,555.2))
+# for (i in 1:nrow(list_test_P30_matrix_noNA[[testengine]]))
+# {
+#   lines(list_test_all_smooth_P30[[testengine]][[i]], col="black")
+#   lines(list_test_all_smooth_P30[[testengine]][[nrow(list_test_P30_matrix_noNA[[testengine]])]], col="red")}
+# 
+# ###plot for (full observation trains - cutted test)
+# plot(list_test_all_smooth_P30[[testengine]][[nrow(list_test_P30_matrix_noNA[[testengine]])]],xlim=c(0,370), ylim=c(550.5,555.2))
+# for (i in as.vector(list_test_P30_matrix_noNA[[testengine]][,1])) {
+#   lines(listeP30[[i]])
+# } 
+# lines(list_test_all_smooth_P30[[testengine]][[nrow(list_test_P30_matrix_noNA[[testengine]])]], col="red")
+
+
+
+#####DISTANCE Calculation
+#################DISTANCE########################
+list_for_distance_P30<-list()
+for (j in 1:100) {
+  distancematrixP30<-matrix(NA,nrow(list_test_P30_matrix_noNA[[j]]),no_of_splines) 
+  for(i in 1:nrow(list_test_P30_matrix_noNA[[j]])) {
+    distancematrixP30[i,]<-list_test_all_smooth_P30[[j]][[i]][["fd"]][["coefs"]]
+  }
+  list_for_distance_P30[[j]]<-distancematrixP30
+}
+
+######ALL L2 DISTANCES FOR ALL ENGINES
+library(philentropy)
+
+list_distance_P30<-list()
+for (i in 1:100) {
+  DISTANCE<-distance(list_for_distance_P30[[i]], method = "euclidean" )
+  list_distance_P30[[i]]<-DISTANCE
+}
+
+#########################REGISTRATION OF SMOOTHED
+maxP30<-max(na.omit(unlist(list_test_P30_matrix)))
+
+#####REGISTERED NEW DISTANCE Calculation
+#################DISTANCE########################
+list_for_distance_P30_reg<-list()
+for (j in 1:100) {
+  distancematrixP30reg<-matrix(NA,nrow(list_test_P30_matrix_noNA[[j]]),no_of_splines) 
+  for(i in 1:nrow(list_test_P30_matrix_noNA[[j]])) {
+    distancematrixP30reg[i,]<-list_test_all_smooth_P30[[j]][[i]][["fd"]][["coefs"]]/maxP30
+  }
+  list_for_distance_P30_reg[[j]]<-distancematrixP30reg
+}
+
+list_distance_P30_reg<-list()
+for (i in 1:100) {
+  DISTANCE<-distance(list_for_distance_P30_reg[[i]], method = "euclidean" )
+  list_distance_P30_reg[[i]]<-DISTANCE
+}
+
+
+##########################################################
+##########################################################
+##########################################################
+##########################################################
+##########################################################
+
+
+
+ps30_all_train_test<-read.csv("C:/Users/cevah/Desktop/data_for_registration/test/NEW/5-ps30train_test_all.csv", header = TRUE,row.names = 1)
+ps30_all_train_test
+ps30_all_train_test<-as.matrix(ps30_all_train_test)
+
+#### list for 100 test engine - all 101 x number of observation matrix
+list_test_ps30_matrix<-list()
+for (i in 1:100)
+{ 
+  ps30_test_matrix_length <- matrix(data = NA, nrow=101, ncol=length(na.omit(ps30_all_train_test[100+i,])))
+  list_test_ps30_matrix[[i]]<-ps30_test_matrix_length
+}
+
+#### fill all lists with 100 train + row101 for related  test engine
+for (i in 1:100) { 
+  ps30_test_matrix<- matrix(data = NA, nrow=101, ncol=length(as.matrix(list_test_ps30_matrix[[i]])[1,]))
+  for (j in 1:101) {
+    ps30_test_matrix[j,]<-ps30_all_train_test[j,1:length(as.matrix(list_test_ps30_matrix[[i]])[1,])]
+    list_test_ps30_matrix[[i]][j,]<-ps30_test_matrix[j,]
+  }
+  list_test_ps30_matrix[[i]][101,]<-ps30_all_train_test[100+i, 1:length(as.matrix(list_test_ps30_matrix[[i]])[1,])]
+}
+
+
+#### ignore NAs for all
+#####list with ignoring train data with observation less than test data
+list_test_ps30_matrix_noNA<-list()
+for (i in 1:100)
+{ 
+  noNA_test_matrix_ps30 <- matrix(data = NA, nrow=101, ncol=length(na.omit(list_test_ps30_matrix[[i]][101,])))
+  noNA_test_matrix_ps30 <-na.omit(list_test_ps30_matrix[[i]])
+  list_test_ps30_matrix_noNA[[i]]<-noNA_test_matrix_ps30
+}
+
+#####list with transpose of each matrix
+
+list_test_ps30_matrix_t_noNA<-list()
+for (i in 1:100)
+{ 
+  list_test_ps30_matrix_t_noNA[[i]]<-t(list_test_ps30_matrix_noNA[[i]])
+}
+
+
+######smoothing for each engine
+list_test_all_smooth_ps30<-list()
+list_test_smoothing_ps30<-list()
+no_of_splines<-10
+for (j in 1:100) {
+  
+  for (i in 1:nrow(list_test_ps30_matrix_noNA[[j]]))
+  {
+    Smooth<- smooth.basis( argvals = seq(1,length(na.omit(list_test_ps30_matrix_t_noNA[[j]][,1]))-1, length.out= length(na.omit(list_test_ps30_matrix_t_noNA[[j]][,1]))-1),
+                           y= as.vector(list_test_ps30_matrix_noNA[[j]][i,2:length(na.omit(list_test_ps30_matrix_t_noNA[[j]][,1]))]), 
+                           fdParobj = create.bspline.basis(c(1,length(na.omit(list_test_ps30_matrix_t_noNA[[j]][,1]))-1),no_of_splines))
+    list_test_smoothing_ps30[[i]]<-Smooth
+  }
+  list_test_all_smooth_ps30[[j]]<-list_test_smoothing_ps30
+}
+
+#for (j in 2:2) {
+#  
+#  for (i in 1:nrow(list_test_ps30_matrix_noNA[[i]]))
+#  {
+#    Smooth<- smooth.basis( argvals = seq(1,length(na.omit(list_test_ps30_matrix_t_noNA[[i]][,1]))-1, length.out= length(na.omit(list_test_ps30_matrix_t_noNA[[2]][,1]))-1),
+#                           y= as.vector(list_test_ps30_matrix_noNA[[i]][i,2:length(na.omit(list_test_ps30_matrix_t_noNA[[i]][,1]))]), 
+#                           fdParobj = create.bspline.basis(c(1,length(na.omit(list_test_ps30_matrix_t_noNA[[i]][,1]))-1),10))
+#    list_test_smoothing_ps30[[i]]<-Smooth
+#  }
+#  list_test_all_smooth_ps30[[j]]<-list_test_smoothing_ps30
+#}
+
+
+###plot for cutted at observation
+# testengine=20
+# plot(list_test_all_smooth_ps30[[testengine]][[1]],xlim=c(0,330), ylim=c(47.05,48.4))
+# for (i in 1:nrow(list_test_ps30_matrix_noNA[[testengine]]))
+# {
+#   lines(list_test_all_smooth_ps30[[testengine]][[i]], col="black")
+#   lines(list_test_all_smooth_ps30[[testengine]][[nrow(list_test_ps30_matrix_noNA[[testengine]])]], col="red")}
+# 
+# ###plot for (full observation trains - cutted test)
+# plot(list_test_all_smooth_ps30[[testengine]][[nrow(list_test_ps30_matrix_noNA[[testengine]])]],xlim=c(0,370), ylim=c(47.05,48.4))
+# for (i in as.vector(list_test_ps30_matrix_noNA[[testengine]][,1])) {
+#   lines(listeps30[[i]])
+# } 
+# lines(list_test_all_smooth_ps30[[testengine]][[nrow(list_test_ps30_matrix_noNA[[testengine]])]], col="red")
+
+
+
+#####DISTANCE Calculation
+#################DISTANCE########################
+list_for_distance_ps30<-list()
+for (j in 1:100) {
+  distancematrixps30<-matrix(NA,nrow(list_test_ps30_matrix_noNA[[j]]),no_of_splines) 
+  for(i in 1:nrow(list_test_ps30_matrix_noNA[[j]])) {
+    distancematrixps30[i,]<-list_test_all_smooth_ps30[[j]][[i]][["fd"]][["coefs"]]
+  }
+  list_for_distance_ps30[[j]]<-distancematrixps30
+}
+
+######ALL L2 DISTANCES FOR ALL ENGINES
+library(philentropy)
+
+list_distance_ps30<-list()
+for (i in 1:100) {
+  DISTANCE<-distance(list_for_distance_ps30[[i]], method = "euclidean" )
+  list_distance_ps30[[i]]<-DISTANCE
+}
+
+#########################REGISTRATION OF SMOOTHED
+maxps30<-48.53
+
+#####REGISTERED NEW DISTANCE Calculation
+#################DISTANCE########################
+list_for_distance_ps30_reg<-list()
+for (j in 1:100) {
+  distancematrixps30reg<-matrix(NA,nrow(list_test_ps30_matrix_noNA[[j]]),no_of_splines) 
+  for(i in 1:nrow(list_test_ps30_matrix_noNA[[j]])) {
+    distancematrixps30reg[i,]<-list_test_all_smooth_ps30[[j]][[i]][["fd"]][["coefs"]]/maxps30
+  }
+  list_for_distance_ps30_reg[[j]]<-distancematrixps30reg
+}
+
+list_distance_ps30_reg<-list()
+for (i in 1:100) {
+  DISTANCE<-distance(list_for_distance_ps30_reg[[i]], method = "euclidean" )
+  list_distance_ps30_reg[[i]]<-DISTANCE
+}
+
+##########################################################
+##########################################################
+##########################################################
+##########################################################
+
+
+phi_all_train_test<-read.csv("C:/Users/cevah/Desktop/data_for_registration/test/NEW/6-phitrain_test_all.csv", header = TRUE,row.names = 1)
+phi_all_train_test
+phi_all_train_test<-as.matrix(phi_all_train_test)
+
+#### list for 100 test engine - all 101 x number of observation matrix
+list_test_phi_matrix<-list()
+for (i in 1:100)
+{ 
+  phi_test_matrix_length <- matrix(data = NA, nrow=101, ncol=length(na.omit(phi_all_train_test[100+i,])))
+  list_test_phi_matrix[[i]]<-phi_test_matrix_length
+}
+
+#### fill all lists with 100 train + row101 for related  test engine
+for (i in 1:100) { 
+  phi_test_matrix<- matrix(data = NA, nrow=101, ncol=length(as.matrix(list_test_phi_matrix[[i]])[1,]))
+  for (j in 1:101) {
+    phi_test_matrix[j,]<-phi_all_train_test[j,1:length(as.matrix(list_test_phi_matrix[[i]])[1,])]
+    list_test_phi_matrix[[i]][j,]<-phi_test_matrix[j,]
+  }
+  list_test_phi_matrix[[i]][101,]<-phi_all_train_test[100+i, 1:length(as.matrix(list_test_phi_matrix[[i]])[1,])]
+}
+
+
+#### ignore NAs for all
+#####list with ignoring train data with observation less than test data
+list_test_phi_matrix_noNA<-list()
+for (i in 1:100)
+{ 
+  noNA_test_matrix_phi <- matrix(data = NA, nrow=101, ncol=length(na.omit(list_test_phi_matrix[[i]][101,])))
+  noNA_test_matrix_phi <-na.omit(list_test_phi_matrix[[i]])
+  list_test_phi_matrix_noNA[[i]]<-noNA_test_matrix_phi
+}
+
+#####list with transpose of each matrix
+
+list_test_phi_matrix_t_noNA<-list()
+for (i in 1:100)
+{ 
+  list_test_phi_matrix_t_noNA[[i]]<-t(list_test_phi_matrix_noNA[[i]])
+}
+
+
+######smoothing for each engine
+list_test_all_smooth_phi<-list()
+list_test_smoothing_phi<-list()
+no_of_splines<-10
+for (j in 1:100) {
+  
+  for (i in 1:nrow(list_test_phi_matrix_noNA[[j]]))
+  {
+    Smooth<- smooth.basis( argvals = seq(1,length(na.omit(list_test_phi_matrix_t_noNA[[j]][,1]))-1, length.out= length(na.omit(list_test_phi_matrix_t_noNA[[j]][,1]))-1),
+                           y= as.vector(list_test_phi_matrix_noNA[[j]][i,2:length(na.omit(list_test_phi_matrix_t_noNA[[j]][,1]))]), 
+                           fdParobj = create.bspline.basis(c(1,length(na.omit(list_test_phi_matrix_t_noNA[[j]][,1]))-1),no_of_splines))
+    list_test_smoothing_phi[[i]]<-Smooth
+  }
+  list_test_all_smooth_phi[[j]]<-list_test_smoothing_phi
+}
+
+#for (j in 2:2) {
+#  
+#  for (i in 1:nrow(list_test_phi_matrix_noNA[[i]]))
+#  {
+#    Smooth<- smooth.basis( argvals = seq(1,length(na.omit(list_test_phi_matrix_t_noNA[[i]][,1]))-1, length.out= length(na.omit(list_test_phi_matrix_t_noNA[[2]][,1]))-1),
+#                           y= as.vector(list_test_phi_matrix_noNA[[i]][i,2:length(na.omit(list_test_phi_matrix_t_noNA[[i]][,1]))]), 
+#                           fdParobj = create.bspline.basis(c(1,length(na.omit(list_test_phi_matrix_t_noNA[[i]][,1]))-1),10))
+#    list_test_smoothing_phi[[i]]<-Smooth
+#  }
+#  list_test_all_smooth_phi[[j]]<-list_test_smoothing_phi
+#}
+
+
+###plot for cutted at observation
+# testengine=20
+# plot(list_test_all_smooth_phi[[testengine]][[1]],xlim=c(0,330), ylim=c(519.1,522.8))
+# for (i in 1:nrow(list_test_phi_matrix_noNA[[testengine]]))
+# {
+#   lines(list_test_all_smooth_phi[[testengine]][[i]], col="black")
+#   lines(list_test_all_smooth_phi[[testengine]][[nrow(list_test_phi_matrix_noNA[[testengine]])]], col="red")}
+# 
+# ###plot for (full observation trains - cutted test)
+# plot(list_test_all_smooth_phi[[testengine]][[nrow(list_test_phi_matrix_noNA[[testengine]])]],xlim=c(0,370), ylim=c(519.1,522.8))
+# for (i in as.vector(list_test_phi_matrix_noNA[[testengine]][,1])) {
+#   lines(listephi[[i]])
+# } 
+# lines(list_test_all_smooth_phi[[testengine]][[nrow(list_test_phi_matrix_noNA[[testengine]])]], col="red")
+
+
+#####DISTANCE Calculation
+#################DISTANCE########################
+list_for_distance_phi<-list()
+for (j in 1:100) {
+  distancematrixphi<-matrix(NA,nrow(list_test_phi_matrix_noNA[[j]]),no_of_splines) 
+  for(i in 1:nrow(list_test_phi_matrix_noNA[[j]])) {
+    distancematrixphi[i,]<-list_test_all_smooth_phi[[j]][[i]][["fd"]][["coefs"]]
+  }
+  list_for_distance_phi[[j]]<-distancematrixphi
+}
+
+######ALL L2 DISTANCES FOR ALL ENGINES
+library(philentropy)
+
+list_distance_phi<-list()
+for (i in 1:100) {
+  DISTANCE<-distance(list_for_distance_phi[[i]], method = "euclidean" )
+  list_distance_phi[[i]]<-DISTANCE
+}
+
+#########################REGISTRATION OF SMOOTHED
+maxphi<-max(na.omit(unlist(list_test_phi_matrix)))
+
+#####REGISTERED NEW DISTANCE Calculation
+#################DISTANCE########################
+list_for_distance_phi_reg<-list()
+for (j in 1:100) {
+  distancematrixphireg<-matrix(NA,nrow(list_test_phi_matrix_noNA[[j]]),no_of_splines) 
+  for(i in 1:nrow(list_test_phi_matrix_noNA[[j]])) {
+    distancematrixphireg[i,]<-list_test_all_smooth_phi[[j]][[i]][["fd"]][["coefs"]]/maxphi
+  }
+  list_for_distance_phi_reg[[j]]<-distancematrixphireg
+}
+
+list_distance_phi_reg<-list()
+for (i in 1:100) {
+  DISTANCE<-distance(list_for_distance_phi_reg[[i]], method = "euclidean" )
+  list_distance_phi_reg[[i]]<-DISTANCE
+}
+
+##########################################################
+##########################################################
+##########################################################
+##########################################################
+
+BPR_all_train_test<-read.csv("C:/Users/cevah/Desktop/data_for_registration/test/NEW/7-BPRtrain_test_all.csv", header = TRUE,row.names = 1)
+BPR_all_train_test
+BPR_all_train_test<-as.matrix(BPR_all_train_test)
+
+#### list for 100 test engine - all 101 x number of observation matrix
+list_test_BPR_matrix<-list()
+for (i in 1:100)
+{ 
+  BPR_test_matrix_length <- matrix(data = NA, nrow=101, ncol=length(na.omit(BPR_all_train_test[100+i,])))
+  list_test_BPR_matrix[[i]]<-BPR_test_matrix_length
+}
+
+#### fill all lists with 100 train + row101 for related  test engine
+for (i in 1:100) { 
+  BPR_test_matrix<- matrix(data = NA, nrow=101, ncol=length(as.matrix(list_test_BPR_matrix[[i]])[1,]))
+  for (j in 1:101) {
+    BPR_test_matrix[j,]<-BPR_all_train_test[j,1:length(as.matrix(list_test_BPR_matrix[[i]])[1,])]
+    list_test_BPR_matrix[[i]][j,]<-BPR_test_matrix[j,]
+  }
+  list_test_BPR_matrix[[i]][101,]<-BPR_all_train_test[100+i, 1:length(as.matrix(list_test_BPR_matrix[[i]])[1,])]
+}
+
+
+#### ignore NAs for all
+#####list with ignoring train data with observation less than test data
+list_test_BPR_matrix_noNA<-list()
+for (i in 1:100)
+{ 
+  noNA_test_matrix_BPR <- matrix(data = NA, nrow=101, ncol=length(na.omit(list_test_BPR_matrix[[i]][101,])))
+  noNA_test_matrix_BPR <-na.omit(list_test_BPR_matrix[[i]])
+  list_test_BPR_matrix_noNA[[i]]<-noNA_test_matrix_BPR
+}
+
+#####list with transpose of each matrix
+
+list_test_BPR_matrix_t_noNA<-list()
+for (i in 1:100)
+{ 
+  list_test_BPR_matrix_t_noNA[[i]]<-t(list_test_BPR_matrix_noNA[[i]])
+}
+
+
+######smoothing for each engine
+list_test_all_smooth_BPR<-list()
+list_test_smoothing_BPR<-list()
+no_of_splines<-10
+for (j in 1:100) {
+  
+  for (i in 1:nrow(list_test_BPR_matrix_noNA[[j]]))
+  {
+    Smooth<- smooth.basis( argvals = seq(1,length(na.omit(list_test_BPR_matrix_t_noNA[[j]][,1]))-1, length.out= length(na.omit(list_test_BPR_matrix_t_noNA[[j]][,1]))-1),
+                           y= as.vector(list_test_BPR_matrix_noNA[[j]][i,2:length(na.omit(list_test_BPR_matrix_t_noNA[[j]][,1]))]), 
+                           fdParobj = create.bspline.basis(c(1,length(na.omit(list_test_BPR_matrix_t_noNA[[j]][,1]))-1),no_of_splines))
+    list_test_smoothing_BPR[[i]]<-Smooth
+  }
+  list_test_all_smooth_BPR[[j]]<-list_test_smoothing_BPR
+}
+
+#for (j in 2:2) {
+#  
+#  for (i in 1:nrow(list_test_BPR_matrix_noNA[[i]]))
+#  {
+#    Smooth<- smooth.basis( argvals = seq(1,length(na.omit(list_test_BPR_matrix_t_noNA[[i]][,1]))-1, length.out= length(na.omit(list_test_BPR_matrix_t_noNA[[2]][,1]))-1),
+#                           y= as.vector(list_test_BPR_matrix_noNA[[i]][i,2:length(na.omit(list_test_BPR_matrix_t_noNA[[i]][,1]))]), 
+#                           fdParobj = create.bspline.basis(c(1,length(na.omit(list_test_BPR_matrix_t_noNA[[i]][,1]))-1),10))
+#    list_test_smoothing_BPR[[i]]<-Smooth
+#  }
+#  list_test_all_smooth_BPR[[j]]<-list_test_smoothing_BPR
+#}
+
+
+###plot for cutted at observation
+# testengine=20
+# plot(list_test_all_smooth_BPR[[testengine]][[1]],xlim=c(0,330), ylim=c(8.37,8.55))
+# for (i in 1:nrow(list_test_BPR_matrix_noNA[[testengine]]))
+# {
+#   lines(list_test_all_smooth_BPR[[testengine]][[i]], col="black")
+#   lines(list_test_all_smooth_BPR[[testengine]][[nrow(list_test_BPR_matrix_noNA[[testengine]])]], col="red")}
+# 
+# ###plot for (full observation trains - cutted test)
+# plot(list_test_all_smooth_BPR[[testengine]][[nrow(list_test_BPR_matrix_noNA[[testengine]])]],xlim=c(0,370), ylim=c(8.37,8.55))
+# for (i in as.vector(list_test_BPR_matrix_noNA[[testengine]][,1])) {
+#   lines(listeBPR[[i]])
+# } 
+# lines(list_test_all_smooth_BPR[[testengine]][[nrow(list_test_BPR_matrix_noNA[[testengine]])]], col="red")
+# 
+
+
+#####DISTANCE Calculation
+#################DISTANCE########################
+list_for_distance_BPR<-list()
+for (j in 1:100) {
+  distancematrixBPR<-matrix(NA,nrow(list_test_BPR_matrix_noNA[[j]]),no_of_splines) 
+  for(i in 1:nrow(list_test_BPR_matrix_noNA[[j]])) {
+    distancematrixBPR[i,]<-list_test_all_smooth_BPR[[j]][[i]][["fd"]][["coefs"]]
+  }
+  list_for_distance_BPR[[j]]<-distancematrixBPR
+}
+
+######ALL L2 DISTANCES FOR ALL ENGINES
+library(philentropy)
+
+list_distance_BPR<-list()
+for (i in 1:100) {
+  DISTANCE<-distance(list_for_distance_BPR[[i]], method = "euclidean" )
+  list_distance_BPR[[i]]<-DISTANCE
+}
+
+#########################REGISTRATION OF SMOOTHED
+maxBPR<-8.5848
+
+#####REGISTERED NEW DISTANCE Calculation
+#################DISTANCE########################
+list_for_distance_BPR_reg<-list()
+for (j in 1:100) {
+  distancematrixBPRreg<-matrix(NA,nrow(list_test_BPR_matrix_noNA[[j]]),no_of_splines) 
+  for(i in 1:nrow(list_test_BPR_matrix_noNA[[j]])) {
+    distancematrixBPRreg[i,]<-list_test_all_smooth_BPR[[j]][[i]][["fd"]][["coefs"]]/maxBPR
+  }
+  list_for_distance_BPR_reg[[j]]<-distancematrixBPRreg
+}
+
+list_distance_BPR_reg<-list()
+for (i in 1:100) {
+  DISTANCE<-distance(list_for_distance_BPR_reg[[i]], method = "euclidean" )
+  list_distance_BPR_reg[[i]]<-DISTANCE
+}
+
+##########################################################
+##########################################################
+##########################################################
+##########################################################
+
+
+W31_test_matrix_length <- matrix(data = NA, nrow=101, ncol=length(na.omit(W31_all_train_test[100+i,])))
+list_test_W31_matrix[[i]]<-W31_test_matrix_length
+}
+
+#### fill all lists with 100 train + row101 for related  test engine
+for (i in 1:100) { 
+  W31_test_matrix<- matrix(data = NA, nrow=101, ncol=length(as.matrix(list_test_W31_matrix[[i]])[1,]))
+  for (j in 1:101) {
+    W31_test_matrix[j,]<-W31_all_train_test[j,1:length(as.matrix(list_test_W31_matrix[[i]])[1,])]
+    list_test_W31_matrix[[i]][j,]<-W31_test_matrix[j,]
+  }
+  list_test_W31_matrix[[i]][101,]<-W31_all_train_test[100+i, 1:length(as.matrix(list_test_W31_matrix[[i]])[1,])]
+}
+
+
+#### ignore NAs for all
+#####list with ignoring train data with observation less than test data
+list_test_W31_matrix_noNA<-list()
+for (i in 1:100)
+{ 
+  noNA_test_matrix_W31 <- matrix(data = NA, nrow=101, ncol=length(na.omit(list_test_W31_matrix[[i]][101,])))
+  noNA_test_matrix_W31 <-na.omit(list_test_W31_matrix[[i]])
+  list_test_W31_matrix_noNA[[i]]<-noNA_test_matrix_W31
+}
+
+#####list with transpose of each matrix
+
+list_test_W31_matrix_t_noNA<-list()
+for (i in 1:100)
+{ 
+  list_test_W31_matrix_t_noNA[[i]]<-t(list_test_W31_matrix_noNA[[i]])
+}
+
+
+######smoothing for each engine
+list_test_all_smooth_W31<-list()
+list_test_smoothing_W31<-list()
+no_of_splines<-10
+for (j in 1:100) {
+  
+  for (i in 1:nrow(list_test_W31_matrix_noNA[[j]]))
+  {
+    Smooth<- smooth.basis( argvals = seq(1,length(na.omit(list_test_W31_matrix_t_noNA[[j]][,1]))-1, length.out= length(na.omit(list_test_W31_matrix_t_noNA[[j]][,1]))-1),
+                           y= as.vector(list_test_W31_matrix_noNA[[j]][i,2:length(na.omit(list_test_W31_matrix_t_noNA[[j]][,1]))]), 
+                           fdParobj = create.bspline.basis(c(1,length(na.omit(list_test_W31_matrix_t_noNA[[j]][,1]))-1),no_of_splines))
+    list_test_smoothing_W31[[i]]<-Smooth
+  }
+  list_test_all_smooth_W31[[j]]<-list_test_smoothing_W31
+}
+
+#for (j in 2:2) {
+#  
+#  for (i in 1:nrow(list_test_W31_matrix_noNA[[i]]))
+#  {
+#    Smooth<- smooth.basis( argvals = seq(1,length(na.omit(list_test_W31_matrix_t_noNA[[i]][,1]))-1, length.out= length(na.omit(list_test_W31_matrix_t_noNA[[2]][,1]))-1),
+#                           y= as.vector(list_test_W31_matrix_noNA[[i]][i,2:length(na.omit(list_test_W31_matrix_t_noNA[[i]][,1]))]), 
+#                           fdParobj = create.bspline.basis(c(1,length(na.omit(list_test_W31_matrix_t_noNA[[i]][,1]))-1),10))
+#    list_test_smoothing_W31[[i]]<-Smooth
+#  }
+#  list_test_all_smooth_W31[[j]]<-list_test_smoothing_W31
+#}
+
+
+###plot for cutted at observation
+# testengine=20
+# plot(list_test_all_smooth_W31[[testengine]][[1]],xlim=c(0,330), ylim=c(38.2,39.2))
+# for (i in 1:nrow(list_test_W31_matrix_noNA[[testengine]]))
+# {
+#   lines(list_test_all_smooth_W31[[testengine]][[i]], col="black")
+#   lines(list_test_all_smooth_W31[[testengine]][[nrow(list_test_W31_matrix_noNA[[testengine]])]], col="red")}
+# 
+# ###plot for (full observation trains - cutted test)
+# plot(list_test_all_smooth_W31[[testengine]][[nrow(list_test_W31_matrix_noNA[[testengine]])]],xlim=c(0,370), ylim=c(38.2,39.2))
+# for (i in as.vector(list_test_W31_matrix_noNA[[testengine]][,1])) {
+#   lines(listeW31[[i]])
+# } 
+# lines(list_test_all_smooth_W31[[testengine]][[nrow(list_test_W31_matrix_noNA[[testengine]])]], col="red")
+
+
+
+#####DISTANCE Calculation
+#################DISTANCE########################
+list_for_distance_W31<-list()
+for (j in 1:100) {
+  distancematrixW31<-matrix(NA,nrow(list_test_W31_matrix_noNA[[j]]),no_of_splines) 
+  for(i in 1:nrow(list_test_W31_matrix_noNA[[j]])) {
+    distancematrixW31[i,]<-list_test_all_smooth_W31[[j]][[i]][["fd"]][["coefs"]]
+  }
+  list_for_distance_W31[[j]]<-distancematrixW31
+}
+
+######ALL L2 DISTANCES FOR ALL ENGINES
+library(philentropy)
+
+list_distance_W31<-list()
+for (i in 1:100) {
+  DISTANCE<-distance(list_for_distance_W31[[i]], method = "euclidean" )
+  list_distance_W31[[i]]<-DISTANCE
+}
+
+#########################REGISTRATION OF SMOOTHED
+maxW31<-39.43
+
+#####REGISTERED NEW DISTANCE Calculation
+#################DISTANCE########################
+list_for_distance_W31_reg<-list()
+for (j in 1:100) {
+  distancematrixW31reg<-matrix(NA,nrow(list_test_W31_matrix_noNA[[j]]),no_of_splines) 
+  for(i in 1:nrow(list_test_W31_matrix_noNA[[j]])) {
+    distancematrixW31reg[i,]<-list_test_all_smooth_W31[[j]][[i]][["fd"]][["coefs"]]/maxW31
+  }
+  list_for_distance_W31_reg[[j]]<-distancematrixW31reg
+}
+
+list_distance_W31_reg<-list()
+for (i in 1:100) {
+  DISTANCE<-distance(list_for_distance_W31_reg[[i]], method = "euclidean" )
+  list_distance_W31_reg[[i]]<-DISTANCE
+}
+
+##########################################################
+##########################################################
+##########################################################
+##########################################################
+
+
+W32_all_train_test<-read.csv("C:/Users/cevah/Desktop/data_for_registration/test/NEW/9-W32train_test_all.csv", header = TRUE,row.names = 1)
+W32_all_train_test
+W32_all_train_test<-as.matrix(W32_all_train_test)
+
+#### list for 100 test engine - all 101 x number of observation matrix
+list_test_W32_matrix<-list()
+for (i in 1:100)
+{ 
+  W32_test_matrix_length <- matrix(data = NA, nrow=101, ncol=length(na.omit(W32_all_train_test[100+i,])))
+  list_test_W32_matrix[[i]]<-W32_test_matrix_length
+}
+
+#### fill all lists with 100 train + row101 for related  test engine
+for (i in 1:100) { 
+  W32_test_matrix<- matrix(data = NA, nrow=101, ncol=length(as.matrix(list_test_W32_matrix[[i]])[1,]))
+  for (j in 1:101) {
+    W32_test_matrix[j,]<-W32_all_train_test[j,1:length(as.matrix(list_test_W32_matrix[[i]])[1,])]
+    list_test_W32_matrix[[i]][j,]<-W32_test_matrix[j,]
+  }
+  list_test_W32_matrix[[i]][101,]<-W32_all_train_test[100+i, 1:length(as.matrix(list_test_W32_matrix[[i]])[1,])]
+}
+
+
+#### ignore NAs for all
+#####list with ignoring train data with observation less than test data
+list_test_W32_matrix_noNA<-list()
+for (i in 1:100)
+{ 
+  noNA_test_matrix_W32 <- matrix(data = NA, nrow=101, ncol=length(na.omit(list_test_W32_matrix[[i]][101,])))
+  noNA_test_matrix_W32 <-na.omit(list_test_W32_matrix[[i]])
+  list_test_W32_matrix_noNA[[i]]<-noNA_test_matrix_W32
+}
+
+#####list with transpose of each matrix
+
+list_test_W32_matrix_t_noNA<-list()
+for (i in 1:100)
+{ 
+  list_test_W32_matrix_t_noNA[[i]]<-t(list_test_W32_matrix_noNA[[i]])
+}
+
+
+######smoothing for each engine
+list_test_all_smooth_W32<-list()
+list_test_smoothing_W32<-list()
+no_of_splines<-10
+for (j in 1:100) {
+  
+  for (i in 1:nrow(list_test_W32_matrix_noNA[[j]]))
+  {
+    Smooth<- smooth.basis( argvals = seq(1,length(na.omit(list_test_W32_matrix_t_noNA[[j]][,1]))-1, length.out= length(na.omit(list_test_W32_matrix_t_noNA[[j]][,1]))-1),
+                           y= as.vector(list_test_W32_matrix_noNA[[j]][i,2:length(na.omit(list_test_W32_matrix_t_noNA[[j]][,1]))]), 
+                           fdParobj = create.bspline.basis(c(1,length(na.omit(list_test_W32_matrix_t_noNA[[j]][,1]))-1),no_of_splines))
+    list_test_smoothing_W32[[i]]<-Smooth
+  }
+  list_test_all_smooth_W32[[j]]<-list_test_smoothing_W32
+}
+
+#for (j in 2:2) {
+#  
+#  for (i in 1:nrow(list_test_W32_matrix_noNA[[i]]))
+#  {
+#    Smooth<- smooth.basis( argvals = seq(1,length(na.omit(list_test_W32_matrix_t_noNA[[i]][,1]))-1, length.out= length(na.omit(list_test_W32_matrix_t_noNA[[2]][,1]))-1),
+#                           y= as.vector(list_test_W32_matrix_noNA[[i]][i,2:length(na.omit(list_test_W32_matrix_t_noNA[[i]][,1]))]), 
+#                           fdParobj = create.bspline.basis(c(1,length(na.omit(list_test_W32_matrix_t_noNA[[i]][,1]))-1),10))
+#    list_test_smoothing_W32[[i]]<-Smooth
+#  }
+#  list_test_all_smooth_W32[[j]]<-list_test_smoothing_W32
+#}
+
+
+###plot for cutted at observation
+# testengine=20
+# plot(list_test_all_smooth_W32[[testengine]][[1]],xlim=c(0,330), ylim=c(22.97,23.5))
+# for (i in 1:nrow(list_test_W32_matrix_noNA[[testengine]]))
+# {
+#   lines(list_test_all_smooth_W32[[testengine]][[i]], col="black")
+#   lines(list_test_all_smooth_W32[[testengine]][[nrow(list_test_W32_matrix_noNA[[testengine]])]], col="red")}
+# 
+# ###plot for (full observation trains - cutted test)
+# plot(list_test_all_smooth_W32[[testengine]][[nrow(list_test_W32_matrix_noNA[[testengine]])]],xlim=c(0,370), ylim=c(22.97,23.5))
+# for (i in as.vector(list_test_W32_matrix_noNA[[testengine]][,1])) {
+#   lines(listeW32[[i]])
+# } 
+# lines(list_test_all_smooth_W32[[testengine]][[nrow(list_test_W32_matrix_noNA[[testengine]])]], col="red")
+
+#####DISTANCE Calculation
+#################DISTANCE########################
+list_for_distance_W32<-list()
+for (j in 1:100) {
+  distancematrixW32<-matrix(NA,nrow(list_test_W32_matrix_noNA[[j]]),no_of_splines) 
+  for(i in 1:nrow(list_test_W32_matrix_noNA[[j]])) {
+    distancematrixW32[i,]<-list_test_all_smooth_W32[[j]][[i]][["fd"]][["coefs"]]
+  }
+  list_for_distance_W32[[j]]<-distancematrixW32
+}
+
+######ALL L2 DISTANCES FOR ALL ENGINES
+library(philentropy)
+
+list_distance_W32<-list()
+for (i in 1:100) {
+  DISTANCE<-distance(list_for_distance_W32[[i]], method = "euclidean" )
+  list_distance_W32[[i]]<-DISTANCE
+}
+
+#########################REGISTRATION OF SMOOTHED
+maxW32<-23.6184
+
+#####REGISTERED NEW DISTANCE Calculation
+#################DISTANCE########################
+list_for_distance_W32_reg<-list()
+for (j in 1:100) {
+  distancematrixW32reg<-matrix(NA,nrow(list_test_W32_matrix_noNA[[j]]),no_of_splines) 
+  for(i in 1:nrow(list_test_W32_matrix_noNA[[j]])) {
+    distancematrixW32reg[i,]<-list_test_all_smooth_W32[[j]][[i]][["fd"]][["coefs"]]/maxW32
+  }
+  list_for_distance_W32_reg[[j]]<-distancematrixW32reg
+}
+
+list_distance_W32_reg<-list()
+for (i in 1:100) {
+  DISTANCE<-distance(list_for_distance_W32_reg[[i]], method = "euclidean" )
+  list_distance_W32_reg[[i]]<-DISTANCE
+}
+
+
+#######multivar distancing
+list_all_distance_merged<-list()
+for (i in 1:100) {
+  
+  a<-list_distance_T24_reg[[i]]+
+    list_distance_T30_reg[[i]]+
+    list_distance_T50_reg[[i]]+
+    list_distance_P30_reg[[i]]+
+    list_distance_ps30_reg[[i]]+
+    list_distance_phi_reg[[i]]+
+    list_distance_BPR_reg[[i]]+
+    list_distance_W31_reg[[i]]+
+    list_distance_W32_reg[[i]]
+  list_all_distance_merged[[i]]<-a
+}
+
+############## SORTED DISTANCES FOR ALL ENGINES
+list_dist_all_sorted<-list()
+for (i in 1:100) {
+  DISTANCE<-matrix(NA,nrow(list_test_matrix_noNA[[i]]),2)
+  DISTANCE[,1]<-list_test_matrix_noNA[[i]][,1]
+  DISTANCE[,2]<-list_all_distance_merged[[i]][,nrow(list_test_matrix_noNA[[i]])]
+  DISTANCE<-DISTANCE[order(DISTANCE[,2],decreasing = FALSE),]
+  DISTANCE
+  list_dist_all_sorted[[i]]<-DISTANCE
+}
+
+
+
+
+no_of_closest=10
+testengine=20
+
+par(mfrow=c(3,3))
+plot(list_test_all_smooth_T24[[testengine]][[nrow(list_test_matrix_noNA[[testengine]])]],xlim=c(0,370), ylim=c(641.7,644))
+title(main="T24")
+for (i in c(list_dist_all_sorted[[testengine]][2:(no_of_closest+1),1])) {
+  lines(listeT24[[i]])
+} 
+lines(list_test_all_smooth_T24[[testengine]][[nrow(list_test_matrix_noNA[[testengine]])]], col="red")
+
+plot(list_test_all_smooth_T30[[testengine]][[nrow(list_test_matrix_noNA[[testengine]])]],xlim=c(0,370), ylim=c(1580,1610),)
+title(main="T30")
+for (i in c(list_dist_all_sorted[[testengine]][2:(no_of_closest+1),1])) {
+  lines(listeT30[[i]])
+} 
+lines(list_test_all_smooth_T30[[testengine]][[nrow(list_test_matrix_noNA[[testengine]])]], col="red")
+plot(list_test_all_smooth_T50[[testengine]][[nrow(list_test_matrix_noNA[[testengine]])]],xlim=c(0,370), ylim=c(1390,1435))
+title(main="T50")
+for (i in c(list_dist_all_sorted[[testengine]][2:(no_of_closest+1),1])) {
+  lines(listeT50[[i]])
+} 
+lines(list_test_all_smooth_T50[[testengine]][[nrow(list_test_matrix_noNA[[testengine]])]], col="red")
+
+plot(list_test_all_smooth_P30[[testengine]][[nrow(list_test_matrix_noNA[[testengine]])]],xlim=c(0,370), ylim=c(550.5,555.2))
+title(main="P30")
+for (i in c(list_dist_all_sorted[[testengine]][2:(no_of_closest+1),1])) {
+  lines(listeP30[[i]])
+} 
+lines(list_test_all_smooth_P30[[testengine]][[nrow(list_test_matrix_noNA[[testengine]])]], col="red")
+
+plot(list_test_all_smooth_ps30[[testengine]][[nrow(list_test_matrix_noNA[[testengine]])]],xlim=c(0,370), ylim=c(47.05,48.4))
+title(main="ps30")
+for (i in c(list_dist_all_sorted[[testengine]][2:(no_of_closest+1),1])) {
+  lines(listeps30[[i]])
+} 
+lines(list_test_all_smooth_ps30[[testengine]][[nrow(list_test_matrix_noNA[[testengine]])]], col="red")
+
+plot(list_test_all_smooth_phi[[testengine]][[nrow(list_test_matrix_noNA[[testengine]])]],xlim=c(0,370), ylim=c(519.1,522.8))
+title(main="phi")
+for (i in c(list_dist_all_sorted[[testengine]][2:(no_of_closest+1),1])) {
+  lines(listephi[[i]])
+} 
+lines(list_test_all_smooth_phi[[testengine]][[nrow(list_test_matrix_noNA[[testengine]])]], col="red")
+
+plot(list_test_all_smooth_BPR[[testengine]][[nrow(list_test_matrix_noNA[[testengine]])]],xlim=c(0,370), ylim=c(8.37,8.55))
+title(main="BPR")
+for (i in c(list_dist_all_sorted[[testengine]][2:(no_of_closest+1),1])) {
+  lines(listeBPR[[i]])
+} 
+lines(list_test_all_smooth_BPR[[testengine]][[nrow(list_test_matrix_noNA[[testengine]])]], col="red")
+
+plot(list_test_all_smooth_W31[[testengine]][[nrow(list_test_matrix_noNA[[testengine]])]],xlim=c(0,370), ylim=c(38.2,39.2))
+title(main="W31")
+for (i in c(list_dist_all_sorted[[testengine]][2:(no_of_closest+1),1])) {
+  lines(listeW31[[i]])
+} 
+lines(list_test_all_smooth_W31[[testengine]][[nrow(list_test_matrix_noNA[[testengine]])]], col="red")
+
+plot(list_test_all_smooth_W32[[testengine]][[nrow(list_test_matrix_noNA[[testengine]])]],xlim=c(0,370), ylim=c(22.97,23.5))
+title(main="W32")
+for (i in c(list_dist_all_sorted[[testengine]][2:(no_of_closest+1),1])) {
+  lines(listeW32[[i]])
+} 
+lines(list_test_all_smooth_W32[[testengine]][[nrow(list_test_matrix_noNA[[testengine]])]], col="red")
+
+####TRUE RULimport
+RUL_test<-read.csv("C:/Users/cevah/Desktop/data_for_registration/test/NEW/1-T24test_RUL.csv", header = TRUE)
+RUL_test
+RUL_test<-as.matrix(RUL_test)
+
+TRUE_RUL_DECREASING<-RUL_test[order(RUL_test[,3],decreasing = FALSE),]
+plot(TRUE_RUL_DECREASING[,3])
+
+####RUL Prediction
+
+no_of_closest_engine<-10
+
+LIFE_TRAIN<-read.csv("C:/Users/cevah/Desktop/data_for_registration/test/NEW/1-T24train_LIFE.csv", header = TRUE)
+LIFE_TRAIN<-as.matrix(LIFE_TRAIN)
+LIFE_TRAIN
+
+
+
+
+
+list_closest_X<-list()
+for (i in 1:48) {
+  close<-list_dist_all_sorted[[i]][2:(no_of_closest_engine+1),1]
+  list_closest_X[[i]]<-close
+}
+list_closest_X[[49]]<-list_dist_all_sorted[[49]][2:5,1]
+for (i in 50:100) {
+  close<-list_dist_all_sorted[[i]][2:(no_of_closest_engine+1),1]
+  list_closest_X[[i]]<-close
+}
+
+#1 NO OF ENGINE
+#2 OBS Test
+#3 RUL TEST
+#4 LIFE TEST
+#5 PRED LIFE
+#6 PRED RUL
+#7 MEAN RUL ERROR
+#8 PRED LIFE MEDIAN
+#9 PRED RUL MEDIAN
+#9 MEDIAN RUL ERROR
+RUL_PREDICTION<- matrix(data = NA, nrow=100, 10)
+newheaderstest<- c("Engine No","No of OBS", "True RUL", "TRUE Life",
+                   "PRED Life(Mean)","Pred RUL(Mean)","RUL ERROR(Mean)",
+                   "PRED Life(Med)","Pred RUL(Med)","RUL ERROR(Med)")
+colnames(RUL_PREDICTION) <- newheaderstest
+RUL_PREDICTION[,1]<-RUL_test[,1]
+RUL_PREDICTION[,2]<-RUL_test[,2]
+RUL_PREDICTION[,3]<-RUL_test[,3]
+RUL_PREDICTION[,4]<-RUL_test[,4]
+for (i in 1:100) {
+  RUL_PREDICTION[i,5]<-mean(LIFE_TRAIN[list_closest_X[[i]],2])
+  RUL_PREDICTION[i,6]<-RUL_PREDICTION[i,5]-RUL_PREDICTION[i,2]
+  RUL_PREDICTION[i,7]<-RUL_PREDICTION[i,6]-RUL_PREDICTION[i,3]
+  RUL_PREDICTION[i,8]<-median(LIFE_TRAIN[list_closest_X[[i]],2]) 
+  RUL_PREDICTION[i,9]<-RUL_PREDICTION[i,8]-RUL_PREDICTION[i,2]
+  RUL_PREDICTION[i,10]<-RUL_PREDICTION[i,9]-RUL_PREDICTION[i,3]
+}
+
+ordervector_mean<- as.vector(TRUE_RUL_DECREASING[,1]) # ORDER vector for increasing RUL
+RUL_PREDICTION_SORTED <- RUL_PREDICTION[match(ordervector_mean, RUL_PREDICTION),]##SORT increasing RUL
+
+###PLOT for TRUE RUL and PRED RUL
+plot(TRUE_RUL_DECREASING[,3], ylim=c(-100,200))
+for (i in 1:100) {
+  points(i,RUL_PREDICTION_SORTED[i,6], col="red")
+}
+
+###PLOT for TRUE RUL and PRED MEDIAN
+ordervector_mean<- as.vector(TRUE_RUL_DECREASING[,1]) # ORDER vector for increasing RUL
+RUL_PREDICTION_SORTED <- RUL_PREDICTION[match(ordervector_mean, RUL_PREDICTION),]##SORT increasing RUL
+
+plot(TRUE_RUL_DECREASING[,3], ylim=c(-100,200))
+for (i in 1:100) {
+  points(i,RUL_PREDICTION_SORTED[i,9], col="red")
+}
+RUL_PREDICTION
+
+######RMSE MEAN
+ERRORSQUARE <- RUL_PREDICTION_SORTED[,7]^2
+
+SUM_ERRORSQUARE<-sum(ERRORSQUARE)
+SUM_ERRORSQUARE/100
+sqrt(SUM_ERRORSQUARE/100)
+
+
+######RMSE MEDIAN
+ERRORSQUAREMED <- RUL_PREDICTION_SORTED[,10]^2
+SUM_ERRORSQUAREMED<-sum(ERRORSQUAREMED)
+SUM_ERRORSQUAREMED/100
+sqrt(SUM_ERRORSQUAREMED/100)
+
+
+
+max(RUL_PREDICTION[,7])
+min(RUL_PREDICTION[,7])
+max(RUL_PREDICTION[,10])
+min(RUL_PREDICTION[,10])
+
+#######################################
+
+
+#ENGINE 20 %50 LIFE
+
+RUL_PREDICTION
+
+#ENGİNE 20
+#no of obs 184
+#real remaining life 16
+#real life 200
+
+#prediction using mean - 10 closest 194.5
+#predicted remianing useful life using mean 10.5
+#error using mean -5.5
+mostclosest10<-list_closest_X[[20]]
+#prediction using median - 10 closest 195.0
+#predicted remianing useful life using median 11.0
+#error using median -5.0
+
+registeredargvals<-list(
+  as.vector(ints[1,1:192]),
+  ints[2,1:287],
+  ints[3,1:179],
+  ints[4,1:189],
+  ints[5,1:269],
+  ints[6,1:188],
+  ints[7,1:259],
+  ints[8,1:150],
+  ints[9,1:201],
+  ints[10,1:222],
+  ints[11,1:240],
+  ints[12,1:170],
+  ints[13,1:163],
+  ints[14,1:180],
+  ints[15,1:207],
+  ints[16,1:209],
+  ints[17,1:276],
+  ints[18,1:195],
+  ints[19,1:158],
+  ints[20,1:234],
+  ints[21,1:195],
+  ints[22,1:202],
+  ints[23,1:168],
+  ints[24,1:147],
+  ints[25,1:230],
+  ints[26,1:199],
+  ints[27,1:156],
+  ints[28,1:165],
+  ints[29,1:163],
+  ints[30,1:194],
+  ints[31,1:234],
+  ints[32,1:191],
+  ints[33,1:200],
+  ints[34,1:195],
+  ints[35,1:181],
+  ints[36,1:158],
+  ints[37,1:170],
+  ints[38,1:194],
+  ints[39,1:128],
+  ints[40,1:188],
+  ints[41,1:216],
+  ints[42,1:196],
+  ints[43,1:207],
+  ints[44,1:192],
+  ints[45,1:158],
+  ints[46,1:256],
+  ints[47,1:214],
+  ints[48,1:231],
+  ints[49,1:215],
+  ints[50,1:198],
+  ints[51,1:213],
+  ints[52,1:213],
+  ints[53,1:195],
+  ints[54,1:257],
+  ints[55,1:193],
+  ints[56,1:275],
+  ints[57,1:137],
+  ints[58,1:147],
+  ints[59,1:231],
+  ints[60,1:172],
+  ints[61,1:185],
+  ints[62,1:180],
+  ints[63,1:174],
+  ints[64,1:283],
+  ints[65,1:153],
+  ints[66,1:202],
+  ints[67,1:313],
+  ints[68,1:199],
+  ints[69,1:362],
+  ints[70,1:137],
+  ints[71,1:208],
+  ints[72,1:213],
+  ints[73,1:213],
+  ints[74,1:166],
+  ints[75,1:229],
+  ints[76,1:210],
+  ints[77,1:154],
+  ints[78,1:231],
+  ints[79,1:199],
+  ints[80,1:185],
+  ints[81,1:240],
+  ints[82,1:214],
+  ints[83,1:293],
+  ints[84,1:267],
+  ints[85,1:188],
+  ints[86,1:278],
+  ints[87,1:178],
+  ints[88,1:213],
+  ints[89,1:217],
+  ints[90,1:154],
+  ints[91,1:135],
+  ints[92,1:341],
+  ints[93,1:155],
+  ints[94,1:258],
+  ints[95,1:283],
+  ints[96,1:336],
+  ints[97,1:202],
+  ints[98,1:156],
+  ints[99,1:185],
+  ints[100,1:200])
+
+class(registeredargvals)
+length(registeredargvals[[1]])
+
+
+control_engine=20
+
+list_test_smoothing_registered_20<-list()
+no_of_splines<-10
+
+list_test_smoothing_registered_20<-list()
+for (i in 1:10)
+{
+  Smooth<- smooth.basis( argvals = registeredargvals[[list_closest_X[[control_engine]][i]]],
+                         y= as.vector(matrix_closest_10_values[i,2:(length(registeredargvals[[list_closest_X[[control_engine]][i]]])+1)]), 
+                         fdParobj = create.bspline.basis(c(0,1),no_of_splines))
+  list_test_smoothing_registered_20[[i]]<-Smooth 
+}
+
+
+matrix_closest_10_values<-matrix(NA,11,363)
+for (i in 1:10) {
+  matrix_closest_10_values[i,]<- T24_all_train_test[list_closest_X[[control_engine]][i],1:363] 
+}
+matrix_closest_10_values[11,]<-T24_all_train_test[100+control_engine,1:363]
+
+par(mfrow=c(1,1))
+plot(seq(0,1, by=1/(RUL_PREDICTION[control_engine,4]-1)),matrix_closest_10_values[11,2:(RUL_PREDICTION[20,4]+1)])
+
+
+lines(list_test_smoothing_registered_20[[1]])
+lines(list_test_smoothing_registered_20[[2]])
+lines(list_test_smoothing_registered_20[[3]])
+lines(list_test_smoothing_registered_20[[4]])
+lines(list_test_smoothing_registered_20[[5]])
+lines(list_test_smoothing_registered_20[[6]])
+lines(list_test_smoothing_registered_20[[7]])
+lines(list_test_smoothing_registered_20[[8]])
+lines(list_test_smoothing_registered_20[[9]])
+lines(list_test_smoothing_registered_20[[10]])
+
+
+#50  42  53  44   1   4  55  34 100  21
+
