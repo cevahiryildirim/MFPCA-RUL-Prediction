@@ -8,6 +8,9 @@ library(MFPCA)
 library(devtools)
 library(philentropy)
 
+
+
+
 ##########################################################################################################
 #######################      Our Data      ###############################################################
 ##########################################################################################################
@@ -335,7 +338,7 @@ plot(fdsmoothallW32,
      xlab="All 100 Engines observations registered between [0-1] interval")
 
 
-
+newargvals3<- seq(0,1, length.out=200)
 funDatasmoothallT24<-fd2funData(fdobj=fdsmoothallT24,argvals =newargvals3)
 funDatasmoothallT24
 autoplot(funDatasmoothallT24)
@@ -433,7 +436,8 @@ plot.pca.fd(UniPcaW31, cex.main=0.9)
 plot.pca.fd(UniPcaW31varmx, cex.main=0.9)
 
 plot.pca.fd(UniPcaW32, cex.main=0.9)
-plot.pca.fd(UniPcaW32varmx, cex.main=0.9)par(op)
+plot.pca.fd(UniPcaW32varmx, cex.main=0.9)
+par(op)
 
 
 par(mfrow=c(1,1))
@@ -627,38 +631,137 @@ unifpcalowscoresW32
 T24_all_train_test<-read.csv("C:/Users/cevah/Desktop/data_for_registration/test/NEW/1-T24train_test_all.csv", header = TRUE,row.names = 1)
 T24_all_train_test
 T24_all_train_test<-as.matrix(T24_all_train_test)
+T24_all_train_test[120,149:185]<-NA
+T24_all_train_test[131,159:197]<-NA
+T24_all_train_test[134,164:204]<-NA
+T24_all_train_test[135,160:199]<-NA
+T24_all_train_test[142,127:157]<-NA
+T24_all_train_test[149,244:304]<-NA
+T24_all_train_test[168,152:188]<-NA
+T24_all_train_test[176,166:206]<-NA
+T24_all_train_test[181,172:214]<-NA
+T24_all_train_test[182,132:163]<-NA
+
 
 T30_all_train_test<-read.csv("C:/Users/cevah/Desktop/data_for_registration/test/NEW/2-T30train_test_all.csv", header = TRUE,row.names = 1)
 T30_all_train_test
 T30_all_train_test<-as.matrix(T30_all_train_test)
+T30_all_train_test[120,149:185]<-NA
+T30_all_train_test[131,159:197]<-NA
+T30_all_train_test[134,164:204]<-NA
+T30_all_train_test[135,160:199]<-NA
+T30_all_train_test[142,127:157]<-NA
+T30_all_train_test[149,244:304]<-NA
+T30_all_train_test[168,152:188]<-NA
+T30_all_train_test[176,166:206]<-NA
+T30_all_train_test[181,172:214]<-NA
+T30_all_train_test[182,132:163]<-NA
+
 
 T50_all_train_test<-read.csv("C:/Users/cevah/Desktop/data_for_registration/test/NEW/3-T50train_test_all.csv", header = TRUE,row.names = 1)
 T50_all_train_test
 T50_all_train_test<-as.matrix(T50_all_train_test)
+T50_all_train_test[120,149:185]<-NA
+T50_all_train_test[131,159:197]<-NA
+T50_all_train_test[134,164:204]<-NA
+T50_all_train_test[135,160:199]<-NA
+T50_all_train_test[142,127:157]<-NA
+T50_all_train_test[149,244:304]<-NA
+T50_all_train_test[168,152:188]<-NA
+T50_all_train_test[176,166:206]<-NA
+T50_all_train_test[181,172:214]<-NA
+T50_all_train_test[182,132:163]<-NA
+
 
 P30_all_train_test<-read.csv("C:/Users/cevah/Desktop/data_for_registration/test/NEW/4-P30train_test_all.csv", header = TRUE,row.names = 1)
 P30_all_train_test
 P30_all_train_test<-as.matrix(P30_all_train_test)
+P30_all_train_test[120,149:185]<-NA
+P30_all_train_test[131,159:197]<-NA
+P30_all_train_test[134,164:204]<-NA
+P30_all_train_test[135,160:199]<-NA
+P30_all_train_test[142,127:157]<-NA
+P30_all_train_test[149,244:304]<-NA
+P30_all_train_test[168,152:188]<-NA
+P30_all_train_test[176,166:206]<-NA
+P30_all_train_test[181,172:214]<-NA
+P30_all_train_test[182,132:163]<-NA
+
 
 ps30_all_train_test<-read.csv("C:/Users/cevah/Desktop/data_for_registration/test/NEW/5-ps30train_test_all.csv", header = TRUE,row.names = 1)
 ps30_all_train_test
 ps30_all_train_test<-as.matrix(ps30_all_train_test)
+ps30_all_train_test[120,149:185]<-NA
+ps30_all_train_test[131,159:197]<-NA
+ps30_all_train_test[134,164:204]<-NA
+ps30_all_train_test[135,160:199]<-NA
+ps30_all_train_test[142,127:157]<-NA
+ps30_all_train_test[149,244:304]<-NA
+ps30_all_train_test[168,152:188]<-NA
+ps30_all_train_test[176,166:206]<-NA
+ps30_all_train_test[181,172:214]<-NA
+ps30_all_train_test[182,132:163]<-NA
+
 
 phi_all_train_test<-read.csv("C:/Users/cevah/Desktop/data_for_registration/test/NEW/6-phitrain_test_all.csv", header = TRUE,row.names = 1)
 phi_all_train_test
 phi_all_train_test<-as.matrix(phi_all_train_test)
+phi_all_train_test[120,149:185]<-NA
+phi_all_train_test[131,159:197]<-NA
+phi_all_train_test[134,164:204]<-NA
+phi_all_train_test[135,160:199]<-NA
+phi_all_train_test[142,127:157]<-NA
+phi_all_train_test[149,244:304]<-NA
+phi_all_train_test[168,152:188]<-NA
+phi_all_train_test[176,166:206]<-NA
+phi_all_train_test[181,172:214]<-NA
+phi_all_train_test[182,132:163]<-NA
+
 
 BPR_all_train_test<-read.csv("C:/Users/cevah/Desktop/data_for_registration/test/NEW/7-BPRtrain_test_all.csv", header = TRUE,row.names = 1)
 BPR_all_train_test
 BPR_all_train_test<-as.matrix(BPR_all_train_test)
+BPR_all_train_test[120,149:185]<-NA
+BPR_all_train_test[131,159:197]<-NA
+BPR_all_train_test[134,164:204]<-NA
+BPR_all_train_test[135,160:199]<-NA
+BPR_all_train_test[142,127:157]<-NA
+BPR_all_train_test[149,244:304]<-NA
+BPR_all_train_test[168,152:188]<-NA
+BPR_all_train_test[176,166:206]<-NA
+BPR_all_train_test[181,172:214]<-NA
+BPR_all_train_test[182,132:163]<-NA
+
 
 W31_all_train_test<-read.csv("C:/Users/cevah/Desktop/data_for_registration/test/NEW/8-W31train_test_all.csv", header = TRUE,row.names = 1)
 W31_all_train_test
 W31_all_train_test<-as.matrix(W31_all_train_test)
+W31_all_train_test[120,149:185]<-NA
+W31_all_train_test[131,159:197]<-NA
+W31_all_train_test[134,164:204]<-NA
+W31_all_train_test[135,160:199]<-NA
+W31_all_train_test[142,127:157]<-NA
+W31_all_train_test[149,244:304]<-NA
+W31_all_train_test[168,152:188]<-NA
+W31_all_train_test[176,166:206]<-NA
+W31_all_train_test[181,172:214]<-NA
+W31_all_train_test[182,132:163]<-NA
+
 
 W32_all_train_test<-read.csv("C:/Users/cevah/Desktop/data_for_registration/test/NEW/9-W32train_test_all.csv", header = TRUE,row.names = 1)
 W32_all_train_test
 W32_all_train_test<-as.matrix(W32_all_train_test)
+W32_all_train_test[120,149:185]<-NA
+W32_all_train_test[131,159:197]<-NA
+W32_all_train_test[134,164:204]<-NA
+W32_all_train_test[135,160:199]<-NA
+W32_all_train_test[142,127:157]<-NA
+W32_all_train_test[149,244:304]<-NA
+W32_all_train_test[168,152:188]<-NA
+W32_all_train_test[176,166:206]<-NA
+W32_all_train_test[181,172:214]<-NA
+W32_all_train_test[182,132:163]<-NA
+
 
 #### list for 100 test engine - all 101 x number of observation matrix
 list_test_matrix<-list()
@@ -2403,6 +2506,29 @@ RUL_test<-read.csv("C:/Users/cevah/Desktop/data_for_registration/test/NEW/1-T24t
 RUL_test
 RUL_test<-as.matrix(RUL_test)
 
+RUL_test[20,2]<-147
+RUL_test[31,2]<-157
+RUL_test[34,2]<-162
+RUL_test[35,2]<-158
+RUL_test[42,2]<-125
+RUL_test[49,2]<-242
+RUL_test[68,2]<-150
+RUL_test[76,2]<-164
+RUL_test[81,2]<-170
+RUL_test[82,2]<-130
+
+RUL_test[20,3]<-RUL_test[20,4]-RUL_test[20,2]
+RUL_test[31,3]<-RUL_test[31,4]-RUL_test[24,2]
+RUL_test[34,3]<-RUL_test[34,4]-RUL_test[34,2]
+RUL_test[35,3]<-RUL_test[35,4]-RUL_test[35,2]
+RUL_test[42,3]<-RUL_test[42,4]-RUL_test[42,2]
+RUL_test[49,3]<-RUL_test[49,4]-RUL_test[49,2]
+RUL_test[68,3]<-RUL_test[68,4]-RUL_test[68,2]
+RUL_test[76,3]<-RUL_test[76,4]-RUL_test[76,2]
+RUL_test[81,3]<-RUL_test[81,4]-RUL_test[81,2]
+RUL_test[82,3]<-RUL_test[82,4]-RUL_test[82,2]
+
+
 TRUE_RUL_DECREASING<-RUL_test[order(RUL_test[,3],decreasing = FALSE),]
 plot(TRUE_RUL_DECREASING[,3])
 
@@ -2912,9 +3038,10 @@ for (j in 50:100) {
   predictedcurves_smooth_list_T24_UNIFPCA[[j]]<-Smooth
 }
 
-
+TestLowClassEng
+TestBigClassEngexcept49
 #10,
-testengine=35
+testengine=20
 T24_TEST_PREDICTED_UNIFPCA[[testengine]]
 plot(predictedcurves_smooth_list_T24_UNIFPCA[[20]] , xlim=c(0,370), ylim=c(641.7,644), col="red")
 for (i in TestLowClassEng) {
@@ -2926,22 +3053,95 @@ for (i in TestBigClassEngexcept49) {
 lines(list_test_all_smooth_T24_Big_scores_UNIFPCA[[testengine]][[nrow(list_test_matrix_SCORE_W31_noNA_UNIFPCA[[testengine]])]], col="blue")
 
 
+T24_all_train_test<-read.csv("C:/Users/cevah/Desktop/data_for_registration/test/NEW/1-T24train_test_all.csv", header = TRUE,row.names = 1)
+T24_all_train_test
+T24_all_train_test<-as.matrix(T24_all_train_test)
 
-testengine=35
 
-#bigscore individual curves
 TestBigClassEng
-plot(predictedcurves_smooth_list_T24_UNIFPCA[[testengine]] , xlim=c(0,370), ylim=c(641.7,644), col="red")
+testengine=20
+#bigscore individual curves
+plot(c((RUL_PREDICTION_low_big_merged_UNIFPCA[testengine,2]+1):RUL_PREDICTION_low_big_merged_UNIFPCA[testengine,5]),T24_all_train_test[(testengine+100),((RUL_PREDICTION_low_big_merged_UNIFPCA[testengine,2]+1)+1):(RUL_PREDICTION_low_big_merged_UNIFPCA[testengine,5]+1)] , xlim=c(0,370), ylim=c(641.7,644), col="black")
+lines(predictedcurves_smooth_list_T24_UNIFPCA[[testengine]], col="red")
 lines(list_test_all_smooth_T24_Big_scores_UNIFPCA[[testengine]][[nrow(list_test_matrix_SCORE_W31_noNA_UNIFPCA[[testengine]])]], col="blue")
 
-#low score individual curves
-TestLowClassEng
-testengine=70
-testengine=80
-testengine=97
-testengine=98
+testengine=31
+#bigscore individual curves
+plot(c((RUL_PREDICTION_low_big_merged_UNIFPCA[testengine,2]+1):RUL_PREDICTION_low_big_merged_UNIFPCA[testengine,5]),T24_all_train_test[(testengine+100),((RUL_PREDICTION_low_big_merged_UNIFPCA[testengine,2]+1)+1):(RUL_PREDICTION_low_big_merged_UNIFPCA[testengine,5]+1)] , xlim=c(0,370), ylim=c(641.7,644), col="black")
+lines(predictedcurves_smooth_list_T24_UNIFPCA[[testengine]], col="red")
+lines(list_test_all_smooth_T24_Big_scores_UNIFPCA[[testengine]][[nrow(list_test_matrix_SCORE_W31_noNA_UNIFPCA[[testengine]])]], col="blue")
 
-plot(predictedcurves_smooth_list_UNIFPCA[[testengine]] , xlim=c(0,370), ylim=c(641.7,644), col="red")
+testengine=34
+#bigscore individual curves
+plot(c((RUL_PREDICTION_low_big_merged_UNIFPCA[testengine,2]+1):RUL_PREDICTION_low_big_merged_UNIFPCA[testengine,5]),T24_all_train_test[(testengine+100),((RUL_PREDICTION_low_big_merged_UNIFPCA[testengine,2]+1)+1):(RUL_PREDICTION_low_big_merged_UNIFPCA[testengine,5]+1)] , xlim=c(0,370), ylim=c(641.7,644), col="black")
+lines(predictedcurves_smooth_list_T24_UNIFPCA[[testengine]], col="red")
+lines(list_test_all_smooth_T24_Big_scores_UNIFPCA[[testengine]][[nrow(list_test_matrix_SCORE_W31_noNA_UNIFPCA[[testengine]])]], col="blue")
 
+testengine=35
+#bigscore individual curves
+plot(c((RUL_PREDICTION_low_big_merged_UNIFPCA[testengine,2]+1):RUL_PREDICTION_low_big_merged_UNIFPCA[testengine,5]),T24_all_train_test[(testengine+100),((RUL_PREDICTION_low_big_merged_UNIFPCA[testengine,2]+1)+1):(RUL_PREDICTION_low_big_merged_UNIFPCA[testengine,5]+1)] , xlim=c(0,370), ylim=c(641.7,644), col="black")
+lines(predictedcurves_smooth_list_T24_UNIFPCA[[testengine]], col="red")
 lines(list_test_all_smooth_T24_Low_scores_UNIFPCA[[testengine]][[nrow(list_test_matrix_SCORE_W31_noNA_UNIFPCA[[testengine]])]], col="blue")
+
+testengine=42
+#bigscore individual curves
+plot(c((RUL_PREDICTION_low_big_merged_UNIFPCA[testengine,2]+1):RUL_PREDICTION_low_big_merged_UNIFPCA[testengine,5]),T24_all_train_test[(testengine+100),((RUL_PREDICTION_low_big_merged_UNIFPCA[testengine,2]+1)+1):(RUL_PREDICTION_low_big_merged_UNIFPCA[testengine,5]+1)] , xlim=c(0,370), ylim=c(641.7,644), col="black")
+lines(predictedcurves_smooth_list_T24_UNIFPCA[[testengine]], col="red")
+lines(list_test_all_smooth_T24_Big_scores_UNIFPCA[[testengine]][[nrow(list_test_matrix_SCORE_W31_noNA_UNIFPCA[[testengine]])]], col="blue")
+
+testengine=49
+#bigscore individual curves
+plot(c((RUL_PREDICTION_low_big_merged_UNIFPCA[testengine,2]+1):RUL_PREDICTION_low_big_merged_UNIFPCA[testengine,5]),T24_all_train_test[(testengine+100),((RUL_PREDICTION_low_big_merged_UNIFPCA[testengine,2]+1)+1):(RUL_PREDICTION_low_big_merged_UNIFPCA[testengine,5]+1)] , xlim=c(0,370), ylim=c(641.7,644), col="black")
+lines(predictedcurves_smooth_list_T24_UNIFPCA[[testengine]], col="red")
+lines(list_test_all_smooth_T24_Low_scores_UNIFPCA[[testengine]][[nrow(list_test_matrix_SCORE_W31_noNA_UNIFPCA[[testengine]])]], col="blue")
+
+
+testengine=68
+#bigscore individual curves
+plot(c((RUL_PREDICTION_low_big_merged_UNIFPCA[testengine,2]+1):RUL_PREDICTION_low_big_merged_UNIFPCA[testengine,5]),T24_all_train_test[(testengine+100),((RUL_PREDICTION_low_big_merged_UNIFPCA[testengine,2]+1)+1):(RUL_PREDICTION_low_big_merged_UNIFPCA[testengine,5]+1)] , xlim=c(0,370), ylim=c(641.7,644), col="black")
+lines(predictedcurves_smooth_list_T24_UNIFPCA[[testengine]], col="red")
+lines(list_test_all_smooth_T24_Low_scores_UNIFPCA[[testengine]][[nrow(list_test_matrix_SCORE_W31_noNA_UNIFPCA[[testengine]])]], col="blue")
+
+
+testengine=76
+#bigscore individual curves
+plot(c((RUL_PREDICTION_low_big_merged_UNIFPCA[testengine,2]+1):RUL_PREDICTION_low_big_merged_UNIFPCA[testengine,5]),T24_all_train_test[(testengine+100),((RUL_PREDICTION_low_big_merged_UNIFPCA[testengine,2]+1)+1):(RUL_PREDICTION_low_big_merged_UNIFPCA[testengine,5]+1)] , xlim=c(0,370), ylim=c(641.7,644), col="black")
+lines(predictedcurves_smooth_list_T24_UNIFPCA[[testengine]], col="red")
+lines(list_test_all_smooth_T24_Big_scores_UNIFPCA[[testengine]][[nrow(list_test_matrix_SCORE_W31_noNA_UNIFPCA[[testengine]])]], col="blue")
+
+
+testengine=81
+#bigscore individual curves
+plot(c((RUL_PREDICTION_low_big_merged_UNIFPCA[testengine,2]+1):RUL_PREDICTION_low_big_merged_UNIFPCA[testengine,5]),T24_all_train_test[(testengine+100),((RUL_PREDICTION_low_big_merged_UNIFPCA[testengine,2]+1)+1):(RUL_PREDICTION_low_big_merged_UNIFPCA[testengine,5]+1)] , xlim=c(0,370), ylim=c(641.7,644), col="black")
+lines(predictedcurves_smooth_list_T24_UNIFPCA[[testengine]], col="red")
+lines(list_test_all_smooth_T24_Big_scores_UNIFPCA[[testengine]][[nrow(list_test_matrix_SCORE_W31_noNA_UNIFPCA[[testengine]])]], col="blue")
+
+
+testengine=82
+#bigscore individual curves
+plot(c((RUL_PREDICTION_low_big_merged_UNIFPCA[testengine,2]+1):RUL_PREDICTION_low_big_merged_UNIFPCA[testengine,5]),T24_all_train_test[(testengine+100),((RUL_PREDICTION_low_big_merged_UNIFPCA[testengine,2]+1)+1):(RUL_PREDICTION_low_big_merged_UNIFPCA[testengine,5]+1)] , xlim=c(0,370), ylim=c(641.7,644), col="black")
+lines(predictedcurves_smooth_list_T24_UNIFPCA[[testengine]], col="red")
+lines(list_test_all_smooth_T24_Big_scores_UNIFPCA[[testengine]][[nrow(list_test_matrix_SCORE_W31_noNA_UNIFPCA[[testengine]])]], col="blue")
+
+T24_all_train_test[182,]
+
+T24_all_train_test[(testengine+100),(RUL_PREDICTION_low_big_merged_UNIFPCA[testengine,2]+1):RUL_PREDICTION_low_big_merged_UNIFPCA[testengine,5]]
+
+RUL_PREDICTION_low_big_merged_UNIFPCA[testengine,5]
+
+########################################
+###tahmin edilen %90 a kadar olan aralık
+c((RUL_PREDICTION_low_big_merged_UNIFPCA[testengine,2]+1):RUL_PREDICTION_low_big_merged_UNIFPCA[testengine,5])
+true90percent_PRED_T24<-T24_all_train_test[(testengine+100),((RUL_PREDICTION_low_big_merged_UNIFPCA[testengine,2]+1)+1):(RUL_PREDICTION_low_big_merged_UNIFPCA[testengine,5]+1)]
+true90percent_PRED_T24<-na.omit(true90percent_PRED_T24)
+length(true90percent_PRED_T24)
+true90percent_PRED_T24<-as.vector(true90percent_PRED_T24)
+true90percent_PRED_T24
+
+RUL_PREDICTION_low_big_merged_UNIFPCA[testengine,2]
+
+predicted90percent_PRED_T24<-predictedcurves_smooth_list_T24_UNIFPCA[[testengine]]$y[(RUL_PREDICTION_low_big_merged_UNIFPCA[testengine,2]+1):(RUL_PREDICTION_low_big_merged_UNIFPCA[testengine,2]+length(true90percent_PRED_T24))]
+predicted90percent_PRED_T24
+
+
 
