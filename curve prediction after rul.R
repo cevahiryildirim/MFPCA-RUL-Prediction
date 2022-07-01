@@ -200,7 +200,118 @@ testengine=98
 plot(predictedcurves_smooth_list[[testengine]] , xlim=c(0,370), ylim=c(641.7,644), col="red")
 lines(list_test_all_smooth_T24_Low_scores[[testengine]][[nrow(list_test_matrix_SCORE_W31_noNA[[testengine]])]], col="blue")
 
+smoothallT24 <- matrix(data = NA, nrow=8, ncol=100)
+for (i in 1:100) {
+  ENGINEallArgvals <-seq(0,1, length.out= length(na.omit(tT24traindata[,i])))
+  smoothallT24[,i]=smooth.basis(ENGINEallArgvals,as.vector(na.omit(tT24traindata[,i]))/meanT24,bsplinebasis2)[["fd"]][["coefs"]]
+}
+
+smoothallT30 <- matrix(data = NA, nrow=8, ncol=100)
+for (i in 1:100) {
+  ENGINEallArgvals <-seq(0,1, length.out= length(na.omit(tT30traindata[,i])))
+  smoothallT30[,i]=smooth.basis(ENGINEallArgvals,as.vector(na.omit(tT30traindata[,i]))/meanT30,bsplinebasis2)[["fd"]][["coefs"]]
+}
 
 
+smoothallT50 <- matrix(data = NA, nrow=8, ncol=100)
+for (i in 1:100) {
+  ENGINEallArgvals <-seq(0,1, length.out= length(na.omit(tT50traindata[,i])))
+  smoothallT50[,i]=smooth.basis(ENGINEallArgvals,as.vector(na.omit(tT50traindata[,i]))/meanT50,bsplinebasis2)[["fd"]][["coefs"]]
+}
+
+
+smoothallP30 <- matrix(data = NA, nrow=8, ncol=100)
+for (i in 1:100) {
+  ENGINEallArgvals <-seq(0,1, length.out= length(na.omit(tP30traindata[,i])))
+  smoothallP30[,i]=smooth.basis(ENGINEallArgvals,as.vector(na.omit(tP30traindata[,i]))/meanP30,bsplinebasis2)[["fd"]][["coefs"]]
+}
+
+smoothallps30 <- matrix(data = NA, nrow=8, ncol=100)
+for (i in 1:100) {
+  ENGINEallArgvals <-seq(0,1, length.out= length(na.omit(tps30traindata[,i])))
+  smoothallps30[,i]=smooth.basis(ENGINEallArgvals,as.vector(na.omit(tps30traindata[,i]))/meanps30,bsplinebasis2)[["fd"]][["coefs"]]
+}
+
+smoothallphi <- matrix(data = NA, nrow=8, ncol=100)
+for (i in 1:100) {
+  ENGINEallArgvals <-seq(0,1, length.out= length(na.omit(tphitraindata[,i])))
+  smoothallphi[,i]=smooth.basis(ENGINEallArgvals,as.vector(na.omit(tphitraindata[,i]))/meanphi,bsplinebasis2)[["fd"]][["coefs"]]
+}
+
+smoothallBPR <- matrix(data = NA, nrow=8, ncol=100)
+for (i in 1:100) {
+  ENGINEallArgvals <-seq(0,1, length.out= length(na.omit(tBPRtraindata[,i])))
+  smoothallBPR[,i]=smooth.basis(ENGINEallArgvals,as.vector(na.omit(tBPRtraindata[,i]))/meanBPR,bsplinebasis2)[["fd"]][["coefs"]]
+}
+
+smoothallW31 <- matrix(data = NA, nrow=8, ncol=100)
+for (i in 1:100) {
+  ENGINEallArgvals <-seq(0,1, length.out= length(na.omit(tW31traindata[,i])))
+  smoothallW31[,i]=smooth.basis(ENGINEallArgvals,as.vector(na.omit(tW31traindata[,i]))/meanW31,bsplinebasis2)[["fd"]][["coefs"]]
+}
+
+smoothallW32 <- matrix(data = NA, nrow=8, ncol=100)
+for (i in 1:100) {
+  ENGINEallArgvals <-seq(0,1, length.out= length(na.omit(tW32traindata[,i])))
+  smoothallW32[,i]=smooth.basis(ENGINEallArgvals,as.vector(na.omit(tW32traindata[,i]))/meanW32,bsplinebasis2)[["fd"]][["coefs"]]
+}
+
+
+
+
+T24g <- autoplot(UnivRegSmthedWeightedMFPCA$functions[[1]]) + geom_hline(yintercept = 0, col = "grey", lwd = 1.5) + geom_line(aes(colour = obs), lwd = 1.25)+ labs(x = "Cycle Time") + scale_color_manual(values = c("#B80C0C", "#0C0CB8", "#129412"), name = "Princ. Comp.", labels= c("1st", "2nd", "3rd")) 
+T24g
+
+##bspline compare
+T24g <- autoplot(BsplineRegisteredsmoothedMFPCA$functions[[1]]) + geom_hline(yintercept = 0, col = "grey", lwd = 1.5) + geom_line(aes(colour = obs), lwd = 1.25)+ labs(x = "Cycle Time") + scale_color_manual(values = c("#B80C0C", "#0C0CB8", "#129412"), name = "Princ. Comp.", labels= c("1st", "2nd", "3rd")) 
+T24g
+##weighted compare
+T24g <- autoplot(UnivRegSmthedWeightedMFPCA$functions[[1]]) + geom_hline(yintercept = 0, col = "grey", lwd = 1.5) + geom_line(aes(colour = obs), lwd = 1.25)+ labs(x = "Cycle Time") + scale_color_manual(values = c("#B80C0C", "#0C0CB8", "#129412"), name = "Princ. Comp.", labels= c("1st", "2nd", "3rd")) 
+T24g
+
+
+T30g <- autoplot(UnivRegisteredsmoothedMFPCA$functions[[2]]) + geom_hline(yintercept = 0, col = "grey", lwd = 1.5) + geom_line(aes(colour = obs), lwd = 1.25)+ labs(x = "Cycle Time") + scale_color_manual(values = c("#B80C0C", "#0C0CB8", "#129412"), name = "Princ. Comp.", labels= c("1st", "2nd", "3rd")) 
+T30g
+
+T50g <- autoplot(UnivRegisteredsmoothedMFPCA$functions[[3]]) + geom_hline(yintercept = 0, col = "grey", lwd = 1.5) + geom_line(aes(colour = obs), lwd = 1.25)+ labs(x = "Cycle Time") + scale_color_manual(values = c("#B80C0C", "#0C0CB8", "#129412"), name = "Princ. Comp.", labels= c("1st", "2nd", "3rd")) 
+T50g
+
+P30g <- autoplot(UnivRegisteredsmoothedMFPCA$functions[[4]]) + geom_hline(yintercept = 0, col = "grey", lwd = 1.5) + geom_line(aes(colour = obs), lwd = 1.25)+ labs(x = "Cycle Time") + scale_color_manual(values = c("#B80C0C", "#0C0CB8", "#129412"), name = "Princ. Comp.", labels= c("1st", "2nd", "3rd")) 
+P30g
+
+ps30g <- autoplot(UnivRegisteredsmoothedMFPCA$functions[[5]]) + geom_hline(yintercept = 0, col = "grey", lwd = 1.5) + geom_line(aes(colour = obs), lwd = 1.25)+ labs(x = "Cycle Time") + scale_color_manual(values = c("#B80C0C", "#0C0CB8", "#129412"), name = "Princ. Comp.", labels= c("1st", "2nd", "3rd")) 
+ps30g
+
+phig <- autoplot(UnivRegisteredsmoothedMFPCA$functions[[6]]) + geom_hline(yintercept = 0, col = "grey", lwd = 1.5) + geom_line(aes(colour = obs), lwd = 1.25)+ labs(x = "Cycle Time") + scale_color_manual(values = c("#B80C0C", "#0C0CB8", "#129412"), name = "Princ. Comp.", labels= c("1st", "2nd", "3rd")) 
+phig
+
+BPRg <- autoplot(UnivRegisteredsmoothedMFPCA$functions[[7]]) + geom_hline(yintercept = 0, col = "grey", lwd = 1.5) + geom_line(aes(colour = obs), lwd = 1.25)+ labs(x = "Cycle Time") + scale_color_manual(values = c("#B80C0C", "#0C0CB8", "#129412"), name = "Princ. Comp.", labels= c("1st", "2nd", "3rd")) 
+BPRg
+
+W31g <- autoplot(UnivRegisteredsmoothedMFPCA$functions[[8]]) + geom_hline(yintercept = 0, col = "grey", lwd = 1.5) + geom_line(aes(colour = obs), lwd = 1.25)+ labs(x = "Cycle Time") + scale_color_manual(values = c("#B80C0C", "#0C0CB8", "#129412"), name = "Princ. Comp.", labels= c("1st", "2nd", "3rd")) 
+W31g
+
+W32g <- autoplot(UnivRegisteredsmoothedMFPCA$functions[[9]]) + geom_hline(yintercept = 0, col = "grey", lwd = 1.5) + geom_line(aes(colour = obs), lwd = 1.25)+ labs(x = "Cycle Time") + scale_color_manual(values = c("#B80C0C", "#0C0CB8", "#129412"), name = "Princ. Comp.", labels= c("1st", "2nd", "3rd")) 
+W32g
+
+
+get_legend<-function(myggplot) {
+  tmp <- ggplot_gtable(ggplot_build(myggplot))
+  leg <- which(sapply(tmp$grobs, function(x) x$name) == "guide-box")
+  legend <- tmp$grobs[[leg]]
+  return(legend)
+}
+
+
+gridExtra::grid.arrange(T24g + theme(legend.position = "none"), 
+                        T30g + theme(legend.position = "none"), 
+                        T50g + theme(legend.position = "none"), 
+                        P30g + theme(legend.position = "none"), 
+                        ps30g + theme(legend.position = "none"), 
+                        phig + theme(legend.position = "none"),
+                        BPRg + theme(legend.position = "none"), 
+                        W31g + theme(legend.position = "none"), 
+                        W32g + theme(legend.position = "none"),
+                        nrow= 3, ncol = 3, widths = c(1, 1, 1))
 
 
