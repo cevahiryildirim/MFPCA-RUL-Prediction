@@ -3143,5 +3143,9 @@ RUL_PREDICTION_low_big_merged_UNIFPCA[testengine,2]
 predicted90percent_PRED_T24<-predictedcurves_smooth_list_T24_UNIFPCA[[testengine]]$y[(RUL_PREDICTION_low_big_merged_UNIFPCA[testengine,2]+1):(RUL_PREDICTION_low_big_merged_UNIFPCA[testengine,2]+length(true90percent_PRED_T24))]
 predicted90percent_PRED_T24
 
-
+ERRORcurve<-predicted90percent_PRED_T24-true90percent_PRED_T24
+ERRORSQ<-ERRORcurve^2
+SUMERRORSQ<-sum(ERRORSQ)
+SUMERRORSQmean<-SUMERRORSQ/length(predicted90percent_PRED_T24)
+sqrt(SUMERRORSQmean)
 

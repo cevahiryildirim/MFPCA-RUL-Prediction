@@ -2362,9 +2362,145 @@ length(TestBigClassEng)
 ###################T24 DISTANCE CALCULATION AFTER MFPCA CLASSIFICATION#########################
 
 
+
+
+
 T24_all_train_test<-read.csv("C:/Users/cevah/Desktop/data_for_registration/test/NEW/1-T24train_test_all.csv", header = TRUE,row.names = 1)
 T24_all_train_test
 T24_all_train_test<-as.matrix(T24_all_train_test)
+T24_all_train_test[120,168:185]<-NA
+T24_all_train_test[131,178:197]<-NA
+T24_all_train_test[134,185:204]<-NA
+T24_all_train_test[135,180:199]<-NA
+T24_all_train_test[142,142:157]<-NA
+T24_all_train_test[149,275:304]<-NA
+T24_all_train_test[168,170:188]<-NA
+T24_all_train_test[176,187:206]<-NA
+T24_all_train_test[181,194:214]<-NA
+T24_all_train_test[182,148:163]<-NA
+
+
+T30_all_train_test<-read.csv("C:/Users/cevah/Desktop/data_for_registration/test/NEW/2-T30train_test_all.csv", header = TRUE,row.names = 1)
+T30_all_train_test
+T30_all_train_test<-as.matrix(T30_all_train_test)
+T30_all_train_test[120,168:185]<-NA
+T30_all_train_test[131,178:197]<-NA
+T30_all_train_test[134,185:204]<-NA
+T30_all_train_test[135,180:199]<-NA
+T30_all_train_test[142,142:157]<-NA
+T30_all_train_test[149,275:304]<-NA
+T30_all_train_test[168,170:188]<-NA
+T30_all_train_test[176,187:206]<-NA
+T30_all_train_test[181,194:214]<-NA
+T30_all_train_test[182,148:163]<-NA
+
+
+T50_all_train_test<-read.csv("C:/Users/cevah/Desktop/data_for_registration/test/NEW/3-T50train_test_all.csv", header = TRUE,row.names = 1)
+T50_all_train_test
+T50_all_train_test<-as.matrix(T50_all_train_test)
+T50_all_train_test[120,168:185]<-NA
+T50_all_train_test[131,178:197]<-NA
+T50_all_train_test[134,185:204]<-NA
+T50_all_train_test[135,180:199]<-NA
+T50_all_train_test[142,142:157]<-NA
+T50_all_train_test[149,275:304]<-NA
+T50_all_train_test[168,170:188]<-NA
+T50_all_train_test[176,187:206]<-NA
+T50_all_train_test[181,194:214]<-NA
+T50_all_train_test[182,148:163]<-NA
+
+
+P30_all_train_test<-read.csv("C:/Users/cevah/Desktop/data_for_registration/test/NEW/4-P30train_test_all.csv", header = TRUE,row.names = 1)
+P30_all_train_test
+P30_all_train_test<-as.matrix(P30_all_train_test)
+P30_all_train_test[120,168:185]<-NA
+P30_all_train_test[131,178:197]<-NA
+P30_all_train_test[134,185:204]<-NA
+P30_all_train_test[135,180:199]<-NA
+P30_all_train_test[142,142:157]<-NA
+P30_all_train_test[149,275:304]<-NA
+P30_all_train_test[168,170:188]<-NA
+P30_all_train_test[176,187:206]<-NA
+P30_all_train_test[181,194:214]<-NA
+P30_all_train_test[182,148:163]<-NA
+
+
+ps30_all_train_test<-read.csv("C:/Users/cevah/Desktop/data_for_registration/test/NEW/5-ps30train_test_all.csv", header = TRUE,row.names = 1)
+ps30_all_train_test
+ps30_all_train_test<-as.matrix(ps30_all_train_test)
+ps30_all_train_test[120,168:185]<-NA
+ps30_all_train_test[131,178:197]<-NA
+ps30_all_train_test[134,185:204]<-NA
+ps30_all_train_test[135,180:199]<-NA
+ps30_all_train_test[142,142:157]<-NA
+ps30_all_train_test[149,275:304]<-NA
+ps30_all_train_test[168,170:188]<-NA
+ps30_all_train_test[176,187:206]<-NA
+ps30_all_train_test[181,194:214]<-NA
+ps30_all_train_test[182,148:163]<-NA
+
+
+phi_all_train_test<-read.csv("C:/Users/cevah/Desktop/data_for_registration/test/NEW/6-phitrain_test_all.csv", header = TRUE,row.names = 1)
+phi_all_train_test
+phi_all_train_test<-as.matrix(phi_all_train_test)
+phi_all_train_test[120,168:185]<-NA
+phi_all_train_test[131,178:197]<-NA
+phi_all_train_test[134,185:204]<-NA
+phi_all_train_test[135,180:199]<-NA
+phi_all_train_test[142,142:157]<-NA
+phi_all_train_test[149,275:304]<-NA
+phi_all_train_test[168,170:188]<-NA
+phi_all_train_test[176,187:206]<-NA
+phi_all_train_test[181,194:214]<-NA
+phi_all_train_test[182,148:163]<-NA
+
+
+BPR_all_train_test<-read.csv("C:/Users/cevah/Desktop/data_for_registration/test/NEW/7-BPRtrain_test_all.csv", header = TRUE,row.names = 1)
+BPR_all_train_test
+BPR_all_train_test<-as.matrix(BPR_all_train_test)
+BPR_all_train_test[120,168:185]<-NA
+BPR_all_train_test[131,178:197]<-NA
+BPR_all_train_test[134,185:204]<-NA
+BPR_all_train_test[135,180:199]<-NA
+BPR_all_train_test[142,142:157]<-NA
+BPR_all_train_test[149,275:304]<-NA
+BPR_all_train_test[168,170:188]<-NA
+BPR_all_train_test[176,187:206]<-NA
+BPR_all_train_test[181,194:214]<-NA
+BPR_all_train_test[182,148:163]<-NA
+
+
+W31_all_train_test<-read.csv("C:/Users/cevah/Desktop/data_for_registration/test/NEW/8-W31train_test_all.csv", header = TRUE,row.names = 1)
+W31_all_train_test
+W31_all_train_test<-as.matrix(W31_all_train_test)
+W31_all_train_test[120,168:185]<-NA
+W31_all_train_test[131,178:197]<-NA
+W31_all_train_test[134,185:204]<-NA
+W31_all_train_test[135,180:199]<-NA
+W31_all_train_test[142,142:157]<-NA
+W31_all_train_test[149,275:304]<-NA
+W31_all_train_test[168,170:188]<-NA
+W31_all_train_test[176,187:206]<-NA
+W31_all_train_test[181,194:214]<-NA
+W31_all_train_test[182,148:163]<-NA
+
+
+W32_all_train_test<-read.csv("C:/Users/cevah/Desktop/data_for_registration/test/NEW/9-W32train_test_all.csv", header = TRUE,row.names = 1)
+W32_all_train_test
+W32_all_train_test<-as.matrix(W32_all_train_test)
+W32_all_train_test[120,168:185]<-NA
+W32_all_train_test[131,178:197]<-NA
+W32_all_train_test[134,185:204]<-NA
+W32_all_train_test[135,180:199]<-NA
+W32_all_train_test[142,142:157]<-NA
+W32_all_train_test[149,275:304]<-NA
+W32_all_train_test[168,170:188]<-NA
+W32_all_train_test[176,187:206]<-NA
+W32_all_train_test[181,194:214]<-NA
+W32_all_train_test[182,148:163]<-NA
+
+
+#### list for 100 test engine - all 101 x number of observation matrix
 
 
 #### list for 100 test engine - all 101 x number of observation matrix
@@ -2403,20 +2539,20 @@ for (i in TestBigClassEng)
 #### fill all lists with 100 train + row101 for related  test engine
 for (i in TestLowClassEng) { 
   T24_test_matrix<- matrix(data = NA, nrow=(length(TrainLowScores)+1), ncol=length(as.matrix(list_test_matrix_T24_SCORE[[i]])[1,]))
-  for (j in 1:66) {
+  for (j in 1:(length(TrainLowScores)+1)) {
     T24_test_matrix[j,]<-T24_all_train_test[TrainLowScores[j],1:length(as.matrix(list_test_matrix_T24_SCORE[[i]])[1,])]
     list_test_matrix_T24_SCORE[[i]][j,]<-T24_test_matrix[j,]
   }
-  list_test_matrix_T24_SCORE[[i]][66,]<-T24_all_train_test[100+i, 1:length(as.matrix(list_test_matrix[[i]])[1,])]
+  list_test_matrix_T24_SCORE[[i]][(length(TrainLowScores)+1),]<-T24_all_train_test[100+i, 1:length(as.matrix(list_test_matrix[[i]])[1,])]
 }
 
 for (i in TestBigClassEng) { 
   T24_test_matrix<- matrix(data = NA, nrow=(length(TrainBigScores)+1), ncol=length(as.matrix(list_test_matrix_T24_SCORE[[i]])[1,]))
-  for (j in 1:36) {
+  for (j in 1:(length(TrainBigScores)+1)) {
     T24_test_matrix[j,]<-T24_all_train_test[TrainBigScores[j],1:length(as.matrix(list_test_matrix_T24_SCORE[[i]])[1,])]
     list_test_matrix_T24_SCORE[[i]][j,]<-T24_test_matrix[j,]
   }
-  list_test_matrix_T24_SCORE[[i]][36,]<-T24_all_train_test[100+i, 1:length(as.matrix(list_test_matrix[[i]])[1,])]
+  list_test_matrix_T24_SCORE[[i]][(length(TrainBigScores)+1),]<-T24_all_train_test[100+i, 1:length(as.matrix(list_test_matrix[[i]])[1,])]
 }
 
 test3<-list_test_matrix_T24_SCORE[[4]]
@@ -2429,13 +2565,13 @@ length(TestLowClassEng)
 list_test_matrix_SCORE_T24_noNA<-list()
 for (i in TestLowClassEng)
 {
-  noNA_test_matrix_T24 <- matrix(data = NA, nrow=66, ncol=length(na.omit(list_test_matrix_T24_SCORE[[i]][66,])))
+  noNA_test_matrix_T24 <- matrix(data = NA, nrow=(length(TrainLowScores)+1), ncol=length(na.omit(list_test_matrix_T24_SCORE[[i]][(length(TrainLowScores)+1),])))
   noNA_test_matrix_T24 <-na.omit(list_test_matrix_T24_SCORE[[i]])
   list_test_matrix_SCORE_T24_noNA[[i]]<-noNA_test_matrix_T24
 }
 for (i in TestBigClassEng)
 { 
-  noNA_test_matrix_T24 <- matrix(data = NA, nrow=36, ncol=length(na.omit(list_test_matrix_T24_SCORE[[i]][36,])))
+  noNA_test_matrix_T24 <- matrix(data = NA, nrow=(length(TrainBigScores)+1), ncol=length(na.omit(list_test_matrix_T24_SCORE[[i]][(length(TrainBigScores)+1),])))
   noNA_test_matrix_T24 <-na.omit(list_test_matrix_T24_SCORE[[i]])
   list_test_matrix_SCORE_T24_noNA[[i]]<-noNA_test_matrix_T24
 }
@@ -2626,10 +2762,10 @@ for (i in TestBigClassEng) {
 ###################T30 DISTANCE CALCULATION AFTER MFPCA CLASSIFICATION - START#########################
 ###################T30 DISTANCE CALCULATION AFTER MFPCA CLASSIFICATION - START#########################
 ###################T30 DISTANCE CALCULATION AFTER MFPCA CLASSIFICATION - START#########################
-T30_all_train_test<-read.csv("C:/Users/cevah/Desktop/data_for_registration/test/NEW/2-T30train_test_all.csv", header = TRUE,row.names = 1)
-T30_all_train_test
-T30_all_train_test<-as.matrix(T30_all_train_test)
-
+# T30_all_train_test<-read.csv("C:/Users/cevah/Desktop/data_for_registration/test/NEW/2-T30train_test_all.csv", header = TRUE,row.names = 1)
+# T30_all_train_test
+# T30_all_train_test<-as.matrix(T30_all_train_test)
+# 
 
 #### list for 100 test engine - all 101 x number of observation matrix
 list_test_matrix<-list()
@@ -2667,20 +2803,20 @@ for (i in TestBigClassEng)
 #### fill all lists with 100 train + row101 for related  test engine
 for (i in TestLowClassEng) { 
   T30_test_matrix<- matrix(data = NA, nrow=(length(TrainLowScores)+1), ncol=length(as.matrix(list_test_matrix_T30_SCORE[[i]])[1,]))
-  for (j in 1:66) {
+  for (j in 1:(length(TrainLowScores)+1)) {
     T30_test_matrix[j,]<-T30_all_train_test[TrainLowScores[j],1:length(as.matrix(list_test_matrix_T30_SCORE[[i]])[1,])]
     list_test_matrix_T30_SCORE[[i]][j,]<-T30_test_matrix[j,]
   }
-  list_test_matrix_T30_SCORE[[i]][66,]<-T30_all_train_test[100+i, 1:length(as.matrix(list_test_matrix[[i]])[1,])]
+  list_test_matrix_T30_SCORE[[i]][(length(TrainLowScores)+1),]<-T30_all_train_test[100+i, 1:length(as.matrix(list_test_matrix[[i]])[1,])]
 }
 
 for (i in TestBigClassEng) { 
   T30_test_matrix<- matrix(data = NA, nrow=(length(TrainBigScores)+1), ncol=length(as.matrix(list_test_matrix_T30_SCORE[[i]])[1,]))
-  for (j in 1:36) {
+  for (j in 1:(length(TrainBigScores)+1)) {
     T30_test_matrix[j,]<-T30_all_train_test[TrainBigScores[j],1:length(as.matrix(list_test_matrix_T30_SCORE[[i]])[1,])]
     list_test_matrix_T30_SCORE[[i]][j,]<-T30_test_matrix[j,]
   }
-  list_test_matrix_T30_SCORE[[i]][36,]<-T30_all_train_test[100+i, 1:length(as.matrix(list_test_matrix[[i]])[1,])]
+  list_test_matrix_T30_SCORE[[i]][(length(TrainBigScores)+1),]<-T30_all_train_test[100+i, 1:length(as.matrix(list_test_matrix[[i]])[1,])]
 }
 
 test3<-list_test_matrix_T30_SCORE[[4]]
@@ -2693,13 +2829,13 @@ length(TestLowClassEng)
 list_test_matrix_SCORE_T30_noNA<-list()
 for (i in TestLowClassEng)
 {
-  noNA_test_matrix_T30 <- matrix(data = NA, nrow=66, ncol=length(na.omit(list_test_matrix_T30_SCORE[[i]][66,])))
+  noNA_test_matrix_T30 <- matrix(data = NA, nrow=(length(TrainLowScores)+1), ncol=length(na.omit(list_test_matrix_T30_SCORE[[i]][(length(TrainLowScores)+1),])))
   noNA_test_matrix_T30 <-na.omit(list_test_matrix_T30_SCORE[[i]])
   list_test_matrix_SCORE_T30_noNA[[i]]<-noNA_test_matrix_T30
 }
 for (i in TestBigClassEng)
 { 
-  noNA_test_matrix_T30 <- matrix(data = NA, nrow=36, ncol=length(na.omit(list_test_matrix_T30_SCORE[[i]][36,])))
+  noNA_test_matrix_T30 <- matrix(data = NA, nrow=(length(TrainBigScores)+1), ncol=length(na.omit(list_test_matrix_T30_SCORE[[i]][(length(TrainBigScores)+1),])))
   noNA_test_matrix_T30 <-na.omit(list_test_matrix_T30_SCORE[[i]])
   list_test_matrix_SCORE_T30_noNA[[i]]<-noNA_test_matrix_T30
 }
@@ -2891,9 +3027,9 @@ for (i in TestBigClassEng) {
 ###################T50 DISTANCE CALCULATION AFTER MFPCA CLASSIFICATION - START#########################
 ###################T50 DISTANCE CALCULATION AFTER MFPCA CLASSIFICATION - START#########################
 
-T50_all_train_test<-read.csv("C:/Users/cevah/Desktop/data_for_registration/test/NEW/3-T50train_test_all.csv", header = TRUE,row.names = 1)
-T50_all_train_test
-T50_all_train_test<-as.matrix(T50_all_train_test)
+# T50_all_train_test<-read.csv("C:/Users/cevah/Desktop/data_for_registration/test/NEW/3-T50train_test_all.csv", header = TRUE,row.names = 1)
+# T50_all_train_test
+# T50_all_train_test<-as.matrix(T50_all_train_test)
 
 #### list for 100 test engine - all 101 x number of observation matrix
 list_test_matrix<-list()
@@ -3158,9 +3294,9 @@ for (i in TestBigClassEng) {
 ###################P30 DISTANCE CALCULATION AFTER MFPCA CLASSIFICATION - START#########################
 
 
-P30_all_train_test<-read.csv("C:/Users/cevah/Desktop/data_for_registration/test/NEW/4-P30train_test_all.csv", header = TRUE,row.names = 1)
-P30_all_train_test
-P30_all_train_test<-as.matrix(P30_all_train_test)
+# P30_all_train_test<-read.csv("C:/Users/cevah/Desktop/data_for_registration/test/NEW/4-P30train_test_all.csv", header = TRUE,row.names = 1)
+# P30_all_train_test
+# P30_all_train_test<-as.matrix(P30_all_train_test)
 
 
 
@@ -3426,9 +3562,9 @@ for (i in TestBigClassEng) {
 ###################ps30 DISTANCE CALCULATION AFTER MFPCA CLASSIFICATION - START#########################
 
 # 
-ps30_all_train_test<-read.csv("C:/Users/cevah/Desktop/data_for_registration/test/NEW/5-ps30train_test_all.csv", header = TRUE,row.names = 1)
-ps30_all_train_test
-ps30_all_train_test<-as.matrix(ps30_all_train_test)
+# ps30_all_train_test<-read.csv("C:/Users/cevah/Desktop/data_for_registration/test/NEW/5-ps30train_test_all.csv", header = TRUE,row.names = 1)
+# ps30_all_train_test
+# ps30_all_train_test<-as.matrix(ps30_all_train_test)
 
 #### list for 100 test engine - all 101 x number of observation matrix
 list_test_matrix<-list()
@@ -3693,9 +3829,9 @@ for (i in TestBigClassEng) {
 ###################phi DISTANCE CALCULATION AFTER MFPCA CLASSIFICATION - START#########################
 
 # 
-phi_all_train_test<-read.csv("C:/Users/cevah/Desktop/data_for_registration/test/NEW/6-phitrain_test_all.csv", header = TRUE,row.names = 1)
-phi_all_train_test
-phi_all_train_test<-as.matrix(phi_all_train_test)
+# phi_all_train_test<-read.csv("C:/Users/cevah/Desktop/data_for_registration/test/NEW/6-phitrain_test_all.csv", header = TRUE,row.names = 1)
+# phi_all_train_test
+# phi_all_train_test<-as.matrix(phi_all_train_test)
 
 #### list for 100 test engine - all 101 x number of observation matrix
 
@@ -3948,10 +4084,10 @@ for (i in TestBigClassEng) {
 ###################BPR DISTANCE CALCULATION AFTER MFPCA CLASSIFICATION - START#########################
 ###################BPR DISTANCE CALCULATION AFTER MFPCA CLASSIFICATION - START#########################
 ###################BPR DISTANCE CALCULATION AFTER MFPCA CLASSIFICATION - START#########################
-
-BPR_all_train_test<-read.csv("C:/Users/cevah/Desktop/data_for_registration/test/NEW/7-BPRtrain_test_all.csv", header = TRUE,row.names = 1)
-BPR_all_train_test
-BPR_all_train_test<-as.matrix(BPR_all_train_test)
+# 
+# BPR_all_train_test<-read.csv("C:/Users/cevah/Desktop/data_for_registration/test/NEW/7-BPRtrain_test_all.csv", header = TRUE,row.names = 1)
+# BPR_all_train_test
+# BPR_all_train_test<-as.matrix(BPR_all_train_test)
 
 
 #### list for 100 test engine - all 101 x number of observation matrix
@@ -3990,20 +4126,20 @@ for (i in TestBigClassEng)
 #### fill all lists with 100 train + row101 for related  test engine
 for (i in TestLowClassEng) { 
   BPR_test_matrix<- matrix(data = NA, nrow=(length(TrainLowScores)+1), ncol=length(as.matrix(list_test_matrix_BPR_SCORE[[i]])[1,]))
-  for (j in 1:66) {
+  for (j in 1:(length(TrainLowScores)+1)) {
     BPR_test_matrix[j,]<-BPR_all_train_test[TrainLowScores[j],1:length(as.matrix(list_test_matrix_BPR_SCORE[[i]])[1,])]
     list_test_matrix_BPR_SCORE[[i]][j,]<-BPR_test_matrix[j,]
   }
-  list_test_matrix_BPR_SCORE[[i]][66,]<-BPR_all_train_test[100+i, 1:length(as.matrix(list_test_matrix[[i]])[1,])]
+  list_test_matrix_BPR_SCORE[[i]][(length(TrainLowScores)+1),]<-BPR_all_train_test[100+i, 1:length(as.matrix(list_test_matrix[[i]])[1,])]
 }
 
 for (i in TestBigClassEng) { 
   BPR_test_matrix<- matrix(data = NA, nrow=(length(TrainBigScores)+1), ncol=length(as.matrix(list_test_matrix_BPR_SCORE[[i]])[1,]))
-  for (j in 1:36) {
+  for (j in 1:(length(TrainBigScores)+1)) {
     BPR_test_matrix[j,]<-BPR_all_train_test[TrainBigScores[j],1:length(as.matrix(list_test_matrix_BPR_SCORE[[i]])[1,])]
     list_test_matrix_BPR_SCORE[[i]][j,]<-BPR_test_matrix[j,]
   }
-  list_test_matrix_BPR_SCORE[[i]][36,]<-BPR_all_train_test[100+i, 1:length(as.matrix(list_test_matrix[[i]])[1,])]
+  list_test_matrix_BPR_SCORE[[i]][(length(TrainBigScores)+1),]<-BPR_all_train_test[100+i, 1:length(as.matrix(list_test_matrix[[i]])[1,])]
 }
 
 test3<-list_test_matrix_BPR_SCORE[[4]]
@@ -4016,13 +4152,13 @@ length(TestLowClassEng)
 list_test_matrix_SCORE_BPR_noNA<-list()
 for (i in TestLowClassEng)
 {
-  noNA_test_matrix_BPR <- matrix(data = NA, nrow=66, ncol=length(na.omit(list_test_matrix_BPR_SCORE[[i]][66,])))
+  noNA_test_matrix_BPR <- matrix(data = NA, nrow=(length(TrainLowScores)+1), ncol=length(na.omit(list_test_matrix_BPR_SCORE[[i]][(length(TrainLowScores)+1),])))
   noNA_test_matrix_BPR <-na.omit(list_test_matrix_BPR_SCORE[[i]])
   list_test_matrix_SCORE_BPR_noNA[[i]]<-noNA_test_matrix_BPR
 }
 for (i in TestBigClassEng)
 { 
-  noNA_test_matrix_BPR <- matrix(data = NA, nrow=36, ncol=length(na.omit(list_test_matrix_BPR_SCORE[[i]][36,])))
+  noNA_test_matrix_BPR <- matrix(data = NA, nrow=(length(TrainBigScores)+1), ncol=length(na.omit(list_test_matrix_BPR_SCORE[[i]][(length(TrainBigScores)+1),])))
   noNA_test_matrix_BPR <-na.omit(list_test_matrix_BPR_SCORE[[i]])
   list_test_matrix_SCORE_BPR_noNA[[i]]<-noNA_test_matrix_BPR
 }
@@ -4214,10 +4350,10 @@ for (i in TestBigClassEng) {
 ###################W31 DISTANCE CALCULATION AFTER MFPCA CLASSIFICATION - START#########################
 ###################W31 DISTANCE CALCULATION AFTER MFPCA CLASSIFICATION - START#########################
 
-
-W31_all_train_test<-read.csv("C:/Users/cevah/Desktop/data_for_registration/test/NEW/8-W31train_test_all.csv", header = TRUE,row.names = 1)
-W31_all_train_test
-W31_all_train_test<-as.matrix(W31_all_train_test)
+# 
+# W31_all_train_test<-read.csv("C:/Users/cevah/Desktop/data_for_registration/test/NEW/8-W31train_test_all.csv", header = TRUE,row.names = 1)
+# W31_all_train_test
+# W31_all_train_test<-as.matrix(W31_all_train_test)
 
 
 #### list for 100 test engine - all 101 x number of observation matrix
@@ -4256,20 +4392,20 @@ for (i in TestBigClassEng)
 #### fill all lists with 100 train + row101 for related  test engine
 for (i in TestLowClassEng) { 
   W31_test_matrix<- matrix(data = NA, nrow=(length(TrainLowScores)+1), ncol=length(as.matrix(list_test_matrix_W31_SCORE[[i]])[1,]))
-  for (j in 1:66) {
+  for (j in 1:(length(TrainLowScores)+1)) {
     W31_test_matrix[j,]<-W31_all_train_test[TrainLowScores[j],1:length(as.matrix(list_test_matrix_W31_SCORE[[i]])[1,])]
     list_test_matrix_W31_SCORE[[i]][j,]<-W31_test_matrix[j,]
   }
-  list_test_matrix_W31_SCORE[[i]][66,]<-W31_all_train_test[100+i, 1:length(as.matrix(list_test_matrix[[i]])[1,])]
+  list_test_matrix_W31_SCORE[[i]][(length(TrainLowScores)+1),]<-W31_all_train_test[100+i, 1:length(as.matrix(list_test_matrix[[i]])[1,])]
 }
 
 for (i in TestBigClassEng) { 
   W31_test_matrix<- matrix(data = NA, nrow=(length(TrainBigScores)+1), ncol=length(as.matrix(list_test_matrix_W31_SCORE[[i]])[1,]))
-  for (j in 1:36) {
+  for (j in 1:(length(TrainBigScores)+1)) {
     W31_test_matrix[j,]<-W31_all_train_test[TrainBigScores[j],1:length(as.matrix(list_test_matrix_W31_SCORE[[i]])[1,])]
     list_test_matrix_W31_SCORE[[i]][j,]<-W31_test_matrix[j,]
   }
-  list_test_matrix_W31_SCORE[[i]][36,]<-W31_all_train_test[100+i, 1:length(as.matrix(list_test_matrix[[i]])[1,])]
+  list_test_matrix_W31_SCORE[[i]][(length(TrainBigScores)+1),]<-W31_all_train_test[100+i, 1:length(as.matrix(list_test_matrix[[i]])[1,])]
 }
 
 test3<-list_test_matrix_W31_SCORE[[4]]
@@ -4282,13 +4418,13 @@ length(TestLowClassEng)
 list_test_matrix_SCORE_W31_noNA<-list()
 for (i in TestLowClassEng)
 {
-  noNA_test_matrix_W31 <- matrix(data = NA, nrow=66, ncol=length(na.omit(list_test_matrix_W31_SCORE[[i]][66,])))
+  noNA_test_matrix_W31 <- matrix(data = NA, nrow=(length(TrainLowScores)+1), ncol=length(na.omit(list_test_matrix_W31_SCORE[[i]][(length(TrainLowScores)+1),])))
   noNA_test_matrix_W31 <-na.omit(list_test_matrix_W31_SCORE[[i]])
   list_test_matrix_SCORE_W31_noNA[[i]]<-noNA_test_matrix_W31
 }
 for (i in TestBigClassEng)
 { 
-  noNA_test_matrix_W31 <- matrix(data = NA, nrow=36, ncol=length(na.omit(list_test_matrix_W31_SCORE[[i]][36,])))
+  noNA_test_matrix_W31 <- matrix(data = NA, nrow=(length(TrainBigScores)+1), ncol=length(na.omit(list_test_matrix_W31_SCORE[[i]][(length(TrainBigScores)+1),])))
   noNA_test_matrix_W31 <-na.omit(list_test_matrix_W31_SCORE[[i]])
   list_test_matrix_SCORE_W31_noNA[[i]]<-noNA_test_matrix_W31
 }
@@ -4482,9 +4618,9 @@ for (i in TestBigClassEng) {
 ###################W32 DISTANCE CALCULATION AFTER MFPCA CLASSIFICATION - START#########################
 
 
-W32_all_train_test<-read.csv("C:/Users/cevah/Desktop/data_for_registration/test/NEW/9-W32train_test_all.csv", header = TRUE,row.names = 1)
-W32_all_train_test
-W32_all_train_test<-as.matrix(W32_all_train_test)
+# W32_all_train_test<-read.csv("C:/Users/cevah/Desktop/data_for_registration/test/NEW/9-W32train_test_all.csv", header = TRUE,row.names = 1)
+# W32_all_train_test
+# W32_all_train_test<-as.matrix(W32_all_train_test)
 
 
 #### list for 100 test engine - all 101 x number of observation matrix
@@ -4523,20 +4659,20 @@ for (i in TestBigClassEng)
 #### fill all lists with 100 train + row101 for related  test engine
 for (i in TestLowClassEng) { 
   W32_test_matrix<- matrix(data = NA, nrow=(length(TrainLowScores)+1), ncol=length(as.matrix(list_test_matrix_W32_SCORE[[i]])[1,]))
-  for (j in 1:66) {
+  for (j in 1:(length(TrainLowScores)+1)) {
     W32_test_matrix[j,]<-W32_all_train_test[TrainLowScores[j],1:length(as.matrix(list_test_matrix_W32_SCORE[[i]])[1,])]
     list_test_matrix_W32_SCORE[[i]][j,]<-W32_test_matrix[j,]
   }
-  list_test_matrix_W32_SCORE[[i]][66,]<-W32_all_train_test[100+i, 1:length(as.matrix(list_test_matrix[[i]])[1,])]
+  list_test_matrix_W32_SCORE[[i]][(length(TrainLowScores)+1),]<-W32_all_train_test[100+i, 1:length(as.matrix(list_test_matrix[[i]])[1,])]
 }
 
 for (i in TestBigClassEng) { 
   W32_test_matrix<- matrix(data = NA, nrow=(length(TrainBigScores)+1), ncol=length(as.matrix(list_test_matrix_W32_SCORE[[i]])[1,]))
-  for (j in 1:36) {
+  for (j in 1:(length(TrainBigScores)+1)) {
     W32_test_matrix[j,]<-W32_all_train_test[TrainBigScores[j],1:length(as.matrix(list_test_matrix_W32_SCORE[[i]])[1,])]
     list_test_matrix_W32_SCORE[[i]][j,]<-W32_test_matrix[j,]
   }
-  list_test_matrix_W32_SCORE[[i]][36,]<-W32_all_train_test[100+i, 1:length(as.matrix(list_test_matrix[[i]])[1,])]
+  list_test_matrix_W32_SCORE[[i]][(length(TrainBigScores)+1),]<-W32_all_train_test[100+i, 1:length(as.matrix(list_test_matrix[[i]])[1,])]
 }
 
 test3<-list_test_matrix_W32_SCORE[[4]]
@@ -4549,13 +4685,13 @@ length(TestLowClassEng)
 list_test_matrix_SCORE_W32_noNA<-list()
 for (i in TestLowClassEng)
 {
-  noNA_test_matrix_W32 <- matrix(data = NA, nrow=66, ncol=length(na.omit(list_test_matrix_W32_SCORE[[i]][66,])))
+  noNA_test_matrix_W32 <- matrix(data = NA, nrow=(length(TrainLowScores)+1), ncol=length(na.omit(list_test_matrix_W32_SCORE[[i]][(length(TrainLowScores)+1),])))
   noNA_test_matrix_W32 <-na.omit(list_test_matrix_W32_SCORE[[i]])
   list_test_matrix_SCORE_W32_noNA[[i]]<-noNA_test_matrix_W32
 }
 for (i in TestBigClassEng)
 { 
-  noNA_test_matrix_W32 <- matrix(data = NA, nrow=36, ncol=length(na.omit(list_test_matrix_W32_SCORE[[i]][36,])))
+  noNA_test_matrix_W32 <- matrix(data = NA, nrow=(length(TrainBigScores)+1), ncol=length(na.omit(list_test_matrix_W32_SCORE[[i]][(length(TrainBigScores)+1),])))
   noNA_test_matrix_W32 <-na.omit(list_test_matrix_W32_SCORE[[i]])
   list_test_matrix_SCORE_W32_noNA[[i]]<-noNA_test_matrix_W32
 }
@@ -4998,6 +5134,30 @@ RUL_test
 RUL_test<-as.matrix(RUL_test)
 
 
+RUL_test[20,2]<-166
+RUL_test[31,2]<-176
+RUL_test[34,2]<-183
+RUL_test[35,2]<-178
+RUL_test[42,2]<-140
+RUL_test[49,2]<-273
+RUL_test[68,2]<-168
+RUL_test[76,2]<-185
+RUL_test[81,2]<-192
+RUL_test[82,2]<-146
+
+RUL_test[20,3]<-RUL_test[20,4]-RUL_test[20,2]
+RUL_test[31,3]<-RUL_test[31,4]-RUL_test[24,2]
+RUL_test[34,3]<-RUL_test[34,4]-RUL_test[34,2]
+RUL_test[35,3]<-RUL_test[35,4]-RUL_test[35,2]
+RUL_test[42,3]<-RUL_test[42,4]-RUL_test[42,2]
+RUL_test[49,3]<-RUL_test[49,4]-RUL_test[49,2]
+RUL_test[68,3]<-RUL_test[68,4]-RUL_test[68,2]
+RUL_test[76,3]<-RUL_test[76,4]-RUL_test[76,2]
+RUL_test[81,3]<-RUL_test[81,4]-RUL_test[81,2]
+RUL_test[82,3]<-RUL_test[82,4]-RUL_test[82,2]
+
+
+
 par(mfrow=c(1,1))
 par(cex.lab=cex, cex.axis=cex, cex.main=cex)
 cex=2
@@ -5027,7 +5187,7 @@ plot(TRUE_RUL_DECREASING_lowscore[,3])
 par(mfrow=c(1,1))
 par(cex.lab=cex, cex.axis=cex, cex.main=cex)
 cex=2
-no_of_closest_engine=10
+no_of_closest_engine=7
 
 LIFE_TRAIN<-read.csv("C:/Users/cevah/Desktop/data_for_registration/test/NEW/1-T24train_LIFE.csv", header = TRUE)
 LIFE_TRAIN<-as.matrix(LIFE_TRAIN)
@@ -5218,3 +5378,371 @@ sqrt(SUM_ERRORSQUAREMED/100)
 ###################RUL PREDICTION AFTER MFPCA CLASSIFICATION - FINISH#########################
 ###################RUL PREDICTION AFTER MFPCA CLASSIFICATION - FINISH#########################
 ###################RUL PREDICTION AFTER MFPCA CLASSIFICATION - FINISH#########################
+
+############ Curve Prediction starts ##############
+
+
+RUL_PREDICTION_lowscore
+RUL_PREDICTION_bigscore
+TestBigClassEngexcept49
+TestLowClassEng
+TestBigClassEng
+####curve prediction
+class(fdsmoothallT30)
+
+RUL_PREDICTION_low_big_merged<-matrix(NA, nrow = 100, ncol=10)
+
+for (i in 1:length(TestLowClassEng)) {
+  RUL_PREDICTION_low_big_merged[TestLowClassEng[i],]<-RUL_PREDICTION_lowscore[i,]
+}
+for (i in 1:length(TestBigClassEng)) {
+  RUL_PREDICTION_low_big_merged[TestBigClassEng[i],]<-RUL_PREDICTION_bigscore[i,]
+}
+
+RUL_PREDICTION_low_big_merged<-round(RUL_PREDICTION_low_big_merged,0)
+newheaderstest<- c("Engine No","No of OBS", "True RUL", "TRUE Life",
+                   "PRED Life(Mean)","Pred RUL(Mean)","RUL ERROR(Mean)",
+                   "PRED Life(Med)","Pred RUL(Med)","RUL ERROR(Med)")
+colnames(RUL_PREDICTION_low_big_merged) <- newheaderstest
+
+
+
+fdsmoothallT24<-Data2fd(argvals = newargvals, y=smoothallT24)
+fdsmoothallT24
+fdsmoothallT24$coefs<-smoothallT24
+fdsmoothallT24$basis$nbasis<-8
+fdsmoothallT24$basis$params<- c(0.2,0.4,0.6,0.8)
+fdsmoothallT24$basis$names<-c("bspl4.1","bspl4.2","bspl4.3","bspl4.4","bspl4.5","bspl4.6","bspl4.7","bspl4.8")
+fdsmoothallT24
+
+plot(fdsmoothallT24)
+
+fdsmoothallT30<-Data2fd(argvals = newargvals, y=smoothallT30)
+fdsmoothallT30
+###çok önemli smoothingi fd ye çevirdikten sonra düzeltme gerekiyor!!!!
+fdsmoothallT30$coefs<-smoothallT30
+fdsmoothallT30$basis$nbasis<-8
+fdsmoothallT30$basis$params<- c(0.2,0.4,0.6,0.8)
+fdsmoothallT30$basis$names<-c("bspl4.1","bspl4.2","bspl4.3","bspl4.4","bspl4.5","bspl4.6","bspl4.7","bspl4.8")
+fdsmoothallT30
+
+fdsmoothallT50<-Data2fd(argvals = newargvals, y=smoothallT50)
+fdsmoothallT50
+###çok önemli smoothingi fd ye çevirdikten sonra düzeltme gerekiyor!!!!
+fdsmoothallT50$coefs<-smoothallT50
+fdsmoothallT50$basis$nbasis<-8
+fdsmoothallT50$basis$params<- c(0.2,0.4,0.6,0.8)
+fdsmoothallT50$basis$names<-c("bspl4.1","bspl4.2","bspl4.3","bspl4.4","bspl4.5","bspl4.6","bspl4.7","bspl4.8")
+fdsmoothallT50
+
+fdsmoothallP30<-Data2fd(argvals = newargvals, y=smoothallP30)
+fdsmoothallP30
+###çok önemli smoothingi fd ye çevirdikten sonra düzeltme gerekiyor!!!!
+fdsmoothallP30$coefs<-smoothallP30
+fdsmoothallP30$basis$nbasis<-8
+fdsmoothallP30$basis$params<- c(0.2,0.4,0.6,0.8)
+fdsmoothallP30$basis$names<-c("bspl4.1","bspl4.2","bspl4.3","bspl4.4","bspl4.5","bspl4.6","bspl4.7","bspl4.8")
+
+fdsmoothallps30<-Data2fd(argvals = newargvals, y=smoothallps30)
+fdsmoothallps30
+###çok önemli smoothingi fd ye çevirdikten sonra düzeltme gerekiyor!!!!
+fdsmoothallps30$coefs<-smoothallps30
+fdsmoothallps30$basis$nbasis<-8
+fdsmoothallps30$basis$params<- c(0.2,0.4,0.6,0.8)
+fdsmoothallps30$basis$names<-c("bspl4.1","bspl4.2","bspl4.3","bspl4.4","bspl4.5","bspl4.6","bspl4.7","bspl4.8")
+fdsmoothallps30
+
+fdsmoothallphi<-Data2fd(argvals = newargvals, y=smoothallphi)
+fdsmoothallphi
+###çok önemli smoothingi fd ye çevirdikten sonra düzeltme gerekiyor!!!!
+fdsmoothallphi$coefs<-smoothallphi
+fdsmoothallphi$basis$nbasis<-8
+fdsmoothallphi$basis$params<- c(0.2,0.4,0.6,0.8)
+fdsmoothallphi$basis$names<-c("bspl4.1","bspl4.2","bspl4.3","bspl4.4","bspl4.5","bspl4.6","bspl4.7","bspl4.8")
+fdsmoothallphi
+
+fdsmoothallBPR<-Data2fd(argvals = newargvals, y=smoothallBPR)
+fdsmoothallBPR
+###çok önemli smoothingi fd ye çevirdikten sonra düzeltme gerekiyor!!!!
+fdsmoothallBPR$coefs<-smoothallBPR
+fdsmoothallBPR$basis$nbasis<-8
+fdsmoothallBPR$basis$params<- c(0.2,0.4,0.6,0.8)
+fdsmoothallBPR$basis$names<-c("bspl4.1","bspl4.2","bspl4.3","bspl4.4","bspl4.5","bspl4.6","bspl4.7","bspl4.8")
+fdsmoothallBPR
+
+fdsmoothallW31<-Data2fd(argvals = newargvals, y=smoothallW31)
+fdsmoothallW31
+###çok önemli smoothingi fd ye çevirdikten sonra düzeltme gerekiyor!!!!
+fdsmoothallW31$coefs<-smoothallW31
+fdsmoothallW31$basis$nbasis<-8
+fdsmoothallW31$basis$params<- c(0.2,0.4,0.6,0.8)
+fdsmoothallW31$basis$names<-c("bspl4.1","bspl4.2","bspl4.3","bspl4.4","bspl4.5","bspl4.6","bspl4.7","bspl4.8")
+fdsmoothallW31
+
+fdsmoothallW32<-Data2fd(argvals = newargvals, y=smoothallW32)
+fdsmoothallW32
+###çok önemli smoothingi fd ye çevirdikten sonra düzeltme gerekiyor!!!!
+fdsmoothallW32$coefs<-smoothallW32
+fdsmoothallW32$basis$nbasis<-8
+fdsmoothallW32$basis$params<- c(0.2,0.4,0.6,0.8)
+fdsmoothallW32$basis$names<-c("bspl4.1","bspl4.2","bspl4.3","bspl4.4","bspl4.5","bspl4.6","bspl4.7","bspl4.8")
+fdsmoothallW32
+
+funDatasmoothallT24_list<-list()
+for (i in 1:100) {
+  funDatasmoothallT24<-fd2funData(fdsmoothallT24,argvals = seq(0,1, length.out=RUL_PREDICTION_low_big_merged[i,5]))
+  funDatasmoothallT24_list[[i]]<-funDatasmoothallT24
+}
+funDatasmoothallT30_list<-list()
+for (i in 1:100) {
+  funDatasmoothallT24<-fd2funData(fdsmoothallT30,argvals = seq(0,1, length.out=RUL_PREDICTION_low_big_merged[i,5]))
+  funDatasmoothallT30_list[[i]]<-funDatasmoothallT24
+}
+funDatasmoothallT50_list<-list()
+for (i in 1:100) {
+  funDatasmoothallT50<-fd2funData(fdsmoothallT50,argvals = seq(0,1, length.out=RUL_PREDICTION_low_big_merged[i,5]))
+  funDatasmoothallT50_list[[i]]<-funDatasmoothallT50
+}
+funDatasmoothallP30_list<-list()
+for (i in 1:100) {
+  funDatasmoothallP30<-fd2funData(fdsmoothallP30,argvals = seq(0,1, length.out=RUL_PREDICTION_low_big_merged[i,5]))
+  funDatasmoothallP30_list[[i]]<-funDatasmoothallP30
+}
+funDatasmoothallps30_list<-list()
+for (i in 1:100) {
+  funDatasmoothallps30<-fd2funData(fdsmoothallps30,argvals = seq(0,1, length.out=RUL_PREDICTION_low_big_merged[i,5]))
+  funDatasmoothallps30_list[[i]]<-funDatasmoothallps30
+}
+funDatasmoothallphi_list<-list()
+for (i in 1:100) {
+  funDatasmoothallphi<-fd2funData(fdsmoothallphi,argvals = seq(0,1, length.out=RUL_PREDICTION_low_big_merged[i,5]))
+  funDatasmoothallphi_list[[i]]<-funDatasmoothallphi
+}
+funDatasmoothallBPR_list<-list()
+for (i in 1:100) {
+  funDatasmoothallBPR<-fd2funData(fdsmoothallBPR,argvals = seq(0,1, length.out=RUL_PREDICTION_low_big_merged[i,5]))
+  funDatasmoothallBPR_list[[i]]<-funDatasmoothallBPR
+}
+funDatasmoothallW31_list<-list()
+for (i in 1:100) {
+  funDatasmoothallW31<-fd2funData(fdsmoothallW31,argvals = seq(0,1, length.out=RUL_PREDICTION_low_big_merged[i,5]))
+  funDatasmoothallW31_list[[i]]<-funDatasmoothallW31
+}
+funDatasmoothallW32_list<-list()
+for (i in 1:100) {
+  funDatasmoothallW32<-fd2funData(fdsmoothallW32,argvals = seq(0,1, length.out=RUL_PREDICTION_low_big_merged[i,5]))
+  funDatasmoothallW32_list[[i]]<-funDatasmoothallW32
+}
+
+
+#curve 20'ye en yakın 10 train engine 
+as.vector(list_dist_all_sorted[[20]][2:6,1])
+
+VALUEST24<-funDatasmoothallT24@X
+VALUEST30<-funDatasmoothallT30@X
+VALUEST50<-funDatasmoothallT50@X
+VALUESP30<-funDatasmoothallP30@X
+VALUESps30<-funDatasmoothallps30@X
+VALUESphi<-funDatasmoothallphi@X
+VALUESBPR<-funDatasmoothallBPR@X
+VALUESW31<-funDatasmoothallW31@X
+VALUESW32<-funDatasmoothallW32@X
+
+predictedcurves<-list
+curve_prediction_list<-list()  
+for (j in 1:48) {
+  CURVETAHMIN<-matrix(NA,nrow = 5, ncol =(RUL_PREDICTION_low_big_merged[j,5]-RUL_PREDICTION_low_big_merged[j,2]))
+  predictedcurve<-matrix(NA,nrow = 1, ncol =(RUL_PREDICTION_low_big_merged[j,5]-RUL_PREDICTION_low_big_merged[j,2]))
+  for (i in 1:5) {
+    CURVETAHMIN[i,]<-funDatasmoothallT24_list[[j]]@X[list_dist_all_sorted[[j]][2:6,1][i],(RUL_PREDICTION_low_big_merged[j,2]+1):RUL_PREDICTION_low_big_merged[j,5]]
+  }
+  curve_prediction_list[[j]]<-CURVETAHMIN
+  tahmin<-matrix(NA,nrow = 1, ncol =(RUL_PREDICTION_low_big_merged[j,5]-RUL_PREDICTION_low_big_merged[j,2]) )  
+  for (k in 1:(RUL_PREDICTION_low_big_merged[j,5]-RUL_PREDICTION_low_big_merged[j,2])) {
+    tahmin[,k] <- mean(curve_prediction_list[[j]][,k])
+  }
+  predictedcurves[[j]]<- tahmin
+}
+
+k=1
+j=1
+
+for (j in 50:100) {
+  CURVETAHMIN<-matrix(NA,nrow = 5, ncol =(RUL_PREDICTION_low_big_merged[j,5]-RUL_PREDICTION_low_big_merged[j,2]))
+  predictedcurve<-matrix(NA,nrow = 1, ncol =(RUL_PREDICTION_low_big_merged[j,5]-RUL_PREDICTION_low_big_merged[j,2]))
+  for (i in 1:5) {
+    CURVETAHMIN[i,]<-funDatasmoothallT24_list[[j]]@X[list_dist_all_sorted[[j]][2:6,1][i],(RUL_PREDICTION_low_big_merged[j,2]+1):RUL_PREDICTION_low_big_merged[j,5]]
+  }
+  curve_prediction_list[[j]]<-CURVETAHMIN
+  tahmin<-matrix(NA,nrow = 1, ncol =(RUL_PREDICTION_low_big_merged[j,5]-RUL_PREDICTION_low_big_merged[j,2]) )  
+  for (k in 1:(RUL_PREDICTION_low_big_merged[j,5]-RUL_PREDICTION_low_big_merged[j,2])) {
+    tahmin[,k]<-mean(curve_prediction_list[[j]][,k])
+  }
+  predictedcurves[[j]]<- tahmin
+}
+
+predictedcurves
+## predicted curve list for each test engine
+
+#T24_all_train_test<-read.csv("C:/Users/cevah/Desktop/data_for_registration/test/NEW/1-T24train_test_all.csv", header = TRUE,row.names = 1)
+#T24_all_train_test
+#T24_all_train_test<-as.matrix(T24_all_train_test)
+
+T24_TEST_OBSERVED<-T24_all_train_test[101:200, 2:363]
+dim(T24_TEST_OBSERVED)
+
+T24_TEST_PREDICTED<-list()
+for (i in 1:48) {
+  T24_TEST_PREDICTED[[i]]<-cbind(t(as.matrix(na.omit(T24_TEST_OBSERVED[i,]))),as.matrix(predictedcurves[[i]])) 
+}
+for (i in 50:100) {
+  T24_TEST_PREDICTED[[i]]<-cbind(t(as.matrix(na.omit(T24_TEST_OBSERVED[i,]))),as.matrix(predictedcurves[[i]])) 
+}
+
+
+
+bsplinebasis2<- create.bspline.basis(c(0,1), 8)
+bsplinebasis2
+plot(bsplinebasis2)
+bsplinebasis
+################# separately smoothing and merging.############
+
+#A<-smooth.basis(ENGINEallArgvals,as.vector(na.omit(K[,i])),bsplinebasis2)
+#ENGINEallArgvals
+#K
+
+
+####buradaki for ile her bir datayı ayrı ayrı bspile ile smoot yapıyoruz
+smoothallT24 <- matrix(data = NA, nrow=8, ncol=100)
+for (i in 1:100) {
+  ENGINEallArgvals <-seq(0,1, length.out= length(na.omit(K[,i])))
+  smoothallT24[,i]=smooth.basis(ENGINEallArgvals,as.vector(na.omit(K[,i])),bsplinebasis2)[["fd"]][["coefs"]]
+}
+
+
+predictedcurves_smooth_matrix_T24<-matrix(data = NA, nrow=8, ncol=100)
+
+predictedcurves_smooth_list_T24<-list()
+for (j in 1:48) {
+  Smooth<- smooth.basis( argvals = seq(1,RUL_PREDICTION_low_big_merged[j,5]),
+                         y= as.vector(T24_TEST_PREDICTED[[j]]), 
+                         fdParobj = create.bspline.basis(c(1,RUL_PREDICTION_low_big_merged[j,5]),no_of_splines))
+  predictedcurves_smooth_list_T24[[j]]<-Smooth
+}
+for (j in 50:100) {
+  Smooth<- smooth.basis( argvals = seq(1,RUL_PREDICTION_low_big_merged[j,5]),
+                         y= as.vector(T24_TEST_PREDICTED[[j]]), 
+                         fdParobj = create.bspline.basis(c(1,RUL_PREDICTION_low_big_merged[j,5]),no_of_splines))
+  predictedcurves_smooth_list_T24[[j]]<-Smooth
+}
+
+TestLowClassEng
+TestBigClassEngexcept49
+#10,
+testengine=20
+T24_TEST_PREDICTED[[testengine]]
+plot(predictedcurves_smooth_list_T24[[20]] , xlim=c(0,370), ylim=c(641.7,644), col="red")
+for (i in TestLowClassEng) {
+  lines(predictedcurves_smooth_list_T24[[i]],col="red")
+}
+for (i in TestBigClassEngexcept49) {
+  lines(predictedcurves_smooth_list_T24[[i]], col="black")
+}
+lines(list_test_all_smooth_T24_Big_scores[[testengine]][[nrow(list_test_matrix_SCORE_W31_noNA[[testengine]])]], col="blue")
+
+
+T24_all_train_test<-read.csv("C:/Users/cevah/Desktop/data_for_registration/test/NEW/1-T24train_test_all.csv", header = TRUE,row.names = 1)
+T24_all_train_test
+T24_all_train_test<-as.matrix(T24_all_train_test)
+
+
+TestBigClassEng
+testengine=20
+#bigscore individual curves
+plot(c((RUL_PREDICTION_low_big_merged[testengine,2]+1):RUL_PREDICTION_low_big_merged[testengine,5]),T24_all_train_test[(testengine+100),((RUL_PREDICTION_low_big_merged[testengine,2]+1)+1):(RUL_PREDICTION_low_big_merged[testengine,5]+1)] , xlim=c(0,370), ylim=c(641.7,644), col="black")
+lines(predictedcurves_smooth_list_T24[[testengine]], col="red")
+lines(list_test_all_smooth_T24_Big_scores[[testengine]][[nrow(list_test_matrix_SCORE_W31_noNA[[testengine]])]], col="blue")
+
+testengine=31
+#bigscore individual curves
+plot(c((RUL_PREDICTION_low_big_merged[testengine,2]+1):RUL_PREDICTION_low_big_merged[testengine,5]),T24_all_train_test[(testengine+100),((RUL_PREDICTION_low_big_merged[testengine,2]+1)+1):(RUL_PREDICTION_low_big_merged[testengine,5]+1)] , xlim=c(0,370), ylim=c(641.7,644), col="black")
+lines(predictedcurves_smooth_list_T24[[testengine]], col="red")
+lines(list_test_all_smooth_T24_Big_scores[[testengine]][[nrow(list_test_matrix_SCORE_W31_noNA[[testengine]])]], col="blue")
+
+testengine=34
+#bigscore individual curves
+plot(c((RUL_PREDICTION_low_big_merged[testengine,2]+1):RUL_PREDICTION_low_big_merged[testengine,5]),T24_all_train_test[(testengine+100),((RUL_PREDICTION_low_big_merged[testengine,2]+1)+1):(RUL_PREDICTION_low_big_merged[testengine,5]+1)] , xlim=c(0,370), ylim=c(641.7,644), col="black")
+lines(predictedcurves_smooth_list_T24[[testengine]], col="red")
+lines(list_test_all_smooth_T24_Big_scores[[testengine]][[nrow(list_test_matrix_SCORE_W31_noNA[[testengine]])]], col="blue")
+
+testengine=35
+#bigscore individual curves
+plot(c((RUL_PREDICTION_low_big_merged[testengine,2]+1):RUL_PREDICTION_low_big_merged[testengine,5]),T24_all_train_test[(testengine+100),((RUL_PREDICTION_low_big_merged[testengine,2]+1)+1):(RUL_PREDICTION_low_big_merged[testengine,5]+1)] , xlim=c(0,370), ylim=c(641.7,644), col="black")
+lines(predictedcurves_smooth_list_T24[[testengine]], col="red")
+lines(list_test_all_smooth_T24_Low_scores[[testengine]][[nrow(list_test_matrix_SCORE_W31_noNA[[testengine]])]], col="blue")
+
+testengine=42
+#bigscore individual curves
+plot(c((RUL_PREDICTION_low_big_merged[testengine,2]+1):RUL_PREDICTION_low_big_merged[testengine,5]),T24_all_train_test[(testengine+100),((RUL_PREDICTION_low_big_merged[testengine,2]+1)+1):(RUL_PREDICTION_low_big_merged[testengine,5]+1)] , xlim=c(0,370), ylim=c(641.7,644), col="black")
+lines(predictedcurves_smooth_list_T24[[testengine]], col="red")
+lines(list_test_all_smooth_T24_Big_scores[[testengine]][[nrow(list_test_matrix_SCORE_W31_noNA[[testengine]])]], col="blue")
+
+testengine=49
+#bigscore individual curves
+plot(c((RUL_PREDICTION_low_big_merged[testengine,2]+1):RUL_PREDICTION_low_big_merged[testengine,5]),T24_all_train_test[(testengine+100),((RUL_PREDICTION_low_big_merged[testengine,2]+1)+1):(RUL_PREDICTION_low_big_merged[testengine,5]+1)] , xlim=c(0,370), ylim=c(641.7,644), col="black")
+lines(predictedcurves_smooth_list_T24[[testengine]], col="red")
+lines(list_test_all_smooth_T24_Low_scores[[testengine]][[nrow(list_test_matrix_SCORE_W31_noNA[[testengine]])]], col="blue")
+
+
+testengine=68
+#bigscore individual curves
+plot(c((RUL_PREDICTION_low_big_merged[testengine,2]+1):RUL_PREDICTION_low_big_merged[testengine,5]),T24_all_train_test[(testengine+100),((RUL_PREDICTION_low_big_merged[testengine,2]+1)+1):(RUL_PREDICTION_low_big_merged[testengine,5]+1)] , xlim=c(0,370), ylim=c(641.7,644), col="black")
+lines(predictedcurves_smooth_list_T24[[testengine]], col="red")
+lines(list_test_all_smooth_T24_Low_scores[[testengine]][[nrow(list_test_matrix_SCORE_W31_noNA[[testengine]])]], col="blue")
+
+
+testengine=76
+#bigscore individual curves
+plot(c((RUL_PREDICTION_low_big_merged[testengine,2]+1):RUL_PREDICTION_low_big_merged[testengine,5]),T24_all_train_test[(testengine+100),((RUL_PREDICTION_low_big_merged[testengine,2]+1)+1):(RUL_PREDICTION_low_big_merged[testengine,5]+1)] , xlim=c(0,370), ylim=c(641.7,644), col="black")
+lines(predictedcurves_smooth_list_T24[[testengine]], col="red")
+lines(list_test_all_smooth_T24_Big_scores[[testengine]][[nrow(list_test_matrix_SCORE_W31_noNA[[testengine]])]], col="blue")
+
+
+testengine=81
+#bigscore individual curves
+plot(c((RUL_PREDICTION_low_big_merged[testengine,2]+1):RUL_PREDICTION_low_big_merged[testengine,5]),T24_all_train_test[(testengine+100),((RUL_PREDICTION_low_big_merged[testengine,2]+1)+1):(RUL_PREDICTION_low_big_merged[testengine,5]+1)] , xlim=c(0,370), ylim=c(641.7,644), col="black")
+lines(predictedcurves_smooth_list_T24[[testengine]], col="red")
+lines(list_test_all_smooth_T24_Big_scores[[testengine]][[nrow(list_test_matrix_SCORE_W31_noNA[[testengine]])]], col="blue")
+
+
+testengine=82
+#bigscore individual curves
+plot(c((RUL_PREDICTION_low_big_merged[testengine,2]+1):RUL_PREDICTION_low_big_merged[testengine,5]),T24_all_train_test[(testengine+100),((RUL_PREDICTION_low_big_merged[testengine,2]+1)+1):(RUL_PREDICTION_low_big_merged[testengine,5]+1)] , xlim=c(0,370), ylim=c(641.7,644), col="black")
+lines(predictedcurves_smooth_list_T24[[testengine]], col="red")
+lines(list_test_all_smooth_T24_Big_scores[[testengine]][[nrow(list_test_matrix_SCORE_W31_noNA[[testengine]])]], col="blue")
+
+T24_all_train_test[182,]
+
+T24_all_train_test[(testengine+100),(RUL_PREDICTION_low_big_merged[testengine,2]+1):RUL_PREDICTION_low_big_merged[testengine,5]]
+
+RUL_PREDICTION_low_big_merged[testengine,5]
+
+########################################
+###tahmin edilen %90 a kadar olan aralık
+c((RUL_PREDICTION_low_big_merged[testengine,2]+1):RUL_PREDICTION_low_big_merged[testengine,5])
+true90percent_PRED_T24<-T24_all_train_test[(testengine+100),((RUL_PREDICTION_low_big_merged[testengine,2]+1)+1):(RUL_PREDICTION_low_big_merged[testengine,5]+1)]
+true90percent_PRED_T24<-na.omit(true90percent_PRED_T24)
+length(true90percent_PRED_T24)
+true90percent_PRED_T24<-as.vector(true90percent_PRED_T24)
+true90percent_PRED_T24
+
+RUL_PREDICTION_low_big_merged[testengine,2]
+
+predicted90percent_PRED_T24<-predictedcurves_smooth_list_T24[[testengine]]$y[(RUL_PREDICTION_low_big_merged[testengine,2]+1):(RUL_PREDICTION_low_big_merged[testengine,2]+length(true90percent_PRED_T24))]
+predicted90percent_PRED_T24
+
+ERRORcurve<-predicted90percent_PRED_T24-true90percent_PRED_T24
+ERRORSQ<-ERRORcurve^2
+SUMERRORSQ<-sum(ERRORSQ)
+SUMERRORSQmean<-SUMERRORSQ/length(predicted90percent_PRED_T24)
+sqrt(SUMERRORSQmean)

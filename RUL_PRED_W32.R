@@ -128,3 +128,4 @@ for (i in 1:100) {
   DISTANCE<-distance(list_for_distance_W32_reg[[i]], method = "euclidean" )
   list_distance_W32_reg[[i]]<-DISTANCE
 }
+

@@ -3144,4 +3144,10 @@ predicted90percent_PRED_T24<-predictedcurves_smooth_list_T24_UNIFPCA[[testengine
 predicted90percent_PRED_T24
 
 
+ERRORcurve<-predicted90percent_PRED_T24-true90percent_PRED_T24
+ERRORSQ<-ERRORcurve^2
+SUMERRORSQ<-sum(ERRORSQ)
+SUMERRORSQmean<-SUMERRORSQ/length(predicted90percent_PRED_T24)
+sqrt(SUMERRORSQmean)
+
 

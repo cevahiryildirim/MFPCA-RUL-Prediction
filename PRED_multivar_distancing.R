@@ -29,7 +29,7 @@ for (i in 1:100) {
   list_dist_all_sorted[[i]]<-DISTANCE
 }
 
-no_of_closest=5
+no_of_closest=8
 testengine=31
 
 par(mfrow=c(3,3))
@@ -109,7 +109,7 @@ plot(TRUE_RUL_DECREASING[,3])
 
 ####RUL Prediction
 
-no_of_closest_engine<-9
+no_of_closest_engine<-8
 
 LIFE_TRAIN<-read.csv("C:/Users/cevah/Desktop/data_for_registration/test/NEW/1-T24train_LIFE.csv", header = TRUE)
 LIFE_TRAIN<-as.matrix(LIFE_TRAIN)
@@ -184,6 +184,8 @@ ERRORSQUARE <- as.numeric(ERRORSQUARE)
 SUM_ERRORSQUARE <- sum(ERRORSQUARE)
 SUM_ERRORSQUARE/100
 sqrt(SUM_ERRORSQUARE/100)
+
+
 
 A<-3+5
 A
