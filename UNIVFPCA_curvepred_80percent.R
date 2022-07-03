@@ -2966,8 +2966,19 @@ for (j in 1:48) {
   predictedcurves_UNIFPCA[[j]]<- tahmin
 }
 
-k=1
-j=1
+for (j in 49:49) {
+  CURVETAHMIN<-matrix(NA,nrow = 4, ncol =(RUL_PREDICTION_low_big_merged_UNIFPCA[j,5]-RUL_PREDICTION_low_big_merged_UNIFPCA[j,2]))
+  predictedcurve<-matrix(NA,nrow = 1, ncol =(RUL_PREDICTION_low_big_merged_UNIFPCA[j,5]-RUL_PREDICTION_low_big_merged_UNIFPCA[j,2]))
+  for (i in 1:4) {
+    CURVETAHMIN[i,]<-funDatasmoothallT24_list_UNIFPCA[[j]]@X[list_dist_all_sorted_UNIFPCA[[j]][2:5,1][i],(RUL_PREDICTION_low_big_merged_UNIFPCA[j,2]+1):RUL_PREDICTION_low_big_merged_UNIFPCA[j,5]]
+  }
+  curve_prediction_list_UNIFPCA[[j]]<-CURVETAHMIN
+  tahmin<-matrix(NA,nrow = 1, ncol =(RUL_PREDICTION_low_big_merged_UNIFPCA[j,5]-RUL_PREDICTION_low_big_merged_UNIFPCA[j,2]) )  
+  for (k in 1:(RUL_PREDICTION_low_big_merged_UNIFPCA[j,5]-RUL_PREDICTION_low_big_merged_UNIFPCA[j,2])) {
+    tahmin[,k] <- mean(curve_prediction_list_UNIFPCA[[j]][,k])
+  }
+  predictedcurves_UNIFPCA[[j]]<- tahmin
+}
 
 for (j in 50:100) {
   CURVETAHMIN<-matrix(NA,nrow = 5, ncol =(RUL_PREDICTION_low_big_merged_UNIFPCA[j,5]-RUL_PREDICTION_low_big_merged_UNIFPCA[j,2]))

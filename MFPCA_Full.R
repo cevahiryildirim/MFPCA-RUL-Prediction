@@ -168,6 +168,69 @@ bsplinebasis2
 plot(bsplinebasis2)
 bsplinebasis
 
+bsplinebasis2<- create.bspline.basis(c(0,1), 8)
+bsplinebasis2
+plot(bsplinebasis2)
+bsplinebasis
+
+smoothallT24 <- matrix(data = NA, nrow=8, ncol=100)
+for (i in 1:100) {
+  ENGINEallArgvals <-seq(0,1, length.out= length(na.omit(tT24traindata[,i])))
+  smoothallT24[,i]=smooth.basis(ENGINEallArgvals,as.vector(na.omit(tT24traindata[,i]))/meanT24,bsplinebasis2)[["fd"]][["coefs"]]
+}
+
+smoothallT30 <- matrix(data = NA, nrow=8, ncol=100)
+for (i in 1:100) {
+  ENGINEallArgvals <-seq(0,1, length.out= length(na.omit(tT30traindata[,i])))
+  smoothallT30[,i]=smooth.basis(ENGINEallArgvals,as.vector(na.omit(tT30traindata[,i]))/meanT30,bsplinebasis2)[["fd"]][["coefs"]]
+}
+
+
+smoothallT50 <- matrix(data = NA, nrow=8, ncol=100)
+for (i in 1:100) {
+  ENGINEallArgvals <-seq(0,1, length.out= length(na.omit(tT50traindata[,i])))
+  smoothallT50[,i]=smooth.basis(ENGINEallArgvals,as.vector(na.omit(tT50traindata[,i]))/meanT50,bsplinebasis2)[["fd"]][["coefs"]]
+}
+
+
+smoothallP30 <- matrix(data = NA, nrow=8, ncol=100)
+for (i in 1:100) {
+  ENGINEallArgvals <-seq(0,1, length.out= length(na.omit(tP30traindata[,i])))
+  smoothallP30[,i]=smooth.basis(ENGINEallArgvals,as.vector(na.omit(tP30traindata[,i]))/meanP30,bsplinebasis2)[["fd"]][["coefs"]]
+}
+
+smoothallps30 <- matrix(data = NA, nrow=8, ncol=100)
+for (i in 1:100) {
+  ENGINEallArgvals <-seq(0,1, length.out= length(na.omit(tps30traindata[,i])))
+  smoothallps30[,i]=smooth.basis(ENGINEallArgvals,as.vector(na.omit(tps30traindata[,i]))/meanps30,bsplinebasis2)[["fd"]][["coefs"]]
+}
+
+smoothallphi <- matrix(data = NA, nrow=8, ncol=100)
+for (i in 1:100) {
+  ENGINEallArgvals <-seq(0,1, length.out= length(na.omit(tphitraindata[,i])))
+  smoothallphi[,i]=smooth.basis(ENGINEallArgvals,as.vector(na.omit(tphitraindata[,i]))/meanphi,bsplinebasis2)[["fd"]][["coefs"]]
+}
+
+smoothallBPR <- matrix(data = NA, nrow=8, ncol=100)
+for (i in 1:100) {
+  ENGINEallArgvals <-seq(0,1, length.out= length(na.omit(tBPRtraindata[,i])))
+  smoothallBPR[,i]=smooth.basis(ENGINEallArgvals,as.vector(na.omit(tBPRtraindata[,i]))/meanBPR,bsplinebasis2)[["fd"]][["coefs"]]
+}
+
+smoothallW31 <- matrix(data = NA, nrow=8, ncol=100)
+for (i in 1:100) {
+  ENGINEallArgvals <-seq(0,1, length.out= length(na.omit(tW31traindata[,i])))
+  smoothallW31[,i]=smooth.basis(ENGINEallArgvals,as.vector(na.omit(tW31traindata[,i]))/meanW31,bsplinebasis2)[["fd"]][["coefs"]]
+}
+
+smoothallW32 <- matrix(data = NA, nrow=8, ncol=100)
+for (i in 1:100) {
+  ENGINEallArgvals <-seq(0,1, length.out= length(na.omit(tW32traindata[,i])))
+  smoothallW32[,i]=smooth.basis(ENGINEallArgvals,as.vector(na.omit(tW32traindata[,i]))/meanW32,bsplinebasis2)[["fd"]][["coefs"]]
+}
+
+newargvals <- seq(0,1,length=8)
+
 
 
 fdsmoothallT24<-Data2fd(argvals = newargvals, y=smoothallT24)
@@ -4887,7 +4950,7 @@ for (i in c(list_dist_all_sorted[[testengine]][2:(no_of_closest+1),1]))
 lines(list_test_all_smooth_W32_Low_scores[[testengine]][[nrow(list_test_matrix_SCORE_W32_noNA[[testengine]])]], col="red")
 
 
-testengine=83
+testengine=82
 #Bigs
 par(mfrow=c(3,3))
 par(cex.lab=cex, cex.axis=cex, cex.main=cex)
@@ -5001,7 +5064,7 @@ RUL_test<-as.matrix(RUL_test)
 par(mfrow=c(1,1))
 par(cex.lab=cex, cex.axis=cex, cex.main=cex)
 cex=2
-no_of_closest_engine=6
+no_of_closest_engine=8
 TRUE_RUL_DECREASING<-RUL_test[order(RUL_test[,3],decreasing = FALSE),]
 plot(TRUE_RUL_DECREASING[,3])
 
@@ -5027,7 +5090,7 @@ plot(TRUE_RUL_DECREASING_lowscore[,3])
 par(mfrow=c(1,1))
 par(cex.lab=cex, cex.axis=cex, cex.main=cex)
 cex=2
-no_of_closest_engine=10
+
 
 LIFE_TRAIN<-read.csv("C:/Users/cevah/Desktop/data_for_registration/test/NEW/1-T24train_LIFE.csv", header = TRUE)
 LIFE_TRAIN<-as.matrix(LIFE_TRAIN)
@@ -5218,3 +5281,4 @@ sqrt(SUM_ERRORSQUAREMED/100)
 ###################RUL PREDICTION AFTER MFPCA CLASSIFICATION - FINISH#########################
 ###################RUL PREDICTION AFTER MFPCA CLASSIFICATION - FINISH#########################
 ###################RUL PREDICTION AFTER MFPCA CLASSIFICATION - FINISH#########################
+
