@@ -2950,7 +2950,7 @@ VALUESBPR<-funDatasmoothallBPR@X
 VALUESW31<-funDatasmoothallW31@X
 VALUESW32<-funDatasmoothallW32@X
 
-predictedcurves_UNIFPCA<-list
+predictedcurves_UNIFPCA<-list()
 curve_prediction_list_UNIFPCA<-list()  
 for (j in 1:48) {
   CURVETAHMIN<-matrix(NA,nrow = 5, ncol =(RUL_PREDICTION_low_big_merged_UNIFPCA[j,5]-RUL_PREDICTION_low_big_merged_UNIFPCA[j,2]))
@@ -3069,10 +3069,14 @@ T24_all_train_test
 T24_all_train_test<-as.matrix(T24_all_train_test)
 
 
+par(mfrow=c(1,1))
+par(cex.lab=cex, cex.axis=cex, cex.main=cex)
+cex=1.5
 TestBigClassEng
-testengine=20
+testengine=82
 #bigscore individual curves
-plot(c((RUL_PREDICTION_low_big_merged_UNIFPCA[testengine,2]+1):RUL_PREDICTION_low_big_merged_UNIFPCA[testengine,5]),T24_all_train_test[(testengine+100),((RUL_PREDICTION_low_big_merged_UNIFPCA[testengine,2]+1)+1):(RUL_PREDICTION_low_big_merged_UNIFPCA[testengine,5]+1)] , xlim=c(0,370), ylim=c(641.7,644), col="black")
+plot(c((RUL_PREDICTION_low_big_merged_UNIFPCA[testengine,2]+1):RUL_PREDICTION_low_big_merged_UNIFPCA[testengine,5]),T24_all_train_test[(testengine+100),((RUL_PREDICTION_low_big_merged_UNIFPCA[testengine,2]+1)+1):(RUL_PREDICTION_low_big_merged_UNIFPCA[testengine,5]+1)] , xlim=c(0,370), ylim=c(641.7,644), col="black",
+     xlab="Cycle Time" , ylab="T24 / Sensor values", main="Uni-FPCA Prediction (%80 of observation)")
 lines(predictedcurves_smooth_list_T24_UNIFPCA[[testengine]], col="red")
 lines(list_test_all_smooth_T24_Big_scores_UNIFPCA[[testengine]][[nrow(list_test_matrix_SCORE_W31_noNA_UNIFPCA[[testengine]])]], col="blue")
 
@@ -3088,9 +3092,11 @@ plot(c((RUL_PREDICTION_low_big_merged_UNIFPCA[testengine,2]+1):RUL_PREDICTION_lo
 lines(predictedcurves_smooth_list_T24_UNIFPCA[[testengine]], col="red")
 lines(list_test_all_smooth_T24_Big_scores_UNIFPCA[[testengine]][[nrow(list_test_matrix_SCORE_W31_noNA_UNIFPCA[[testengine]])]], col="blue")
 
-testengine=35
+testengine=68
 #bigscore individual curves
-plot(c((RUL_PREDICTION_low_big_merged_UNIFPCA[testengine,2]+1):RUL_PREDICTION_low_big_merged_UNIFPCA[testengine,5]),T24_all_train_test[(testengine+100),((RUL_PREDICTION_low_big_merged_UNIFPCA[testengine,2]+1)+1):(RUL_PREDICTION_low_big_merged_UNIFPCA[testengine,5]+1)] , xlim=c(0,370), ylim=c(641.7,644), col="black")
+plot(c((RUL_PREDICTION_low_big_merged_UNIFPCA[testengine,2]+1):RUL_PREDICTION_low_big_merged_UNIFPCA[testengine,5]),T24_all_train_test[(testengine+100),((RUL_PREDICTION_low_big_merged_UNIFPCA[testengine,2]+1)+1):(RUL_PREDICTION_low_big_merged_UNIFPCA[testengine,5]+1)] , xlim=c(0,370), ylim=c(641.7,644), col="black",
+     xlab="Cycle Time" , ylab="T24 / Sensor values", main="Uni-FPCA Prediction (%80 of observation)")
+lines(predictedcurves_smooth_list_T24_UNIFPCA[[testengine]], col="red")
 lines(predictedcurves_smooth_list_T24_UNIFPCA[[testengine]], col="red")
 lines(list_test_all_smooth_T24_Low_scores_UNIFPCA[[testengine]][[nrow(list_test_matrix_SCORE_W31_noNA_UNIFPCA[[testengine]])]], col="blue")
 
@@ -3159,4 +3165,32 @@ ERRORSQ<-ERRORcurve^2
 SUMERRORSQ<-sum(ERRORSQ)
 SUMERRORSQmean<-SUMERRORSQ/length(predicted90percent_PRED_T24)
 sqrt(SUMERRORSQmean)
+
+
+testengine=76
+########################################
+###tahmin edilen %90 a kadar olan aralık
+c((RUL_PREDICTION_low_big_merged_UNIFPCA[testengine,2]+1):RUL_PREDICTION_low_big_merged_UNIFPCA[testengine,5])
+true90percent_PRED_T24<-T24_all_train_test[(testengine+100),((RUL_PREDICTION_low_big_merged_UNIFPCA[testengine,2]+1)+1):(RUL_PREDICTION_low_big_merged_UNIFPCA[testengine,5]+1)]
+true90percent_PRED_T24<-na.omit(true90percent_PRED_T24)
+length(true90percent_PRED_T24)
+true90percent_PRED_T24<-as.vector(true90percent_PRED_T24)
+true90percent_PRED_T24
+
+RUL_PREDICTION_low_big_merged_UNIFPCA[testengine,2]
+
+
+
+predicted90percent_PRED_T24<-predictedcurves_smooth_list_T24_UNIFPCA[[testengine]]$y[(RUL_PREDICTION_low_big_merged_UNIFPCA[testengine,2]+1):(RUL_PREDICTION_low_big_merged_UNIFPCA[testengine,2]+length(true90percent_PRED_T24))]
+predicted90percent_PRED_T24
+
+
+ERRORcurve<-predicted90percent_PRED_T24-true90percent_PRED_T24
+ERRORSQ<-ERRORcurve^2
+SUMERRORSQ<-sum(ERRORSQ)
+SUMERRORSQ
+SUMERRORSQmean<-SUMERRORSQ/length(predicted90percent_PRED_T24)
+SUMERRORSQmean
+sqrt(SUMERRORSQmean)
+SUMERRORSQmean
 

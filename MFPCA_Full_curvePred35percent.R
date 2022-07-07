@@ -5772,6 +5772,9 @@ T24_all_train_test<-read.csv("C:/Users/cevah/Desktop/data_for_registration/test/
 T24_all_train_test
 T24_all_train_test<-as.matrix(T24_all_train_test)
 
+par(mfrow=c(1,1))
+par(cex.lab=cex, cex.axis=cex, cex.main=cex)
+cex=1.5
 TestBigClassEng
 testengine=76
 #bigscore individual curves

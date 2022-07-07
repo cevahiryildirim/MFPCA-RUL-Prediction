@@ -173,6 +173,80 @@ bsplinebasis2
 plot(bsplinebasis2)
 bsplinebasis
 
+
+T24_all_train_test<-read.csv("C:/Users/cevah/Desktop/data_for_registration/test/NEW/1-T24train_test_all.csv", header = TRUE,row.names = 1)
+T24_all_train_test
+T24_all_train_test<-as.matrix(T24_all_train_test)
+vectorT24<-as.vector(T24_all_train_test[1:100,2:363])
+vectorT24<-na.omit(vectorT24)
+mean(na.omit(vectorT24))
+meanT24<-mean(na.omit(vectorT24))
+
+T30_all_train_test<-read.csv("C:/Users/cevah/Desktop/data_for_registration/test/NEW/2-T30train_test_all.csv", header = TRUE,row.names = 1)
+T30_all_train_test
+T30_all_train_test<-as.matrix(T30_all_train_test)
+vectorT30<-as.vector(T30_all_train_test[1:100,2:363])
+vectorT30<-na.omit(vectorT30)
+mean(na.omit(vectorT30))
+meanT30<-mean(na.omit(vectorT30))
+
+T50_all_train_test<-read.csv("C:/Users/cevah/Desktop/data_for_registration/test/NEW/3-T50train_test_all.csv", header = TRUE,row.names = 1)
+T50_all_train_test
+T50_all_train_test<-as.matrix(T50_all_train_test)
+vectorT50<-as.vector(T50_all_train_test[1:100,2:363])
+vectorT50<-na.omit(vectorT50)
+mean(na.omit(vectorT50))
+meanT50<-mean(na.omit(vectorT50))
+
+P30_all_train_test<-read.csv("C:/Users/cevah/Desktop/data_for_registration/test/NEW/4-P30train_test_all.csv", header = TRUE,row.names = 1)
+P30_all_train_test
+P30_all_train_test<-as.matrix(P30_all_train_test)
+vectorP30<-as.vector(P30_all_train_test[1:100,2:363])
+vectorP30<-na.omit(vectorP30)
+mean(na.omit(vectorP30))
+meanP30<-mean(na.omit(vectorP30))
+
+ps30_all_train_test<-read.csv("C:/Users/cevah/Desktop/data_for_registration/test/NEW/5-ps30train_test_all.csv", header = TRUE,row.names = 1)
+ps30_all_train_test
+ps30_all_train_test<-as.matrix(ps30_all_train_test)
+vectorps30<-as.vector(ps30_all_train_test[1:100,2:363])
+vectorps30<-na.omit(vectorps30)
+mean(na.omit(vectorps30))
+meanps30<-mean(na.omit(vectorps30))
+
+phi_all_train_test<-read.csv("C:/Users/cevah/Desktop/data_for_registration/test/NEW/6-phitrain_test_all.csv", header = TRUE,row.names = 1)
+phi_all_train_test
+phi_all_train_test<-as.matrix(phi_all_train_test)
+vectorphi<-as.vector(phi_all_train_test[1:100,2:363])
+vectorphi<-na.omit(vectorphi)
+mean(na.omit(vectorphi))
+meanphi<-mean(na.omit(vectorphi))
+
+BPR_all_train_test<-read.csv("C:/Users/cevah/Desktop/data_for_registration/test/NEW/7-BPRtrain_test_all.csv", header = TRUE,row.names = 1)
+BPR_all_train_test
+BPR_all_train_test<-as.matrix(BPR_all_train_test)
+vectorBPR<-as.vector(BPR_all_train_test[1:100,2:363])
+vectorBPR<-na.omit(vectorBPR)
+mean(na.omit(vectorBPR))
+meanBPR<-mean(na.omit(vectorBPR))
+
+W31_all_train_test<-read.csv("C:/Users/cevah/Desktop/data_for_registration/test/NEW/8-W31train_test_all.csv", header = TRUE,row.names = 1)
+W31_all_train_test
+W31_all_train_test<-as.matrix(W31_all_train_test)
+vectorW31<-as.vector(W31_all_train_test[1:100,2:363])
+vectorW31<-na.omit(vectorW31)
+mean(na.omit(vectorW31))
+meanW31<-mean(na.omit(vectorW31))
+
+W32_all_train_test<-read.csv("C:/Users/cevah/Desktop/data_for_registration/test/NEW/9-W32train_test_all.csv", header = TRUE,row.names = 1)
+W32_all_train_test
+W32_all_train_test<-as.matrix(W32_all_train_test)
+vectorW32<-as.vector(W32_all_train_test[1:100,2:363])
+vectorW32<-na.omit(vectorW32)
+mean(na.omit(vectorW32))
+meanW32<-mean(na.omit(vectorW32))
+
+
 smoothallT24 <- matrix(data = NA, nrow=8, ncol=100)
 for (i in 1:100) {
   ENGINEallArgvals <-seq(0,1, length.out= length(na.omit(tT24traindata[,i])))
@@ -349,7 +423,7 @@ funDatasmoothallT24<-fd2funData(fdobj=fdsmoothallT24,argvals =newargvals3)
 funDatasmoothallT24
 autoplot(funDatasmoothallT24)
 class(funDatasmoothallT24)
-class(registeredargvals[[1]])
+#class(registeredargvals[[1]])
 
 ###copare is ok !!
 plot(fdsmoothallT24, main = "fd object")
@@ -588,7 +662,7 @@ ggplot2::ggplot(data = df, aes(x = PC, y = val)) +
 
 
 dfpc1 <- df[,2]
-dfpc1 <- dfpc1[1:100]
+dfpc1_100 <- dfpc1[1:100]
 dfpc1
 transformeddfpc1<- (1/(dfpc1_100+1000))
 transformeddfpc1

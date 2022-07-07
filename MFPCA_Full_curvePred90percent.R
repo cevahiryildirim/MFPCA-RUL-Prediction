@@ -170,6 +170,63 @@ bsplinebasis
 
 
 
+smoothallT24 <- matrix(data = NA, nrow=8, ncol=100)
+for (i in 1:100) {
+  ENGINEallArgvals <-seq(0,1, length.out= length(na.omit(tT24traindata[,i])))
+  smoothallT24[,i]=smooth.basis(ENGINEallArgvals,as.vector(na.omit(tT24traindata[,i]))/meanT24,bsplinebasis2)[["fd"]][["coefs"]]
+}
+
+smoothallT30 <- matrix(data = NA, nrow=8, ncol=100)
+for (i in 1:100) {
+  ENGINEallArgvals <-seq(0,1, length.out= length(na.omit(tT30traindata[,i])))
+  smoothallT30[,i]=smooth.basis(ENGINEallArgvals,as.vector(na.omit(tT30traindata[,i]))/meanT30,bsplinebasis2)[["fd"]][["coefs"]]
+}
+
+
+smoothallT50 <- matrix(data = NA, nrow=8, ncol=100)
+for (i in 1:100) {
+  ENGINEallArgvals <-seq(0,1, length.out= length(na.omit(tT50traindata[,i])))
+  smoothallT50[,i]=smooth.basis(ENGINEallArgvals,as.vector(na.omit(tT50traindata[,i]))/meanT50,bsplinebasis2)[["fd"]][["coefs"]]
+}
+
+
+smoothallP30 <- matrix(data = NA, nrow=8, ncol=100)
+for (i in 1:100) {
+  ENGINEallArgvals <-seq(0,1, length.out= length(na.omit(tP30traindata[,i])))
+  smoothallP30[,i]=smooth.basis(ENGINEallArgvals,as.vector(na.omit(tP30traindata[,i]))/meanP30,bsplinebasis2)[["fd"]][["coefs"]]
+}
+
+smoothallps30 <- matrix(data = NA, nrow=8, ncol=100)
+for (i in 1:100) {
+  ENGINEallArgvals <-seq(0,1, length.out= length(na.omit(tps30traindata[,i])))
+  smoothallps30[,i]=smooth.basis(ENGINEallArgvals,as.vector(na.omit(tps30traindata[,i]))/meanps30,bsplinebasis2)[["fd"]][["coefs"]]
+}
+
+smoothallphi <- matrix(data = NA, nrow=8, ncol=100)
+for (i in 1:100) {
+  ENGINEallArgvals <-seq(0,1, length.out= length(na.omit(tphitraindata[,i])))
+  smoothallphi[,i]=smooth.basis(ENGINEallArgvals,as.vector(na.omit(tphitraindata[,i]))/meanphi,bsplinebasis2)[["fd"]][["coefs"]]
+}
+
+smoothallBPR <- matrix(data = NA, nrow=8, ncol=100)
+for (i in 1:100) {
+  ENGINEallArgvals <-seq(0,1, length.out= length(na.omit(tBPRtraindata[,i])))
+  smoothallBPR[,i]=smooth.basis(ENGINEallArgvals,as.vector(na.omit(tBPRtraindata[,i]))/meanBPR,bsplinebasis2)[["fd"]][["coefs"]]
+}
+
+smoothallW31 <- matrix(data = NA, nrow=8, ncol=100)
+for (i in 1:100) {
+  ENGINEallArgvals <-seq(0,1, length.out= length(na.omit(tW31traindata[,i])))
+  smoothallW31[,i]=smooth.basis(ENGINEallArgvals,as.vector(na.omit(tW31traindata[,i]))/meanW31,bsplinebasis2)[["fd"]][["coefs"]]
+}
+
+smoothallW32 <- matrix(data = NA, nrow=8, ncol=100)
+for (i in 1:100) {
+  ENGINEallArgvals <-seq(0,1, length.out= length(na.omit(tW32traindata[,i])))
+  smoothallW32[,i]=smooth.basis(ENGINEallArgvals,as.vector(na.omit(tW32traindata[,i]))/meanW32,bsplinebasis2)[["fd"]][["coefs"]]
+}
+
+
 fdsmoothallT24<-Data2fd(argvals = newargvals, y=smoothallT24)
 fdsmoothallT24
 fdsmoothallT24$coefs<-smoothallT24
@@ -4939,7 +4996,7 @@ for (i in TestBigClassEng) {
 
 TestBigClassEng
 TestLowClassEng
-no_of_closest=5
+no_of_closest=8
 testengine=93
 
 #lows
@@ -5161,7 +5218,7 @@ RUL_test[82,3]<-RUL_test[82,4]-RUL_test[82,2]
 par(mfrow=c(1,1))
 par(cex.lab=cex, cex.axis=cex, cex.main=cex)
 cex=2
-no_of_closest_engine=6
+no_of_closest_engine=8
 TRUE_RUL_DECREASING<-RUL_test[order(RUL_test[,3],decreasing = FALSE),]
 plot(TRUE_RUL_DECREASING[,3])
 
@@ -5407,6 +5464,62 @@ colnames(RUL_PREDICTION_low_big_merged) <- newheaderstest
 
 
 
+smoothallT24 <- matrix(data = NA, nrow=8, ncol=100)
+for (i in 1:100) {
+  ENGINEallArgvals <-seq(0,1, length.out= length(na.omit(tT24traindata[,i])))
+  smoothallT24[,i]=smooth.basis(ENGINEallArgvals,as.vector(na.omit(tT24traindata[,i])),bsplinebasis2)[["fd"]][["coefs"]]
+}
+
+smoothallT30 <- matrix(data = NA, nrow=8, ncol=100)
+for (i in 1:100) {
+  ENGINEallArgvals <-seq(0,1, length.out= length(na.omit(tT30traindata[,i])))
+  smoothallT30[,i]=smooth.basis(ENGINEallArgvals,as.vector(na.omit(tT30traindata[,i])),bsplinebasis2)[["fd"]][["coefs"]]
+}
+
+
+smoothallT50 <- matrix(data = NA, nrow=8, ncol=100)
+for (i in 1:100) {
+  ENGINEallArgvals <-seq(0,1, length.out= length(na.omit(tT50traindata[,i])))
+  smoothallT50[,i]=smooth.basis(ENGINEallArgvals,as.vector(na.omit(tT50traindata[,i])),bsplinebasis2)[["fd"]][["coefs"]]
+}
+
+
+smoothallP30 <- matrix(data = NA, nrow=8, ncol=100)
+for (i in 1:100) {
+  ENGINEallArgvals <-seq(0,1, length.out= length(na.omit(tP30traindata[,i])))
+  smoothallP30[,i]=smooth.basis(ENGINEallArgvals,as.vector(na.omit(tP30traindata[,i])),bsplinebasis2)[["fd"]][["coefs"]]
+}
+
+smoothallps30 <- matrix(data = NA, nrow=8, ncol=100)
+for (i in 1:100) {
+  ENGINEallArgvals <-seq(0,1, length.out= length(na.omit(tps30traindata[,i])))
+  smoothallps30[,i]=smooth.basis(ENGINEallArgvals,as.vector(na.omit(tps30traindata[,i])),bsplinebasis2)[["fd"]][["coefs"]]
+}
+
+smoothallphi <- matrix(data = NA, nrow=8, ncol=100)
+for (i in 1:100) {
+  ENGINEallArgvals <-seq(0,1, length.out= length(na.omit(tphitraindata[,i])))
+  smoothallphi[,i]=smooth.basis(ENGINEallArgvals,as.vector(na.omit(tphitraindata[,i])),bsplinebasis2)[["fd"]][["coefs"]]
+}
+
+smoothallBPR <- matrix(data = NA, nrow=8, ncol=100)
+for (i in 1:100) {
+  ENGINEallArgvals <-seq(0,1, length.out= length(na.omit(tBPRtraindata[,i])))
+  smoothallBPR[,i]=smooth.basis(ENGINEallArgvals,as.vector(na.omit(tBPRtraindata[,i])),bsplinebasis2)[["fd"]][["coefs"]]
+}
+
+smoothallW31 <- matrix(data = NA, nrow=8, ncol=100)
+for (i in 1:100) {
+  ENGINEallArgvals <-seq(0,1, length.out= length(na.omit(tW31traindata[,i])))
+  smoothallW31[,i]=smooth.basis(ENGINEallArgvals,as.vector(na.omit(tW31traindata[,i])),bsplinebasis2)[["fd"]][["coefs"]]
+}
+
+smoothallW32 <- matrix(data = NA, nrow=8, ncol=100)
+for (i in 1:100) {
+  ENGINEallArgvals <-seq(0,1, length.out= length(na.omit(tW32traindata[,i])))
+  smoothallW32[,i]=smooth.basis(ENGINEallArgvals,as.vector(na.omit(tW32traindata[,i])),bsplinebasis2)[["fd"]][["coefs"]]
+}
+
 fdsmoothallT24<-Data2fd(argvals = newargvals, y=smoothallT24)
 fdsmoothallT24
 fdsmoothallT24$coefs<-smoothallT24
@@ -5535,6 +5648,7 @@ for (i in 1:100) {
 }
 
 
+
 #curve 20'ye en yakın 10 train engine 
 as.vector(list_dist_all_sorted[[20]][2:6,1])
 
@@ -5548,7 +5662,7 @@ VALUESBPR<-funDatasmoothallBPR@X
 VALUESW31<-funDatasmoothallW31@X
 VALUESW32<-funDatasmoothallW32@X
 
-predictedcurves<-list
+predictedcurves<-list()
 curve_prediction_list<-list()  
 for (j in 1:48) {
   CURVETAHMIN<-matrix(NA,nrow = 5, ncol =(RUL_PREDICTION_low_big_merged[j,5]-RUL_PREDICTION_low_big_merged[j,2]))
@@ -5655,11 +5769,15 @@ T24_all_train_test<-read.csv("C:/Users/cevah/Desktop/data_for_registration/test/
 T24_all_train_test
 T24_all_train_test<-as.matrix(T24_all_train_test)
 
+par(mfrow=c(1,1))
+cex=1.5
+par(cex.lab=cex, cex.axis=cex, cex.main=cex)
 
 TestBigClassEng
-testengine=20
+testengine=82
 #bigscore individual curves
-plot(c((RUL_PREDICTION_low_big_merged[testengine,2]+1):RUL_PREDICTION_low_big_merged[testengine,5]),T24_all_train_test[(testengine+100),((RUL_PREDICTION_low_big_merged[testengine,2]+1)+1):(RUL_PREDICTION_low_big_merged[testengine,5]+1)] , xlim=c(0,370), ylim=c(641.7,644), col="black")
+plot(c((RUL_PREDICTION_low_big_merged[testengine,2]+1):RUL_PREDICTION_low_big_merged[testengine,5]),T24_all_train_test[(testengine+100),((RUL_PREDICTION_low_big_merged[testengine,2]+1)+1):(RUL_PREDICTION_low_big_merged[testengine,5]+1)] , xlim=c(0,370), ylim=c(641.7,644), col="black",
+     xlab="Cycle Time" , ylab="T24 / Sensor values", main="MFPCA Prediction (%90 of observation)")
 lines(predictedcurves_smooth_list_T24[[testengine]], col="red")
 lines(list_test_all_smooth_T24_Big_scores[[testengine]][[nrow(list_test_matrix_SCORE_W31_noNA[[testengine]])]], col="blue")
 
@@ -5675,30 +5793,13 @@ plot(c((RUL_PREDICTION_low_big_merged[testengine,2]+1):RUL_PREDICTION_low_big_me
 lines(predictedcurves_smooth_list_T24[[testengine]], col="red")
 lines(list_test_all_smooth_T24_Big_scores[[testengine]][[nrow(list_test_matrix_SCORE_W31_noNA[[testengine]])]], col="blue")
 
-testengine=35
+testengine=76
 #bigscore individual curves
-plot(c((RUL_PREDICTION_low_big_merged[testengine,2]+1):RUL_PREDICTION_low_big_merged[testengine,5]),T24_all_train_test[(testengine+100),((RUL_PREDICTION_low_big_merged[testengine,2]+1)+1):(RUL_PREDICTION_low_big_merged[testengine,5]+1)] , xlim=c(0,370), ylim=c(641.7,644), col="black")
+plot(c((RUL_PREDICTION_low_big_merged[testengine,2]+1):RUL_PREDICTION_low_big_merged[testengine,5]),T24_all_train_test[(testengine+100),((RUL_PREDICTION_low_big_merged[testengine,2]+1)+1):(RUL_PREDICTION_low_big_merged[testengine,5]+1)] , xlim=c(0,370), ylim=c(641.7,644), col="black",
+     xlab="Cycle Time" , ylab="T24 / Sensor values", main="MFPCA Prediction (%90 of observation)")
 lines(predictedcurves_smooth_list_T24[[testengine]], col="red")
 lines(list_test_all_smooth_T24_Low_scores[[testengine]][[nrow(list_test_matrix_SCORE_W31_noNA[[testengine]])]], col="blue")
 
-testengine=42
-#bigscore individual curves
-plot(c((RUL_PREDICTION_low_big_merged[testengine,2]+1):RUL_PREDICTION_low_big_merged[testengine,5]),T24_all_train_test[(testengine+100),((RUL_PREDICTION_low_big_merged[testengine,2]+1)+1):(RUL_PREDICTION_low_big_merged[testengine,5]+1)] , xlim=c(0,370), ylim=c(641.7,644), col="black")
-lines(predictedcurves_smooth_list_T24[[testengine]], col="red")
-lines(list_test_all_smooth_T24_Big_scores[[testengine]][[nrow(list_test_matrix_SCORE_W31_noNA[[testengine]])]], col="blue")
-
-testengine=49
-#bigscore individual curves
-plot(c((RUL_PREDICTION_low_big_merged[testengine,2]+1):RUL_PREDICTION_low_big_merged[testengine,5]),T24_all_train_test[(testengine+100),((RUL_PREDICTION_low_big_merged[testengine,2]+1)+1):(RUL_PREDICTION_low_big_merged[testengine,5]+1)] , xlim=c(0,370), ylim=c(641.7,644), col="black")
-lines(predictedcurves_smooth_list_T24[[testengine]], col="red")
-lines(list_test_all_smooth_T24_Low_scores[[testengine]][[nrow(list_test_matrix_SCORE_W31_noNA[[testengine]])]], col="blue")
-
-
-testengine=68
-#bigscore individual curves
-plot(c((RUL_PREDICTION_low_big_merged[testengine,2]+1):RUL_PREDICTION_low_big_merged[testengine,5]),T24_all_train_test[(testengine+100),((RUL_PREDICTION_low_big_merged[testengine,2]+1)+1):(RUL_PREDICTION_low_big_merged[testengine,5]+1)] , xlim=c(0,370), ylim=c(641.7,644), col="black")
-lines(predictedcurves_smooth_list_T24[[testengine]], col="red")
-lines(list_test_all_smooth_T24_Low_scores[[testengine]][[nrow(list_test_matrix_SCORE_W31_noNA[[testengine]])]], col="blue")
 
 
 testengine=76
@@ -5716,17 +5817,6 @@ lines(list_test_all_smooth_T24_Big_scores[[testengine]][[nrow(list_test_matrix_S
 
 
 testengine=82
-#bigscore individual curves
-plot(c((RUL_PREDICTION_low_big_merged[testengine,2]+1):RUL_PREDICTION_low_big_merged[testengine,5]),T24_all_train_test[(testengine+100),((RUL_PREDICTION_low_big_merged[testengine,2]+1)+1):(RUL_PREDICTION_low_big_merged[testengine,5]+1)] , xlim=c(0,370), ylim=c(641.7,644), col="black")
-lines(predictedcurves_smooth_list_T24[[testengine]], col="red")
-lines(list_test_all_smooth_T24_Big_scores[[testengine]][[nrow(list_test_matrix_SCORE_W31_noNA[[testengine]])]], col="blue")
-
-T24_all_train_test[182,]
-
-T24_all_train_test[(testengine+100),(RUL_PREDICTION_low_big_merged[testengine,2]+1):RUL_PREDICTION_low_big_merged[testengine,5]]
-
-RUL_PREDICTION_low_big_merged[testengine,5]
-
 ########################################
 ###tahmin edilen %90 a kadar olan aralık
 c((RUL_PREDICTION_low_big_merged[testengine,2]+1):RUL_PREDICTION_low_big_merged[testengine,5])
@@ -5746,3 +5836,16 @@ ERRORSQ<-ERRORcurve^2
 SUMERRORSQ<-sum(ERRORSQ)
 SUMERRORSQmean<-SUMERRORSQ/length(predicted90percent_PRED_T24)
 sqrt(SUMERRORSQmean)
+
+
+
+predicted90percent_PRED_T24<-predictedcurves_smooth_list_T24[[testengine]]$y[(RUL_PREDICTION_low_big_merged[testengine,2]+1):(RUL_PREDICTION_low_big_merged[testengine,2]+length(true90percent_PRED_T24))]
+predicted90percent_PRED_T24
+
+ERRORcurve<-predicted90percent_PRED_T24-true90percent_PRED_T24
+ERRORSQ<-ERRORcurve^2
+SUMERRORSQ<-sum(ERRORSQ)
+SUMERRORSQmean<-SUMERRORSQ/length(predicted90percent_PRED_T24)
+sqrt(SUMERRORSQmean)
+SUMERRORSQmean
+

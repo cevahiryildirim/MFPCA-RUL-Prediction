@@ -33,6 +33,7 @@ T24traindata[1,1] <- 641.82
 T24traindata<-as.matrix(T24traindata)
 T24traindata<-as.numeric(T24traindata)
 T24traindata<-matrix(T24traindata,100,362)
+newheaders <- seq(c(1:362))
 colnames(T24traindata) <- newheaders
 T24traindata
 
@@ -100,7 +101,7 @@ W32traindata<-matrix(W32traindata,100,362)
 colnames(W32traindata) <- newheaders
 W32traindata
 
-
+newargvals<-seq(0,1, length.out=8)
 
 T24traindata
 tT24traindata <-  t(T24traindata)
@@ -166,7 +167,7 @@ is.numeric(argvalsforsmooth)
 bsplinebasis2<- create.bspline.basis(c(0,1), 8)
 bsplinebasis2
 plot(bsplinebasis2)
-bsplinebasis
+#bsplinebasis
 
 smoothallT24 <- matrix(data = NA, nrow=8, ncol=100)
 for (i in 1:100) {
@@ -343,7 +344,7 @@ funDatasmoothallT24<-fd2funData(fdobj=fdsmoothallT24,argvals =newargvals3)
 funDatasmoothallT24
 autoplot(funDatasmoothallT24)
 class(funDatasmoothallT24)
-class(registeredargvals[[1]])
+#class(registeredargvals[[1]])
 
 ###copare is ok !!
 plot(fdsmoothallT24, main = "fd object")
@@ -354,7 +355,7 @@ funDatasmoothallT24<-fd2funData(fdobj=fdsmoothallT24,argvals =newargvals3)
 funDatasmoothallT24
 autoplot(funDatasmoothallT24)
 class(funDatasmoothallT24)
-class(registeredargvals[[1]])
+#class(registeredargvals[[1]])
 funDatasmoothallT30<-fd2funData(fdsmoothallT30,argvals = newargvals3)
 funDatasmoothallT30
 funDatasmoothallT50<-fd2funData(fdsmoothallT50,argvals = newargvals3)
@@ -627,7 +628,12 @@ unifpcalowscoresW32
 #################################################
 #################################################
 #################################################
+dim(T24_all_train_test)
 
+vectorT24<-as.vector(T24_all_train_test[101:200,2:363])
+vectorT24<-na.omit(vectorT24)
+mean(na.omit(vectorT24))
+meanT24<-mean(na.omit(vectorT24))
 T24_all_train_test<-read.csv("C:/Users/cevah/Desktop/data_for_registration/test/NEW/1-T24train_test_all.csv", header = TRUE,row.names = 1)
 T24_all_train_test
 T24_all_train_test<-as.matrix(T24_all_train_test)
@@ -642,7 +648,7 @@ T24_all_train_test[176,74:206]<-NA
 T24_all_train_test[181,77:214]<-NA
 T24_all_train_test[182,59:163]<-NA
 
-
+T24_all_train_test[142,]
 T30_all_train_test<-read.csv("C:/Users/cevah/Desktop/data_for_registration/test/NEW/2-T30train_test_all.csv", header = TRUE,row.names = 1)
 T30_all_train_test
 T30_all_train_test<-as.matrix(T30_all_train_test)
@@ -2329,8 +2335,9 @@ testengine=93
 
 #lows
 par(mfrow=c(3,3))
-par(cex.lab=cex, cex.axis=cex, cex.main=cex)
 cex=2
+par(cex.lab=cex, cex.axis=cex, cex.main=cex)
+
 plot(list_test_all_smooth_T24_Low_scores_UNIFPCA[[testengine]][[nrow(list_test_matrix_SCORE_W32_noNA_UNIFPCA[[testengine]])]],xlim=c(0,370), ylim=c(641.7,644), xlab="Cycle Time")
 title(main="T24", cex.main=3, )
 for (i in c(list_dist_all_sorted_UNIFPCA[[testengine]][2:(no_of_closest+1),1]))
@@ -2510,7 +2517,7 @@ RUL_test[20,2]<-64
 RUL_test[31,2]<-69
 RUL_test[34,2]<-71
 RUL_test[35,2]<-69
-RUL_test[42,2]<-55
+RUL_test[42,2]<-54
 RUL_test[49,2]<-106
 RUL_test[68,2]<-65
 RUL_test[76,2]<-72
@@ -2950,7 +2957,7 @@ VALUESBPR<-funDatasmoothallBPR@X
 VALUESW31<-funDatasmoothallW31@X
 VALUESW32<-funDatasmoothallW32@X
 
-predictedcurves_UNIFPCA<-list
+predictedcurves_UNIFPCA<-list()
 curve_prediction_list_UNIFPCA<-list()  
 for (j in 1:48) {
   CURVETAHMIN<-matrix(NA,nrow = 5, ncol =(RUL_PREDICTION_low_big_merged_UNIFPCA[j,5]-RUL_PREDICTION_low_big_merged_UNIFPCA[j,2]))
@@ -2973,7 +2980,7 @@ for (j in 50:100) {
   CURVETAHMIN<-matrix(NA,nrow = 5, ncol =(RUL_PREDICTION_low_big_merged_UNIFPCA[j,5]-RUL_PREDICTION_low_big_merged_UNIFPCA[j,2]))
   predictedcurve<-matrix(NA,nrow = 1, ncol =(RUL_PREDICTION_low_big_merged_UNIFPCA[j,5]-RUL_PREDICTION_low_big_merged_UNIFPCA[j,2]))
   for (i in 1:5) {
-    CURVETAHMIN[i,]<-funDatasmoothallT24_list_UNIFPCA[[j]]@X[list_dist_all_sorted[[j]][2:6,1][i],(RUL_PREDICTION_low_big_merged_UNIFPCA[j,2]+1):RUL_PREDICTION_low_big_merged_UNIFPCA[j,5]]
+    CURVETAHMIN[i,]<-funDatasmoothallT24_list_UNIFPCA[[j]]@X[list_dist_all_sorted_UNIFPCA[[j]][2:6,1][i],(RUL_PREDICTION_low_big_merged_UNIFPCA[j,2]+1):RUL_PREDICTION_low_big_merged_UNIFPCA[j,5]]
   }
   curve_prediction_list_UNIFPCA[[j]]<-CURVETAHMIN
   tahmin<-matrix(NA,nrow = 1, ncol =(RUL_PREDICTION_low_big_merged_UNIFPCA[j,5]-RUL_PREDICTION_low_big_merged_UNIFPCA[j,2]) )  
@@ -2992,7 +2999,7 @@ predictedcurves_UNIFPCA
 
 T24_TEST_OBSERVED_UNIFPCA<-T24_all_train_test[101:200, 2:363]
 dim(T24_TEST_OBSERVED_UNIFPCA)
-
+i=42
 T24_TEST_PREDICTED_UNIFPCA<-list()
 for (i in 1:48) {
   T24_TEST_PREDICTED_UNIFPCA[[i]]<-cbind(t(as.matrix(na.omit(T24_TEST_OBSERVED_UNIFPCA[i,]))),as.matrix(predictedcurves_UNIFPCA[[i]])) 
@@ -3022,8 +3029,10 @@ for (i in 1:100) {
 }
 
 
-predictedcurves_smooth_matrix_T24_UNIFPCA<-matrix(data = NA, nrow=8, ncol=100)
+T24_TEST_PREDICTED_UNIFPCA
 
+predictedcurves_smooth_matrix_T24_UNIFPCA<-matrix(data = NA, nrow=8, ncol=100)
+j=42
 predictedcurves_smooth_list_T24_UNIFPCA<-list()
 for (j in 1:48) {
   Smooth<- smooth.basis( argvals = seq(1,RUL_PREDICTION_low_big_merged_UNIFPCA[j,5]),
@@ -3038,6 +3047,9 @@ for (j in 50:100) {
   predictedcurves_smooth_list_T24_UNIFPCA[[j]]<-Smooth
 }
 
+par(mfrow=c(1,1))
+par(cex.lab=cex, cex.axis=cex, cex.main=cex)
+cex=1
 TestLowClassEng
 TestBigClassEngexcept49
 #10,
@@ -3061,25 +3073,30 @@ T24_all_train_test<-as.matrix(T24_all_train_test)
 TestBigClassEng
 testengine=20
 #bigscore individual curves
-plot(c((RUL_PREDICTION_low_big_merged_UNIFPCA[testengine,2]+1):RUL_PREDICTION_low_big_merged_UNIFPCA[testengine,5]),T24_all_train_test[(testengine+100),((RUL_PREDICTION_low_big_merged_UNIFPCA[testengine,2]+1)+1):(RUL_PREDICTION_low_big_merged_UNIFPCA[testengine,5]+1)] , xlim=c(0,370), ylim=c(641.7,644), col="black")
+plot(c((RUL_PREDICTION_low_big_merged_UNIFPCA[testengine,2]+1):RUL_PREDICTION_low_big_merged_UNIFPCA[testengine,5]),T24_all_train_test[(testengine+100),((RUL_PREDICTION_low_big_merged_UNIFPCA[testengine,2]+1)+1):(RUL_PREDICTION_low_big_merged_UNIFPCA[testengine,5]+1)] , xlim=c(0,370), ylim=c(641.7,644), col="black",
+     xlab="Cycle Time" , ylab="T24 / Sensor values", main="Uni-FPCA Prediction (%35 of observation)")
 lines(predictedcurves_smooth_list_T24_UNIFPCA[[testengine]], col="red")
 lines(list_test_all_smooth_T24_Big_scores_UNIFPCA[[testengine]][[nrow(list_test_matrix_SCORE_W31_noNA_UNIFPCA[[testengine]])]], col="blue")
 
+
 testengine=31
 #bigscore individual curves
-plot(c((RUL_PREDICTION_low_big_merged_UNIFPCA[testengine,2]+1):RUL_PREDICTION_low_big_merged_UNIFPCA[testengine,5]),T24_all_train_test[(testengine+100),((RUL_PREDICTION_low_big_merged_UNIFPCA[testengine,2]+1)+1):(RUL_PREDICTION_low_big_merged_UNIFPCA[testengine,5]+1)] , xlim=c(0,370), ylim=c(641.7,644), col="black")
+plot(c((RUL_PREDICTION_low_big_merged_UNIFPCA[testengine,2]+1):RUL_PREDICTION_low_big_merged_UNIFPCA[testengine,5]),T24_all_train_test[(testengine+100),((RUL_PREDICTION_low_big_merged_UNIFPCA[testengine,2]+1)+1):(RUL_PREDICTION_low_big_merged_UNIFPCA[testengine,5]+1)] , xlim=c(0,370), ylim=c(641.7,644), col="black",
+     xlab="Cycle Time" , ylab="T24 / Sensor values", main="Uni-FPCA Prediction (%35 of observation)")
 lines(predictedcurves_smooth_list_T24_UNIFPCA[[testengine]], col="red")
 lines(list_test_all_smooth_T24_Big_scores_UNIFPCA[[testengine]][[nrow(list_test_matrix_SCORE_W31_noNA_UNIFPCA[[testengine]])]], col="blue")
 
 testengine=34
 #bigscore individual curves
-plot(c((RUL_PREDICTION_low_big_merged_UNIFPCA[testengine,2]+1):RUL_PREDICTION_low_big_merged_UNIFPCA[testengine,5]),T24_all_train_test[(testengine+100),((RUL_PREDICTION_low_big_merged_UNIFPCA[testengine,2]+1)+1):(RUL_PREDICTION_low_big_merged_UNIFPCA[testengine,5]+1)] , xlim=c(0,370), ylim=c(641.7,644), col="black")
+plot(c((RUL_PREDICTION_low_big_merged_UNIFPCA[testengine,2]+1):RUL_PREDICTION_low_big_merged_UNIFPCA[testengine,5]),T24_all_train_test[(testengine+100),((RUL_PREDICTION_low_big_merged_UNIFPCA[testengine,2]+1)+1):(RUL_PREDICTION_low_big_merged_UNIFPCA[testengine,5]+1)] , xlim=c(0,370), ylim=c(641.7,644), col="black",
+     xlab="Cycle Time" , ylab="T24 / Sensor values", main="Uni-FPCA Prediction (%35 of observation)")
 lines(predictedcurves_smooth_list_T24_UNIFPCA[[testengine]], col="red")
 lines(list_test_all_smooth_T24_Big_scores_UNIFPCA[[testengine]][[nrow(list_test_matrix_SCORE_W31_noNA_UNIFPCA[[testengine]])]], col="blue")
 
 testengine=35
 #bigscore individual curves
-plot(c((RUL_PREDICTION_low_big_merged_UNIFPCA[testengine,2]+1):RUL_PREDICTION_low_big_merged_UNIFPCA[testengine,5]),T24_all_train_test[(testengine+100),((RUL_PREDICTION_low_big_merged_UNIFPCA[testengine,2]+1)+1):(RUL_PREDICTION_low_big_merged_UNIFPCA[testengine,5]+1)] , xlim=c(0,370), ylim=c(641.7,644), col="black")
+plot(c((RUL_PREDICTION_low_big_merged_UNIFPCA[testengine,2]+1):RUL_PREDICTION_low_big_merged_UNIFPCA[testengine,5]),T24_all_train_test[(testengine+100),((RUL_PREDICTION_low_big_merged_UNIFPCA[testengine,2]+1)+1):(RUL_PREDICTION_low_big_merged_UNIFPCA[testengine,5]+1)] , xlim=c(0,370), ylim=c(641.7,644), col="black",
+     xlab="Cycle Time" , ylab="T24 / Sensor values", main="Uni-FPCA Prediction (%35 of observation)")
 lines(predictedcurves_smooth_list_T24_UNIFPCA[[testengine]], col="red")
 lines(list_test_all_smooth_T24_Low_scores_UNIFPCA[[testengine]][[nrow(list_test_matrix_SCORE_W31_noNA_UNIFPCA[[testengine]])]], col="blue")
 
@@ -3140,6 +3157,8 @@ true90percent_PRED_T24
 
 RUL_PREDICTION_low_big_merged_UNIFPCA[testengine,2]
 
+
+testengine=20
 predicted90percent_PRED_T24<-predictedcurves_smooth_list_T24_UNIFPCA[[testengine]]$y[(RUL_PREDICTION_low_big_merged_UNIFPCA[testengine,2]+1):(RUL_PREDICTION_low_big_merged_UNIFPCA[testengine,2]+length(true90percent_PRED_T24))]
 predicted90percent_PRED_T24
 
@@ -3147,5 +3166,8 @@ predicted90percent_PRED_T24
 ERRORcurve<-predicted90percent_PRED_T24-true90percent_PRED_T24
 ERRORSQ<-ERRORcurve^2
 SUMERRORSQ<-sum(ERRORSQ)
+SUMERRORSQ
 SUMERRORSQmean<-SUMERRORSQ/length(predicted90percent_PRED_T24)
+SUMERRORSQmean
 sqrt(SUMERRORSQmean)
+
