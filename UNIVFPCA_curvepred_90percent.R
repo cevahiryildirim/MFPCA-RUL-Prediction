@@ -2950,20 +2950,20 @@ VALUESBPR<-funDatasmoothallBPR@X
 VALUESW31<-funDatasmoothallW31@X
 VALUESW32<-funDatasmoothallW32@X
 
-predictedcurves_UNIFPCA<-list()
-curve_prediction_list_UNIFPCA<-list()  
+predictedcurves_UNIFPCA_T24<-list()
+curve_prediction_list_UNIFPCA_T24<-list()  
 for (j in 1:48) {
   CURVETAHMIN<-matrix(NA,nrow = 5, ncol =(RUL_PREDICTION_low_big_merged_UNIFPCA[j,5]-RUL_PREDICTION_low_big_merged_UNIFPCA[j,2]))
   predictedcurve<-matrix(NA,nrow = 1, ncol =(RUL_PREDICTION_low_big_merged_UNIFPCA[j,5]-RUL_PREDICTION_low_big_merged_UNIFPCA[j,2]))
   for (i in 1:5) {
     CURVETAHMIN[i,]<-funDatasmoothallT24_list_UNIFPCA[[j]]@X[list_dist_all_sorted_UNIFPCA[[j]][2:6,1][i],(RUL_PREDICTION_low_big_merged_UNIFPCA[j,2]+1):RUL_PREDICTION_low_big_merged_UNIFPCA[j,5]]
   }
-  curve_prediction_list_UNIFPCA[[j]]<-CURVETAHMIN
+  curve_prediction_list_UNIFPCA_T24[[j]]<-CURVETAHMIN
   tahmin<-matrix(NA,nrow = 1, ncol =(RUL_PREDICTION_low_big_merged_UNIFPCA[j,5]-RUL_PREDICTION_low_big_merged_UNIFPCA[j,2]) )  
   for (k in 1:(RUL_PREDICTION_low_big_merged_UNIFPCA[j,5]-RUL_PREDICTION_low_big_merged_UNIFPCA[j,2])) {
-    tahmin[,k] <- mean(curve_prediction_list_UNIFPCA[[j]][,k])
+    tahmin[,k] <- mean(curve_prediction_list_UNIFPCA_T24[[j]][,k])
   }
-  predictedcurves_UNIFPCA[[j]]<- tahmin
+  predictedcurves_UNIFPCA_T24[[j]]<- tahmin
 }
 
 for (j in 49:49) {
@@ -2972,12 +2972,12 @@ for (j in 49:49) {
   for (i in 1:4) {
     CURVETAHMIN[i,]<-funDatasmoothallT24_list_UNIFPCA[[j]]@X[list_dist_all_sorted_UNIFPCA[[j]][2:5,1][i],(RUL_PREDICTION_low_big_merged_UNIFPCA[j,2]+1):RUL_PREDICTION_low_big_merged_UNIFPCA[j,5]]
   }
-  curve_prediction_list_UNIFPCA[[j]]<-CURVETAHMIN
+  curve_prediction_list_UNIFPCA_T24[[j]]<-CURVETAHMIN
   tahmin<-matrix(NA,nrow = 1, ncol =(RUL_PREDICTION_low_big_merged_UNIFPCA[j,5]-RUL_PREDICTION_low_big_merged_UNIFPCA[j,2]) )  
   for (k in 1:(RUL_PREDICTION_low_big_merged_UNIFPCA[j,5]-RUL_PREDICTION_low_big_merged_UNIFPCA[j,2])) {
-    tahmin[,k] <- mean(curve_prediction_list_UNIFPCA[[j]][,k])
+    tahmin[,k] <- mean(curve_prediction_list_UNIFPCA_T24[[j]][,k])
   }
-  predictedcurves_UNIFPCA[[j]]<- tahmin
+  predictedcurves_UNIFPCA_T24[[j]]<- tahmin
 }
 
 for (j in 50:100) {
@@ -2986,15 +2986,374 @@ for (j in 50:100) {
   for (i in 1:5) {
     CURVETAHMIN[i,]<-funDatasmoothallT24_list_UNIFPCA[[j]]@X[list_dist_all_sorted[[j]][2:6,1][i],(RUL_PREDICTION_low_big_merged_UNIFPCA[j,2]+1):RUL_PREDICTION_low_big_merged_UNIFPCA[j,5]]
   }
-  curve_prediction_list_UNIFPCA[[j]]<-CURVETAHMIN
+  curve_prediction_list_UNIFPCA_T24[[j]]<-CURVETAHMIN
   tahmin<-matrix(NA,nrow = 1, ncol =(RUL_PREDICTION_low_big_merged_UNIFPCA[j,5]-RUL_PREDICTION_low_big_merged_UNIFPCA[j,2]) )  
   for (k in 1:(RUL_PREDICTION_low_big_merged_UNIFPCA[j,5]-RUL_PREDICTION_low_big_merged_UNIFPCA[j,2])) {
-    tahmin[,k]<-mean(curve_prediction_list_UNIFPCA[[j]][,k])
+    tahmin[,k]<-mean(curve_prediction_list_UNIFPCA_T24[[j]][,k])
   }
-  predictedcurves_UNIFPCA[[j]]<- tahmin
+  predictedcurves_UNIFPCA_T24[[j]]<- tahmin
 }
 
-predictedcurves_UNIFPCA
+
+predictedcurves_UNIFPCA_T30<-list()
+curve_prediction_list_UNIFPCA_T30<-list()  
+for (j in 1:48) {
+  CURVETAHMIN<-matrix(NA,nrow = 5, ncol =(RUL_PREDICTION_low_big_merged_UNIFPCA[j,5]-RUL_PREDICTION_low_big_merged_UNIFPCA[j,2]))
+  predictedcurve<-matrix(NA,nrow = 1, ncol =(RUL_PREDICTION_low_big_merged_UNIFPCA[j,5]-RUL_PREDICTION_low_big_merged_UNIFPCA[j,2]))
+  for (i in 1:5) {
+    CURVETAHMIN[i,]<-funDatasmoothallT30_list_UNIFPCA[[j]]@X[list_dist_all_sorted_UNIFPCA[[j]][2:6,1][i],(RUL_PREDICTION_low_big_merged_UNIFPCA[j,2]+1):RUL_PREDICTION_low_big_merged_UNIFPCA[j,5]]
+  }
+  curve_prediction_list_UNIFPCA_T30[[j]]<-CURVETAHMIN
+  tahmin<-matrix(NA,nrow = 1, ncol =(RUL_PREDICTION_low_big_merged_UNIFPCA[j,5]-RUL_PREDICTION_low_big_merged_UNIFPCA[j,2]) )  
+  for (k in 1:(RUL_PREDICTION_low_big_merged_UNIFPCA[j,5]-RUL_PREDICTION_low_big_merged_UNIFPCA[j,2])) {
+    tahmin[,k] <- mean(curve_prediction_list_UNIFPCA_T30[[j]][,k])
+  }
+  predictedcurves_UNIFPCA_T30[[j]]<- tahmin
+}
+
+for (j in 49:49) {
+  CURVETAHMIN<-matrix(NA,nrow = 4, ncol =(RUL_PREDICTION_low_big_merged_UNIFPCA[j,5]-RUL_PREDICTION_low_big_merged_UNIFPCA[j,2]))
+  predictedcurve<-matrix(NA,nrow = 1, ncol =(RUL_PREDICTION_low_big_merged_UNIFPCA[j,5]-RUL_PREDICTION_low_big_merged_UNIFPCA[j,2]))
+  for (i in 1:4) {
+    CURVETAHMIN[i,]<-funDatasmoothallT30_list_UNIFPCA[[j]]@X[list_dist_all_sorted_UNIFPCA[[j]][2:5,1][i],(RUL_PREDICTION_low_big_merged_UNIFPCA[j,2]+1):RUL_PREDICTION_low_big_merged_UNIFPCA[j,5]]
+  }
+  curve_prediction_list_UNIFPCA_T30[[j]]<-CURVETAHMIN
+  tahmin<-matrix(NA,nrow = 1, ncol =(RUL_PREDICTION_low_big_merged_UNIFPCA[j,5]-RUL_PREDICTION_low_big_merged_UNIFPCA[j,2]) )  
+  for (k in 1:(RUL_PREDICTION_low_big_merged_UNIFPCA[j,5]-RUL_PREDICTION_low_big_merged_UNIFPCA[j,2])) {
+    tahmin[,k] <- mean(curve_prediction_list_UNIFPCA_T30[[j]][,k])
+  }
+  predictedcurves_UNIFPCA_T30[[j]]<- tahmin
+}
+
+for (j in 50:100) {
+  CURVETAHMIN<-matrix(NA,nrow = 5, ncol =(RUL_PREDICTION_low_big_merged_UNIFPCA[j,5]-RUL_PREDICTION_low_big_merged_UNIFPCA[j,2]))
+  predictedcurve<-matrix(NA,nrow = 1, ncol =(RUL_PREDICTION_low_big_merged_UNIFPCA[j,5]-RUL_PREDICTION_low_big_merged_UNIFPCA[j,2]))
+  for (i in 1:5) {
+    CURVETAHMIN[i,]<-funDatasmoothallT30_list_UNIFPCA[[j]]@X[list_dist_all_sorted[[j]][2:6,1][i],(RUL_PREDICTION_low_big_merged_UNIFPCA[j,2]+1):RUL_PREDICTION_low_big_merged_UNIFPCA[j,5]]
+  }
+  curve_prediction_list_UNIFPCA_T30[[j]]<-CURVETAHMIN
+  tahmin<-matrix(NA,nrow = 1, ncol =(RUL_PREDICTION_low_big_merged_UNIFPCA[j,5]-RUL_PREDICTION_low_big_merged_UNIFPCA[j,2]) )  
+  for (k in 1:(RUL_PREDICTION_low_big_merged_UNIFPCA[j,5]-RUL_PREDICTION_low_big_merged_UNIFPCA[j,2])) {
+    tahmin[,k]<-mean(curve_prediction_list_UNIFPCA_T30[[j]][,k])
+  }
+  predictedcurves_UNIFPCA_T30[[j]]<- tahmin
+}
+
+
+predictedcurves_UNIFPCA_T50<-list()
+curve_prediction_list_UNIFPCA_T50<-list()  
+for (j in 1:48) {
+  CURVETAHMIN<-matrix(NA,nrow = 5, ncol =(RUL_PREDICTION_low_big_merged_UNIFPCA[j,5]-RUL_PREDICTION_low_big_merged_UNIFPCA[j,2]))
+  predictedcurve<-matrix(NA,nrow = 1, ncol =(RUL_PREDICTION_low_big_merged_UNIFPCA[j,5]-RUL_PREDICTION_low_big_merged_UNIFPCA[j,2]))
+  for (i in 1:5) {
+    CURVETAHMIN[i,]<-funDatasmoothallT50_list_UNIFPCA[[j]]@X[list_dist_all_sorted_UNIFPCA[[j]][2:6,1][i],(RUL_PREDICTION_low_big_merged_UNIFPCA[j,2]+1):RUL_PREDICTION_low_big_merged_UNIFPCA[j,5]]
+  }
+  curve_prediction_list_UNIFPCA_T50[[j]]<-CURVETAHMIN
+  tahmin<-matrix(NA,nrow = 1, ncol =(RUL_PREDICTION_low_big_merged_UNIFPCA[j,5]-RUL_PREDICTION_low_big_merged_UNIFPCA[j,2]) )  
+  for (k in 1:(RUL_PREDICTION_low_big_merged_UNIFPCA[j,5]-RUL_PREDICTION_low_big_merged_UNIFPCA[j,2])) {
+    tahmin[,k] <- mean(curve_prediction_list_UNIFPCA_T50[[j]][,k])
+  }
+  predictedcurves_UNIFPCA_T50[[j]]<- tahmin
+}
+
+for (j in 49:49) {
+  CURVETAHMIN<-matrix(NA,nrow = 4, ncol =(RUL_PREDICTION_low_big_merged_UNIFPCA[j,5]-RUL_PREDICTION_low_big_merged_UNIFPCA[j,2]))
+  predictedcurve<-matrix(NA,nrow = 1, ncol =(RUL_PREDICTION_low_big_merged_UNIFPCA[j,5]-RUL_PREDICTION_low_big_merged_UNIFPCA[j,2]))
+  for (i in 1:4) {
+    CURVETAHMIN[i,]<-funDatasmoothallT50_list_UNIFPCA[[j]]@X[list_dist_all_sorted_UNIFPCA[[j]][2:5,1][i],(RUL_PREDICTION_low_big_merged_UNIFPCA[j,2]+1):RUL_PREDICTION_low_big_merged_UNIFPCA[j,5]]
+  }
+  curve_prediction_list_UNIFPCA_T50[[j]]<-CURVETAHMIN
+  tahmin<-matrix(NA,nrow = 1, ncol =(RUL_PREDICTION_low_big_merged_UNIFPCA[j,5]-RUL_PREDICTION_low_big_merged_UNIFPCA[j,2]) )  
+  for (k in 1:(RUL_PREDICTION_low_big_merged_UNIFPCA[j,5]-RUL_PREDICTION_low_big_merged_UNIFPCA[j,2])) {
+    tahmin[,k] <- mean(curve_prediction_list_UNIFPCA_T50[[j]][,k])
+  }
+  predictedcurves_UNIFPCA_T50[[j]]<- tahmin
+}
+
+for (j in 50:100) {
+  CURVETAHMIN<-matrix(NA,nrow = 5, ncol =(RUL_PREDICTION_low_big_merged_UNIFPCA[j,5]-RUL_PREDICTION_low_big_merged_UNIFPCA[j,2]))
+  predictedcurve<-matrix(NA,nrow = 1, ncol =(RUL_PREDICTION_low_big_merged_UNIFPCA[j,5]-RUL_PREDICTION_low_big_merged_UNIFPCA[j,2]))
+  for (i in 1:5) {
+    CURVETAHMIN[i,]<-funDatasmoothallT50_list_UNIFPCA[[j]]@X[list_dist_all_sorted[[j]][2:6,1][i],(RUL_PREDICTION_low_big_merged_UNIFPCA[j,2]+1):RUL_PREDICTION_low_big_merged_UNIFPCA[j,5]]
+  }
+  curve_prediction_list_UNIFPCA_T50[[j]]<-CURVETAHMIN
+  tahmin<-matrix(NA,nrow = 1, ncol =(RUL_PREDICTION_low_big_merged_UNIFPCA[j,5]-RUL_PREDICTION_low_big_merged_UNIFPCA[j,2]) )  
+  for (k in 1:(RUL_PREDICTION_low_big_merged_UNIFPCA[j,5]-RUL_PREDICTION_low_big_merged_UNIFPCA[j,2])) {
+    tahmin[,k]<-mean(curve_prediction_list_UNIFPCA_T50[[j]][,k])
+  }
+  predictedcurves_UNIFPCA_T50[[j]]<- tahmin
+}
+
+
+predictedcurves_UNIFPCA_P30<-list()
+curve_prediction_list_UNIFPCA_P30<-list()  
+for (j in 1:48) {
+  CURVETAHMIN<-matrix(NA,nrow = 5, ncol =(RUL_PREDICTION_low_big_merged_UNIFPCA[j,5]-RUL_PREDICTION_low_big_merged_UNIFPCA[j,2]))
+  predictedcurve<-matrix(NA,nrow = 1, ncol =(RUL_PREDICTION_low_big_merged_UNIFPCA[j,5]-RUL_PREDICTION_low_big_merged_UNIFPCA[j,2]))
+  for (i in 1:5) {
+    CURVETAHMIN[i,]<-funDatasmoothallP30_list_UNIFPCA[[j]]@X[list_dist_all_sorted_UNIFPCA[[j]][2:6,1][i],(RUL_PREDICTION_low_big_merged_UNIFPCA[j,2]+1):RUL_PREDICTION_low_big_merged_UNIFPCA[j,5]]
+  }
+  curve_prediction_list_UNIFPCA_P30[[j]]<-CURVETAHMIN
+  tahmin<-matrix(NA,nrow = 1, ncol =(RUL_PREDICTION_low_big_merged_UNIFPCA[j,5]-RUL_PREDICTION_low_big_merged_UNIFPCA[j,2]) )  
+  for (k in 1:(RUL_PREDICTION_low_big_merged_UNIFPCA[j,5]-RUL_PREDICTION_low_big_merged_UNIFPCA[j,2])) {
+    tahmin[,k] <- mean(curve_prediction_list_UNIFPCA_P30[[j]][,k])
+  }
+  predictedcurves_UNIFPCA_P30[[j]]<- tahmin
+}
+
+for (j in 49:49) {
+  CURVETAHMIN<-matrix(NA,nrow = 4, ncol =(RUL_PREDICTION_low_big_merged_UNIFPCA[j,5]-RUL_PREDICTION_low_big_merged_UNIFPCA[j,2]))
+  predictedcurve<-matrix(NA,nrow = 1, ncol =(RUL_PREDICTION_low_big_merged_UNIFPCA[j,5]-RUL_PREDICTION_low_big_merged_UNIFPCA[j,2]))
+  for (i in 1:4) {
+    CURVETAHMIN[i,]<-funDatasmoothallP30_list_UNIFPCA[[j]]@X[list_dist_all_sorted_UNIFPCA[[j]][2:5,1][i],(RUL_PREDICTION_low_big_merged_UNIFPCA[j,2]+1):RUL_PREDICTION_low_big_merged_UNIFPCA[j,5]]
+  }
+  curve_prediction_list_UNIFPCA_P30[[j]]<-CURVETAHMIN
+  tahmin<-matrix(NA,nrow = 1, ncol =(RUL_PREDICTION_low_big_merged_UNIFPCA[j,5]-RUL_PREDICTION_low_big_merged_UNIFPCA[j,2]) )  
+  for (k in 1:(RUL_PREDICTION_low_big_merged_UNIFPCA[j,5]-RUL_PREDICTION_low_big_merged_UNIFPCA[j,2])) {
+    tahmin[,k] <- mean(curve_prediction_list_UNIFPCA_P30[[j]][,k])
+  }
+  predictedcurves_UNIFPCA_P30[[j]]<- tahmin
+}
+
+for (j in 50:100) {
+  CURVETAHMIN<-matrix(NA,nrow = 5, ncol =(RUL_PREDICTION_low_big_merged_UNIFPCA[j,5]-RUL_PREDICTION_low_big_merged_UNIFPCA[j,2]))
+  predictedcurve<-matrix(NA,nrow = 1, ncol =(RUL_PREDICTION_low_big_merged_UNIFPCA[j,5]-RUL_PREDICTION_low_big_merged_UNIFPCA[j,2]))
+  for (i in 1:5) {
+    CURVETAHMIN[i,]<-funDatasmoothallP30_list_UNIFPCA[[j]]@X[list_dist_all_sorted[[j]][2:6,1][i],(RUL_PREDICTION_low_big_merged_UNIFPCA[j,2]+1):RUL_PREDICTION_low_big_merged_UNIFPCA[j,5]]
+  }
+  curve_prediction_list_UNIFPCA_P30[[j]]<-CURVETAHMIN
+  tahmin<-matrix(NA,nrow = 1, ncol =(RUL_PREDICTION_low_big_merged_UNIFPCA[j,5]-RUL_PREDICTION_low_big_merged_UNIFPCA[j,2]) )  
+  for (k in 1:(RUL_PREDICTION_low_big_merged_UNIFPCA[j,5]-RUL_PREDICTION_low_big_merged_UNIFPCA[j,2])) {
+    tahmin[,k]<-mean(curve_prediction_list_UNIFPCA_P30[[j]][,k])
+  }
+  predictedcurves_UNIFPCA_P30[[j]]<- tahmin
+}
+
+predictedcurves_UNIFPCA_ps30<-list()
+curve_prediction_list_UNIFPCA_ps30<-list()  
+for (j in 1:48) {
+  CURVETAHMIN<-matrix(NA,nrow = 5, ncol =(RUL_PREDICTION_low_big_merged_UNIFPCA[j,5]-RUL_PREDICTION_low_big_merged_UNIFPCA[j,2]))
+  predictedcurve<-matrix(NA,nrow = 1, ncol =(RUL_PREDICTION_low_big_merged_UNIFPCA[j,5]-RUL_PREDICTION_low_big_merged_UNIFPCA[j,2]))
+  for (i in 1:5) {
+    CURVETAHMIN[i,]<-funDatasmoothallps30_list_UNIFPCA[[j]]@X[list_dist_all_sorted_UNIFPCA[[j]][2:6,1][i],(RUL_PREDICTION_low_big_merged_UNIFPCA[j,2]+1):RUL_PREDICTION_low_big_merged_UNIFPCA[j,5]]
+  }
+  curve_prediction_list_UNIFPCA_ps30[[j]]<-CURVETAHMIN
+  tahmin<-matrix(NA,nrow = 1, ncol =(RUL_PREDICTION_low_big_merged_UNIFPCA[j,5]-RUL_PREDICTION_low_big_merged_UNIFPCA[j,2]) )  
+  for (k in 1:(RUL_PREDICTION_low_big_merged_UNIFPCA[j,5]-RUL_PREDICTION_low_big_merged_UNIFPCA[j,2])) {
+    tahmin[,k] <- mean(curve_prediction_list_UNIFPCA_ps30[[j]][,k])
+  }
+  predictedcurves_UNIFPCA_ps30[[j]]<- tahmin
+}
+
+for (j in 49:49) {
+  CURVETAHMIN<-matrix(NA,nrow = 4, ncol =(RUL_PREDICTION_low_big_merged_UNIFPCA[j,5]-RUL_PREDICTION_low_big_merged_UNIFPCA[j,2]))
+  predictedcurve<-matrix(NA,nrow = 1, ncol =(RUL_PREDICTION_low_big_merged_UNIFPCA[j,5]-RUL_PREDICTION_low_big_merged_UNIFPCA[j,2]))
+  for (i in 1:4) {
+    CURVETAHMIN[i,]<-funDatasmoothallps30_list_UNIFPCA[[j]]@X[list_dist_all_sorted_UNIFPCA[[j]][2:5,1][i],(RUL_PREDICTION_low_big_merged_UNIFPCA[j,2]+1):RUL_PREDICTION_low_big_merged_UNIFPCA[j,5]]
+  }
+  curve_prediction_list_UNIFPCA_ps30[[j]]<-CURVETAHMIN
+  tahmin<-matrix(NA,nrow = 1, ncol =(RUL_PREDICTION_low_big_merged_UNIFPCA[j,5]-RUL_PREDICTION_low_big_merged_UNIFPCA[j,2]) )  
+  for (k in 1:(RUL_PREDICTION_low_big_merged_UNIFPCA[j,5]-RUL_PREDICTION_low_big_merged_UNIFPCA[j,2])) {
+    tahmin[,k] <- mean(curve_prediction_list_UNIFPCA_ps30[[j]][,k])
+  }
+  predictedcurves_UNIFPCA_ps30[[j]]<- tahmin
+}
+
+for (j in 50:100) {
+  CURVETAHMIN<-matrix(NA,nrow = 5, ncol =(RUL_PREDICTION_low_big_merged_UNIFPCA[j,5]-RUL_PREDICTION_low_big_merged_UNIFPCA[j,2]))
+  predictedcurve<-matrix(NA,nrow = 1, ncol =(RUL_PREDICTION_low_big_merged_UNIFPCA[j,5]-RUL_PREDICTION_low_big_merged_UNIFPCA[j,2]))
+  for (i in 1:5) {
+    CURVETAHMIN[i,]<-funDatasmoothallps30_list_UNIFPCA[[j]]@X[list_dist_all_sorted[[j]][2:6,1][i],(RUL_PREDICTION_low_big_merged_UNIFPCA[j,2]+1):RUL_PREDICTION_low_big_merged_UNIFPCA[j,5]]
+  }
+  curve_prediction_list_UNIFPCA_ps30[[j]]<-CURVETAHMIN
+  tahmin<-matrix(NA,nrow = 1, ncol =(RUL_PREDICTION_low_big_merged_UNIFPCA[j,5]-RUL_PREDICTION_low_big_merged_UNIFPCA[j,2]) )  
+  for (k in 1:(RUL_PREDICTION_low_big_merged_UNIFPCA[j,5]-RUL_PREDICTION_low_big_merged_UNIFPCA[j,2])) {
+    tahmin[,k]<-mean(curve_prediction_list_UNIFPCA_ps30[[j]][,k])
+  }
+  predictedcurves_UNIFPCA_ps30[[j]]<- tahmin
+}
+
+
+predictedcurves_UNIFPCA_phi<-list()
+curve_prediction_list_UNIFPCA_phi<-list()  
+for (j in 1:48) {
+  CURVETAHMIN<-matrix(NA,nrow = 5, ncol =(RUL_PREDICTION_low_big_merged_UNIFPCA[j,5]-RUL_PREDICTION_low_big_merged_UNIFPCA[j,2]))
+  predictedcurve<-matrix(NA,nrow = 1, ncol =(RUL_PREDICTION_low_big_merged_UNIFPCA[j,5]-RUL_PREDICTION_low_big_merged_UNIFPCA[j,2]))
+  for (i in 1:5) {
+    CURVETAHMIN[i,]<-funDatasmoothallphi_list_UNIFPCA[[j]]@X[list_dist_all_sorted_UNIFPCA[[j]][2:6,1][i],(RUL_PREDICTION_low_big_merged_UNIFPCA[j,2]+1):RUL_PREDICTION_low_big_merged_UNIFPCA[j,5]]
+  }
+  curve_prediction_list_UNIFPCA_phi[[j]]<-CURVETAHMIN
+  tahmin<-matrix(NA,nrow = 1, ncol =(RUL_PREDICTION_low_big_merged_UNIFPCA[j,5]-RUL_PREDICTION_low_big_merged_UNIFPCA[j,2]) )  
+  for (k in 1:(RUL_PREDICTION_low_big_merged_UNIFPCA[j,5]-RUL_PREDICTION_low_big_merged_UNIFPCA[j,2])) {
+    tahmin[,k] <- mean(curve_prediction_list_UNIFPCA_phi[[j]][,k])
+  }
+  predictedcurves_UNIFPCA_phi[[j]]<- tahmin
+}
+
+for (j in 49:49) {
+  CURVETAHMIN<-matrix(NA,nrow = 4, ncol =(RUL_PREDICTION_low_big_merged_UNIFPCA[j,5]-RUL_PREDICTION_low_big_merged_UNIFPCA[j,2]))
+  predictedcurve<-matrix(NA,nrow = 1, ncol =(RUL_PREDICTION_low_big_merged_UNIFPCA[j,5]-RUL_PREDICTION_low_big_merged_UNIFPCA[j,2]))
+  for (i in 1:4) {
+    CURVETAHMIN[i,]<-funDatasmoothallphi_list_UNIFPCA[[j]]@X[list_dist_all_sorted_UNIFPCA[[j]][2:5,1][i],(RUL_PREDICTION_low_big_merged_UNIFPCA[j,2]+1):RUL_PREDICTION_low_big_merged_UNIFPCA[j,5]]
+  }
+  curve_prediction_list_UNIFPCA_phi[[j]]<-CURVETAHMIN
+  tahmin<-matrix(NA,nrow = 1, ncol =(RUL_PREDICTION_low_big_merged_UNIFPCA[j,5]-RUL_PREDICTION_low_big_merged_UNIFPCA[j,2]) )  
+  for (k in 1:(RUL_PREDICTION_low_big_merged_UNIFPCA[j,5]-RUL_PREDICTION_low_big_merged_UNIFPCA[j,2])) {
+    tahmin[,k] <- mean(curve_prediction_list_UNIFPCA_phi[[j]][,k])
+  }
+  predictedcurves_UNIFPCA_phi[[j]]<- tahmin
+}
+
+for (j in 50:100) {
+  CURVETAHMIN<-matrix(NA,nrow = 5, ncol =(RUL_PREDICTION_low_big_merged_UNIFPCA[j,5]-RUL_PREDICTION_low_big_merged_UNIFPCA[j,2]))
+  predictedcurve<-matrix(NA,nrow = 1, ncol =(RUL_PREDICTION_low_big_merged_UNIFPCA[j,5]-RUL_PREDICTION_low_big_merged_UNIFPCA[j,2]))
+  for (i in 1:5) {
+    CURVETAHMIN[i,]<-funDatasmoothallphi_list_UNIFPCA[[j]]@X[list_dist_all_sorted[[j]][2:6,1][i],(RUL_PREDICTION_low_big_merged_UNIFPCA[j,2]+1):RUL_PREDICTION_low_big_merged_UNIFPCA[j,5]]
+  }
+  curve_prediction_list_UNIFPCA_phi[[j]]<-CURVETAHMIN
+  tahmin<-matrix(NA,nrow = 1, ncol =(RUL_PREDICTION_low_big_merged_UNIFPCA[j,5]-RUL_PREDICTION_low_big_merged_UNIFPCA[j,2]) )  
+  for (k in 1:(RUL_PREDICTION_low_big_merged_UNIFPCA[j,5]-RUL_PREDICTION_low_big_merged_UNIFPCA[j,2])) {
+    tahmin[,k]<-mean(curve_prediction_list_UNIFPCA_phi[[j]][,k])
+  }
+  predictedcurves_UNIFPCA_phi[[j]]<- tahmin
+}
+
+
+predictedcurves_UNIFPCA_BPR<-list()
+curve_prediction_list_UNIFPCA_BPR<-list()  
+for (j in 1:48) {
+  CURVETAHMIN<-matrix(NA,nrow = 5, ncol =(RUL_PREDICTION_low_big_merged_UNIFPCA[j,5]-RUL_PREDICTION_low_big_merged_UNIFPCA[j,2]))
+  predictedcurve<-matrix(NA,nrow = 1, ncol =(RUL_PREDICTION_low_big_merged_UNIFPCA[j,5]-RUL_PREDICTION_low_big_merged_UNIFPCA[j,2]))
+  for (i in 1:5) {
+    CURVETAHMIN[i,]<-funDatasmoothallBPR_list_UNIFPCA[[j]]@X[list_dist_all_sorted_UNIFPCA[[j]][2:6,1][i],(RUL_PREDICTION_low_big_merged_UNIFPCA[j,2]+1):RUL_PREDICTION_low_big_merged_UNIFPCA[j,5]]
+  }
+  curve_prediction_list_UNIFPCA_BPR[[j]]<-CURVETAHMIN
+  tahmin<-matrix(NA,nrow = 1, ncol =(RUL_PREDICTION_low_big_merged_UNIFPCA[j,5]-RUL_PREDICTION_low_big_merged_UNIFPCA[j,2]) )  
+  for (k in 1:(RUL_PREDICTION_low_big_merged_UNIFPCA[j,5]-RUL_PREDICTION_low_big_merged_UNIFPCA[j,2])) {
+    tahmin[,k] <- mean(curve_prediction_list_UNIFPCA_BPR[[j]][,k])
+  }
+  predictedcurves_UNIFPCA_BPR[[j]]<- tahmin
+}
+
+for (j in 49:49) {
+  CURVETAHMIN<-matrix(NA,nrow = 4, ncol =(RUL_PREDICTION_low_big_merged_UNIFPCA[j,5]-RUL_PREDICTION_low_big_merged_UNIFPCA[j,2]))
+  predictedcurve<-matrix(NA,nrow = 1, ncol =(RUL_PREDICTION_low_big_merged_UNIFPCA[j,5]-RUL_PREDICTION_low_big_merged_UNIFPCA[j,2]))
+  for (i in 1:4) {
+    CURVETAHMIN[i,]<-funDatasmoothallBPR_list_UNIFPCA[[j]]@X[list_dist_all_sorted_UNIFPCA[[j]][2:5,1][i],(RUL_PREDICTION_low_big_merged_UNIFPCA[j,2]+1):RUL_PREDICTION_low_big_merged_UNIFPCA[j,5]]
+  }
+  curve_prediction_list_UNIFPCA_BPR[[j]]<-CURVETAHMIN
+  tahmin<-matrix(NA,nrow = 1, ncol =(RUL_PREDICTION_low_big_merged_UNIFPCA[j,5]-RUL_PREDICTION_low_big_merged_UNIFPCA[j,2]) )  
+  for (k in 1:(RUL_PREDICTION_low_big_merged_UNIFPCA[j,5]-RUL_PREDICTION_low_big_merged_UNIFPCA[j,2])) {
+    tahmin[,k] <- mean(curve_prediction_list_UNIFPCA_BPR[[j]][,k])
+  }
+  predictedcurves_UNIFPCA_BPR[[j]]<- tahmin
+}
+
+for (j in 50:100) {
+  CURVETAHMIN<-matrix(NA,nrow = 5, ncol =(RUL_PREDICTION_low_big_merged_UNIFPCA[j,5]-RUL_PREDICTION_low_big_merged_UNIFPCA[j,2]))
+  predictedcurve<-matrix(NA,nrow = 1, ncol =(RUL_PREDICTION_low_big_merged_UNIFPCA[j,5]-RUL_PREDICTION_low_big_merged_UNIFPCA[j,2]))
+  for (i in 1:5) {
+    CURVETAHMIN[i,]<-funDatasmoothallBPR_list_UNIFPCA[[j]]@X[list_dist_all_sorted[[j]][2:6,1][i],(RUL_PREDICTION_low_big_merged_UNIFPCA[j,2]+1):RUL_PREDICTION_low_big_merged_UNIFPCA[j,5]]
+  }
+  curve_prediction_list_UNIFPCA_BPR[[j]]<-CURVETAHMIN
+  tahmin<-matrix(NA,nrow = 1, ncol =(RUL_PREDICTION_low_big_merged_UNIFPCA[j,5]-RUL_PREDICTION_low_big_merged_UNIFPCA[j,2]) )  
+  for (k in 1:(RUL_PREDICTION_low_big_merged_UNIFPCA[j,5]-RUL_PREDICTION_low_big_merged_UNIFPCA[j,2])) {
+    tahmin[,k]<-mean(curve_prediction_list_UNIFPCA_BPR[[j]][,k])
+  }
+  predictedcurves_UNIFPCA_BPR[[j]]<- tahmin
+}
+
+
+predictedcurves_UNIFPCA_W31<-list()
+curve_prediction_list_UNIFPCA_W31<-list()  
+for (j in 1:48) {
+  CURVETAHMIN<-matrix(NA,nrow = 5, ncol =(RUL_PREDICTION_low_big_merged_UNIFPCA[j,5]-RUL_PREDICTION_low_big_merged_UNIFPCA[j,2]))
+  predictedcurve<-matrix(NA,nrow = 1, ncol =(RUL_PREDICTION_low_big_merged_UNIFPCA[j,5]-RUL_PREDICTION_low_big_merged_UNIFPCA[j,2]))
+  for (i in 1:5) {
+    CURVETAHMIN[i,]<-funDatasmoothallW31_list_UNIFPCA[[j]]@X[list_dist_all_sorted_UNIFPCA[[j]][2:6,1][i],(RUL_PREDICTION_low_big_merged_UNIFPCA[j,2]+1):RUL_PREDICTION_low_big_merged_UNIFPCA[j,5]]
+  }
+  curve_prediction_list_UNIFPCA_W31[[j]]<-CURVETAHMIN
+  tahmin<-matrix(NA,nrow = 1, ncol =(RUL_PREDICTION_low_big_merged_UNIFPCA[j,5]-RUL_PREDICTION_low_big_merged_UNIFPCA[j,2]) )  
+  for (k in 1:(RUL_PREDICTION_low_big_merged_UNIFPCA[j,5]-RUL_PREDICTION_low_big_merged_UNIFPCA[j,2])) {
+    tahmin[,k] <- mean(curve_prediction_list_UNIFPCA_W31[[j]][,k])
+  }
+  predictedcurves_UNIFPCA_W31[[j]]<- tahmin
+}
+
+for (j in 49:49) {
+  CURVETAHMIN<-matrix(NA,nrow = 4, ncol =(RUL_PREDICTION_low_big_merged_UNIFPCA[j,5]-RUL_PREDICTION_low_big_merged_UNIFPCA[j,2]))
+  predictedcurve<-matrix(NA,nrow = 1, ncol =(RUL_PREDICTION_low_big_merged_UNIFPCA[j,5]-RUL_PREDICTION_low_big_merged_UNIFPCA[j,2]))
+  for (i in 1:4) {
+    CURVETAHMIN[i,]<-funDatasmoothallW31_list_UNIFPCA[[j]]@X[list_dist_all_sorted_UNIFPCA[[j]][2:5,1][i],(RUL_PREDICTION_low_big_merged_UNIFPCA[j,2]+1):RUL_PREDICTION_low_big_merged_UNIFPCA[j,5]]
+  }
+  curve_prediction_list_UNIFPCA_W31[[j]]<-CURVETAHMIN
+  tahmin<-matrix(NA,nrow = 1, ncol =(RUL_PREDICTION_low_big_merged_UNIFPCA[j,5]-RUL_PREDICTION_low_big_merged_UNIFPCA[j,2]) )  
+  for (k in 1:(RUL_PREDICTION_low_big_merged_UNIFPCA[j,5]-RUL_PREDICTION_low_big_merged_UNIFPCA[j,2])) {
+    tahmin[,k] <- mean(curve_prediction_list_UNIFPCA_W31[[j]][,k])
+  }
+  predictedcurves_UNIFPCA_W31[[j]]<- tahmin
+}
+
+for (j in 50:100) {
+  CURVETAHMIN<-matrix(NA,nrow = 5, ncol =(RUL_PREDICTION_low_big_merged_UNIFPCA[j,5]-RUL_PREDICTION_low_big_merged_UNIFPCA[j,2]))
+  predictedcurve<-matrix(NA,nrow = 1, ncol =(RUL_PREDICTION_low_big_merged_UNIFPCA[j,5]-RUL_PREDICTION_low_big_merged_UNIFPCA[j,2]))
+  for (i in 1:5) {
+    CURVETAHMIN[i,]<-funDatasmoothallW31_list_UNIFPCA[[j]]@X[list_dist_all_sorted[[j]][2:6,1][i],(RUL_PREDICTION_low_big_merged_UNIFPCA[j,2]+1):RUL_PREDICTION_low_big_merged_UNIFPCA[j,5]]
+  }
+  curve_prediction_list_UNIFPCA_W31[[j]]<-CURVETAHMIN
+  tahmin<-matrix(NA,nrow = 1, ncol =(RUL_PREDICTION_low_big_merged_UNIFPCA[j,5]-RUL_PREDICTION_low_big_merged_UNIFPCA[j,2]) )  
+  for (k in 1:(RUL_PREDICTION_low_big_merged_UNIFPCA[j,5]-RUL_PREDICTION_low_big_merged_UNIFPCA[j,2])) {
+    tahmin[,k]<-mean(curve_prediction_list_UNIFPCA_W31[[j]][,k])
+  }
+  predictedcurves_UNIFPCA_W31[[j]]<- tahmin
+}
+
+
+predictedcurves_UNIFPCA_W32<-list()
+curve_prediction_list_UNIFPCA_W32<-list()  
+for (j in 1:48) {
+  CURVETAHMIN<-matrix(NA,nrow = 5, ncol =(RUL_PREDICTION_low_big_merged_UNIFPCA[j,5]-RUL_PREDICTION_low_big_merged_UNIFPCA[j,2]))
+  predictedcurve<-matrix(NA,nrow = 1, ncol =(RUL_PREDICTION_low_big_merged_UNIFPCA[j,5]-RUL_PREDICTION_low_big_merged_UNIFPCA[j,2]))
+  for (i in 1:5) {
+    CURVETAHMIN[i,]<-funDatasmoothallW32_list_UNIFPCA[[j]]@X[list_dist_all_sorted_UNIFPCA[[j]][2:6,1][i],(RUL_PREDICTION_low_big_merged_UNIFPCA[j,2]+1):RUL_PREDICTION_low_big_merged_UNIFPCA[j,5]]
+  }
+  curve_prediction_list_UNIFPCA_W32[[j]]<-CURVETAHMIN
+  tahmin<-matrix(NA,nrow = 1, ncol =(RUL_PREDICTION_low_big_merged_UNIFPCA[j,5]-RUL_PREDICTION_low_big_merged_UNIFPCA[j,2]) )  
+  for (k in 1:(RUL_PREDICTION_low_big_merged_UNIFPCA[j,5]-RUL_PREDICTION_low_big_merged_UNIFPCA[j,2])) {
+    tahmin[,k] <- mean(curve_prediction_list_UNIFPCA_W32[[j]][,k])
+  }
+  predictedcurves_UNIFPCA_W32[[j]]<- tahmin
+}
+
+for (j in 49:49) {
+  CURVETAHMIN<-matrix(NA,nrow = 4, ncol =(RUL_PREDICTION_low_big_merged_UNIFPCA[j,5]-RUL_PREDICTION_low_big_merged_UNIFPCA[j,2]))
+  predictedcurve<-matrix(NA,nrow = 1, ncol =(RUL_PREDICTION_low_big_merged_UNIFPCA[j,5]-RUL_PREDICTION_low_big_merged_UNIFPCA[j,2]))
+  for (i in 1:4) {
+    CURVETAHMIN[i,]<-funDatasmoothallW32_list_UNIFPCA[[j]]@X[list_dist_all_sorted_UNIFPCA[[j]][2:5,1][i],(RUL_PREDICTION_low_big_merged_UNIFPCA[j,2]+1):RUL_PREDICTION_low_big_merged_UNIFPCA[j,5]]
+  }
+  curve_prediction_list_UNIFPCA_W32[[j]]<-CURVETAHMIN
+  tahmin<-matrix(NA,nrow = 1, ncol =(RUL_PREDICTION_low_big_merged_UNIFPCA[j,5]-RUL_PREDICTION_low_big_merged_UNIFPCA[j,2]) )  
+  for (k in 1:(RUL_PREDICTION_low_big_merged_UNIFPCA[j,5]-RUL_PREDICTION_low_big_merged_UNIFPCA[j,2])) {
+    tahmin[,k] <- mean(curve_prediction_list_UNIFPCA_W32[[j]][,k])
+  }
+  predictedcurves_UNIFPCA_W32[[j]]<- tahmin
+}
+
+for (j in 50:100) {
+  CURVETAHMIN<-matrix(NA,nrow = 5, ncol =(RUL_PREDICTION_low_big_merged_UNIFPCA[j,5]-RUL_PREDICTION_low_big_merged_UNIFPCA[j,2]))
+  predictedcurve<-matrix(NA,nrow = 1, ncol =(RUL_PREDICTION_low_big_merged_UNIFPCA[j,5]-RUL_PREDICTION_low_big_merged_UNIFPCA[j,2]))
+  for (i in 1:5) {
+    CURVETAHMIN[i,]<-funDatasmoothallW32_list_UNIFPCA[[j]]@X[list_dist_all_sorted[[j]][2:6,1][i],(RUL_PREDICTION_low_big_merged_UNIFPCA[j,2]+1):RUL_PREDICTION_low_big_merged_UNIFPCA[j,5]]
+  }
+  curve_prediction_list_UNIFPCA_W32[[j]]<-CURVETAHMIN
+  tahmin<-matrix(NA,nrow = 1, ncol =(RUL_PREDICTION_low_big_merged_UNIFPCA[j,5]-RUL_PREDICTION_low_big_merged_UNIFPCA[j,2]) )  
+  for (k in 1:(RUL_PREDICTION_low_big_merged_UNIFPCA[j,5]-RUL_PREDICTION_low_big_merged_UNIFPCA[j,2])) {
+    tahmin[,k]<-mean(curve_prediction_list_UNIFPCA_W32[[j]][,k])
+  }
+  predictedcurves_UNIFPCA_W32[[j]]<- tahmin
+}
+
+
 ## predicted curve list for each test engine
 
 #T24_all_train_test<-read.csv("C:/Users/cevah/Desktop/data_for_registration/test/NEW/1-T24train_test_all.csv", header = TRUE,row.names = 1)
@@ -3006,11 +3365,106 @@ dim(T24_TEST_OBSERVED_UNIFPCA)
 
 T24_TEST_PREDICTED_UNIFPCA<-list()
 for (i in 1:48) {
-  T24_TEST_PREDICTED_UNIFPCA[[i]]<-cbind(t(as.matrix(na.omit(T24_TEST_OBSERVED_UNIFPCA[i,]))),as.matrix(predictedcurves_UNIFPCA[[i]])) 
+  T24_TEST_PREDICTED_UNIFPCA[[i]]<-cbind(t(as.matrix(na.omit(T24_TEST_OBSERVED_UNIFPCA[i,]))),as.matrix(predictedcurves_UNIFPCA_T24[[i]])) 
 }
 for (i in 50:100) {
-  T24_TEST_PREDICTED_UNIFPCA[[i]]<-cbind(t(as.matrix(na.omit(T24_TEST_OBSERVED_UNIFPCA[i,]))),as.matrix(predictedcurves_UNIFPCA[[i]])) 
+  T24_TEST_PREDICTED_UNIFPCA[[i]]<-cbind(t(as.matrix(na.omit(T24_TEST_OBSERVED_UNIFPCA[i,]))),as.matrix(predictedcurves_UNIFPCA_T24[[i]])) 
 }
+
+T30_TEST_OBSERVED_UNIFPCA<-T30_all_train_test[101:200, 2:363]
+dim(T30_TEST_OBSERVED_UNIFPCA)
+
+T30_TEST_PREDICTED_UNIFPCA<-list()
+for (i in 1:48) {
+  T30_TEST_PREDICTED_UNIFPCA[[i]]<-cbind(t(as.matrix(na.omit(T30_TEST_OBSERVED_UNIFPCA[i,]))),as.matrix(predictedcurves_UNIFPCA_T30[[i]])) 
+}
+for (i in 50:100) {
+  T30_TEST_PREDICTED_UNIFPCA[[i]]<-cbind(t(as.matrix(na.omit(T30_TEST_OBSERVED_UNIFPCA[i,]))),as.matrix(predictedcurves_UNIFPCA_T30[[i]])) 
+}
+
+
+T50_TEST_OBSERVED_UNIFPCA<-T50_all_train_test[101:200, 2:363]
+dim(T50_TEST_OBSERVED_UNIFPCA)
+
+T50_TEST_PREDICTED_UNIFPCA<-list()
+for (i in 1:48) {
+  T50_TEST_PREDICTED_UNIFPCA[[i]]<-cbind(t(as.matrix(na.omit(T50_TEST_OBSERVED_UNIFPCA[i,]))),as.matrix(predictedcurves_UNIFPCA_T50[[i]])) 
+}
+for (i in 50:100) {
+  T50_TEST_PREDICTED_UNIFPCA[[i]]<-cbind(t(as.matrix(na.omit(T50_TEST_OBSERVED_UNIFPCA[i,]))),as.matrix(predictedcurves_UNIFPCA_T50[[i]])) 
+}
+
+
+P30_TEST_OBSERVED_UNIFPCA<-P30_all_train_test[101:200, 2:363]
+dim(P30_TEST_OBSERVED_UNIFPCA)
+
+P30_TEST_PREDICTED_UNIFPCA<-list()
+for (i in 1:48) {
+  P30_TEST_PREDICTED_UNIFPCA[[i]]<-cbind(t(as.matrix(na.omit(P30_TEST_OBSERVED_UNIFPCA[i,]))),as.matrix(predictedcurves_UNIFPCA_P30[[i]])) 
+}
+for (i in 50:100) {
+  P30_TEST_PREDICTED_UNIFPCA[[i]]<-cbind(t(as.matrix(na.omit(P30_TEST_OBSERVED_UNIFPCA[i,]))),as.matrix(predictedcurves_UNIFPCA_P30[[i]])) 
+}
+
+ps30_TEST_OBSERVED_UNIFPCA<-ps30_all_train_test[101:200, 2:363]
+dim(ps30_TEST_OBSERVED_UNIFPCA)
+
+ps30_TEST_PREDICTED_UNIFPCA<-list()
+for (i in 1:48) {
+  ps30_TEST_PREDICTED_UNIFPCA[[i]]<-cbind(t(as.matrix(na.omit(ps30_TEST_OBSERVED_UNIFPCA[i,]))),as.matrix(predictedcurves_UNIFPCA_ps30[[i]])) 
+}
+for (i in 50:100) {
+  ps30_TEST_PREDICTED_UNIFPCA[[i]]<-cbind(t(as.matrix(na.omit(ps30_TEST_OBSERVED_UNIFPCA[i,]))),as.matrix(predictedcurves_UNIFPCA_ps30[[i]])) 
+}
+
+
+phi_TEST_OBSERVED_UNIFPCA<-phi_all_train_test[101:200, 2:363]
+dim(phi_TEST_OBSERVED_UNIFPCA)
+
+phi_TEST_PREDICTED_UNIFPCA<-list()
+for (i in 1:48) {
+  phi_TEST_PREDICTED_UNIFPCA[[i]]<-cbind(t(as.matrix(na.omit(phi_TEST_OBSERVED_UNIFPCA[i,]))),as.matrix(predictedcurves_UNIFPCA_phi[[i]])) 
+}
+for (i in 50:100) {
+  phi_TEST_PREDICTED_UNIFPCA[[i]]<-cbind(t(as.matrix(na.omit(phi_TEST_OBSERVED_UNIFPCA[i,]))),as.matrix(predictedcurves_UNIFPCA_phi[[i]])) 
+}
+
+
+BPR_TEST_OBSERVED_UNIFPCA<-BPR_all_train_test[101:200, 2:363]
+dim(BPR_TEST_OBSERVED_UNIFPCA)
+
+BPR_TEST_PREDICTED_UNIFPCA<-list()
+for (i in 1:48) {
+  BPR_TEST_PREDICTED_UNIFPCA[[i]]<-cbind(t(as.matrix(na.omit(BPR_TEST_OBSERVED_UNIFPCA[i,]))),as.matrix(predictedcurves_UNIFPCA_BPR[[i]])) 
+}
+for (i in 50:100) {
+  BPR_TEST_PREDICTED_UNIFPCA[[i]]<-cbind(t(as.matrix(na.omit(BPR_TEST_OBSERVED_UNIFPCA[i,]))),as.matrix(predictedcurves_UNIFPCA_BPR[[i]])) 
+}
+
+
+W31_TEST_OBSERVED_UNIFPCA<-W31_all_train_test[101:200, 2:363]
+dim(W31_TEST_OBSERVED_UNIFPCA)
+
+W31_TEST_PREDICTED_UNIFPCA<-list()
+for (i in 1:48) {
+  W31_TEST_PREDICTED_UNIFPCA[[i]]<-cbind(t(as.matrix(na.omit(W31_TEST_OBSERVED_UNIFPCA[i,]))),as.matrix(predictedcurves_UNIFPCA_W31[[i]])) 
+}
+for (i in 50:100) {
+  W31_TEST_PREDICTED_UNIFPCA[[i]]<-cbind(t(as.matrix(na.omit(W31_TEST_OBSERVED_UNIFPCA[i,]))),as.matrix(predictedcurves_UNIFPCA_W31[[i]])) 
+}
+
+
+W32_TEST_OBSERVED_UNIFPCA<-W32_all_train_test[101:200, 2:363]
+dim(W32_TEST_OBSERVED_UNIFPCA)
+
+W32_TEST_PREDICTED_UNIFPCA<-list()
+for (i in 1:48) {
+  W32_TEST_PREDICTED_UNIFPCA[[i]]<-cbind(t(as.matrix(na.omit(W32_TEST_OBSERVED_UNIFPCA[i,]))),as.matrix(predictedcurves_UNIFPCA_W32[[i]])) 
+}
+for (i in 50:100) {
+  W32_TEST_PREDICTED_UNIFPCA[[i]]<-cbind(t(as.matrix(na.omit(W32_TEST_OBSERVED_UNIFPCA[i,]))),as.matrix(predictedcurves_UNIFPCA_W32[[i]])) 
+}
+
 
 
 
@@ -3025,16 +3479,16 @@ bsplinebasis
 #K
 
 
-####buradaki for ile her bir datayı ayrı ayrı bspile ile smoot yapıyoruz
-smoothallT24 <- matrix(data = NA, nrow=8, ncol=100)
-for (i in 1:100) {
-  ENGINEallArgvals <-seq(0,1, length.out= length(na.omit(K[,i])))
-  smoothallT24[,i]=smooth.basis(ENGINEallArgvals,as.vector(na.omit(K[,i])),bsplinebasis2)[["fd"]][["coefs"]]
-}
+# ####buradaki for ile her bir datayı ayrı ayrı bspile ile smoot yapıyoruz
+# smoothallT24 <- matrix(data = NA, nrow=8, ncol=100)
+# for (i in 1:100) {
+#   ENGINEallArgvals <-seq(0,1, length.out= length(na.omit(K[,i])))
+#   smoothallT24[,i]=smooth.basis(ENGINEallArgvals,as.vector(na.omit(K[,i])),bsplinebasis2)[["fd"]][["coefs"]]
+# }
 
 
 predictedcurves_smooth_matrix_T24_UNIFPCA<-matrix(data = NA, nrow=8, ncol=100)
-
+j=20
 predictedcurves_smooth_list_T24_UNIFPCA<-list()
 for (j in 1:48) {
   Smooth<- smooth.basis( argvals = seq(1,RUL_PREDICTION_low_big_merged_UNIFPCA[j,5]),
@@ -3048,6 +3502,142 @@ for (j in 50:100) {
                          fdParobj = create.bspline.basis(c(1,RUL_PREDICTION_low_big_merged_UNIFPCA[j,5]),no_of_splines))
   predictedcurves_smooth_list_T24_UNIFPCA[[j]]<-Smooth
 }
+
+predictedcurves_smooth_matrix_T30_UNIFPCA<-matrix(data = NA, nrow=8, ncol=100)
+
+predictedcurves_smooth_list_T30_UNIFPCA<-list()
+for (j in 1:48) {
+  Smooth<- smooth.basis( argvals = seq(1,RUL_PREDICTION_low_big_merged_UNIFPCA[j,5]),
+                         y= as.vector(T30_TEST_PREDICTED_UNIFPCA[[j]]), 
+                         fdParobj = create.bspline.basis(c(1,RUL_PREDICTION_low_big_merged_UNIFPCA[j,5]),no_of_splines))
+  predictedcurves_smooth_list_T30_UNIFPCA[[j]]<-Smooth
+}
+for (j in 50:100) {
+  Smooth<- smooth.basis( argvals = seq(1,RUL_PREDICTION_low_big_merged_UNIFPCA[j,5]),
+                         y= as.vector(T30_TEST_PREDICTED_UNIFPCA[[j]]), 
+                         fdParobj = create.bspline.basis(c(1,RUL_PREDICTION_low_big_merged_UNIFPCA[j,5]),no_of_splines))
+  predictedcurves_smooth_list_T30_UNIFPCA[[j]]<-Smooth
+}
+
+
+predictedcurves_smooth_matrix_T50_UNIFPCA<-matrix(data = NA, nrow=8, ncol=100)
+
+predictedcurves_smooth_list_T50_UNIFPCA<-list()
+for (j in 1:48) {
+  Smooth<- smooth.basis( argvals = seq(1,RUL_PREDICTION_low_big_merged_UNIFPCA[j,5]),
+                         y= as.vector(T50_TEST_PREDICTED_UNIFPCA[[j]]), 
+                         fdParobj = create.bspline.basis(c(1,RUL_PREDICTION_low_big_merged_UNIFPCA[j,5]),no_of_splines))
+  predictedcurves_smooth_list_T50_UNIFPCA[[j]]<-Smooth
+}
+for (j in 50:100) {
+  Smooth<- smooth.basis( argvals = seq(1,RUL_PREDICTION_low_big_merged_UNIFPCA[j,5]),
+                         y= as.vector(T50_TEST_PREDICTED_UNIFPCA[[j]]), 
+                         fdParobj = create.bspline.basis(c(1,RUL_PREDICTION_low_big_merged_UNIFPCA[j,5]),no_of_splines))
+  predictedcurves_smooth_list_T50_UNIFPCA[[j]]<-Smooth
+}
+
+
+predictedcurves_smooth_matrix_P30_UNIFPCA<-matrix(data = NA, nrow=8, ncol=100)
+
+predictedcurves_smooth_list_P30_UNIFPCA<-list()
+for (j in 1:48) {
+  Smooth<- smooth.basis( argvals = seq(1,RUL_PREDICTION_low_big_merged_UNIFPCA[j,5]),
+                         y= as.vector(P30_TEST_PREDICTED_UNIFPCA[[j]]), 
+                         fdParobj = create.bspline.basis(c(1,RUL_PREDICTION_low_big_merged_UNIFPCA[j,5]),no_of_splines))
+  predictedcurves_smooth_list_P30_UNIFPCA[[j]]<-Smooth
+}
+for (j in 50:100) {
+  Smooth<- smooth.basis( argvals = seq(1,RUL_PREDICTION_low_big_merged_UNIFPCA[j,5]),
+                         y= as.vector(P30_TEST_PREDICTED_UNIFPCA[[j]]), 
+                         fdParobj = create.bspline.basis(c(1,RUL_PREDICTION_low_big_merged_UNIFPCA[j,5]),no_of_splines))
+  predictedcurves_smooth_list_P30_UNIFPCA[[j]]<-Smooth
+}
+
+
+predictedcurves_smooth_matrix_ps30_UNIFPCA<-matrix(data = NA, nrow=8, ncol=100)
+
+predictedcurves_smooth_list_ps30_UNIFPCA<-list()
+for (j in 1:48) {
+  Smooth<- smooth.basis( argvals = seq(1,RUL_PREDICTION_low_big_merged_UNIFPCA[j,5]),
+                         y= as.vector(ps30_TEST_PREDICTED_UNIFPCA[[j]]), 
+                         fdParobj = create.bspline.basis(c(1,RUL_PREDICTION_low_big_merged_UNIFPCA[j,5]),no_of_splines))
+  predictedcurves_smooth_list_ps30_UNIFPCA[[j]]<-Smooth
+}
+for (j in 50:100) {
+  Smooth<- smooth.basis( argvals = seq(1,RUL_PREDICTION_low_big_merged_UNIFPCA[j,5]),
+                         y= as.vector(ps30_TEST_PREDICTED_UNIFPCA[[j]]), 
+                         fdParobj = create.bspline.basis(c(1,RUL_PREDICTION_low_big_merged_UNIFPCA[j,5]),no_of_splines))
+  predictedcurves_smooth_list_ps30_UNIFPCA[[j]]<-Smooth
+}
+
+
+predictedcurves_smooth_matrix_phi_UNIFPCA<-matrix(data = NA, nrow=8, ncol=100)
+
+predictedcurves_smooth_list_phi_UNIFPCA<-list()
+for (j in 1:48) {
+  Smooth<- smooth.basis( argvals = seq(1,RUL_PREDICTION_low_big_merged_UNIFPCA[j,5]),
+                         y= as.vector(phi_TEST_PREDICTED_UNIFPCA[[j]]), 
+                         fdParobj = create.bspline.basis(c(1,RUL_PREDICTION_low_big_merged_UNIFPCA[j,5]),no_of_splines))
+  predictedcurves_smooth_list_phi_UNIFPCA[[j]]<-Smooth
+}
+for (j in 50:100) {
+  Smooth<- smooth.basis( argvals = seq(1,RUL_PREDICTION_low_big_merged_UNIFPCA[j,5]),
+                         y= as.vector(phi_TEST_PREDICTED_UNIFPCA[[j]]), 
+                         fdParobj = create.bspline.basis(c(1,RUL_PREDICTION_low_big_merged_UNIFPCA[j,5]),no_of_splines))
+  predictedcurves_smooth_list_phi_UNIFPCA[[j]]<-Smooth
+}
+
+
+predictedcurves_smooth_matrix_BPR_UNIFPCA<-matrix(data = NA, nrow=8, ncol=100)
+
+predictedcurves_smooth_list_BPR_UNIFPCA<-list()
+for (j in 1:48) {
+  Smooth<- smooth.basis( argvals = seq(1,RUL_PREDICTION_low_big_merged_UNIFPCA[j,5]),
+                         y= as.vector(BPR_TEST_PREDICTED_UNIFPCA[[j]]), 
+                         fdParobj = create.bspline.basis(c(1,RUL_PREDICTION_low_big_merged_UNIFPCA[j,5]),no_of_splines))
+  predictedcurves_smooth_list_BPR_UNIFPCA[[j]]<-Smooth
+}
+for (j in 50:100) {
+  Smooth<- smooth.basis( argvals = seq(1,RUL_PREDICTION_low_big_merged_UNIFPCA[j,5]),
+                         y= as.vector(BPR_TEST_PREDICTED_UNIFPCA[[j]]), 
+                         fdParobj = create.bspline.basis(c(1,RUL_PREDICTION_low_big_merged_UNIFPCA[j,5]),no_of_splines))
+  predictedcurves_smooth_list_BPR_UNIFPCA[[j]]<-Smooth
+}
+
+
+predictedcurves_smooth_matrix_W31_UNIFPCA<-matrix(data = NA, nrow=8, ncol=100)
+
+predictedcurves_smooth_list_W31_UNIFPCA<-list()
+for (j in 1:48) {
+  Smooth<- smooth.basis( argvals = seq(1,RUL_PREDICTION_low_big_merged_UNIFPCA[j,5]),
+                         y= as.vector(W31_TEST_PREDICTED_UNIFPCA[[j]]), 
+                         fdParobj = create.bspline.basis(c(1,RUL_PREDICTION_low_big_merged_UNIFPCA[j,5]),no_of_splines))
+  predictedcurves_smooth_list_W31_UNIFPCA[[j]]<-Smooth
+}
+for (j in 50:100) {
+  Smooth<- smooth.basis( argvals = seq(1,RUL_PREDICTION_low_big_merged_UNIFPCA[j,5]),
+                         y= as.vector(W31_TEST_PREDICTED_UNIFPCA[[j]]), 
+                         fdParobj = create.bspline.basis(c(1,RUL_PREDICTION_low_big_merged_UNIFPCA[j,5]),no_of_splines))
+  predictedcurves_smooth_list_W31_UNIFPCA[[j]]<-Smooth
+}
+
+
+predictedcurves_smooth_matrix_W32_UNIFPCA<-matrix(data = NA, nrow=8, ncol=100)
+
+predictedcurves_smooth_list_W32_UNIFPCA<-list()
+for (j in 1:48) {
+  Smooth<- smooth.basis( argvals = seq(1,RUL_PREDICTION_low_big_merged_UNIFPCA[j,5]),
+                         y= as.vector(W32_TEST_PREDICTED_UNIFPCA[[j]]), 
+                         fdParobj = create.bspline.basis(c(1,RUL_PREDICTION_low_big_merged_UNIFPCA[j,5]),no_of_splines))
+  predictedcurves_smooth_list_W32_UNIFPCA[[j]]<-Smooth
+}
+for (j in 50:100) {
+  Smooth<- smooth.basis( argvals = seq(1,RUL_PREDICTION_low_big_merged_UNIFPCA[j,5]),
+                         y= as.vector(W32_TEST_PREDICTED_UNIFPCA[[j]]), 
+                         fdParobj = create.bspline.basis(c(1,RUL_PREDICTION_low_big_merged_UNIFPCA[j,5]),no_of_splines))
+  predictedcurves_smooth_list_W32_UNIFPCA[[j]]<-Smooth
+}
+
 
 TestLowClassEng
 TestBigClassEngexcept49
@@ -3067,6 +3657,45 @@ lines(list_test_all_smooth_T24_Big_scores_UNIFPCA[[testengine]][[nrow(list_test_
 T24_all_train_test<-read.csv("C:/Users/cevah/Desktop/data_for_registration/test/NEW/1-T24train_test_all.csv", header = TRUE,row.names = 1)
 T24_all_train_test
 T24_all_train_test<-as.matrix(T24_all_train_test)
+
+
+T30_all_train_test<-read.csv("C:/Users/cevah/Desktop/data_for_registration/test/NEW/2-T30train_test_all.csv", header = TRUE,row.names = 1)
+T30_all_train_test
+T30_all_train_test<-as.matrix(T30_all_train_test)
+
+
+T50_all_train_test<-read.csv("C:/Users/cevah/Desktop/data_for_registration/test/NEW/3-T50train_test_all.csv", header = TRUE,row.names = 1)
+T50_all_train_test
+T50_all_train_test<-as.matrix(T50_all_train_test)
+
+
+P30_all_train_test<-read.csv("C:/Users/cevah/Desktop/data_for_registration/test/NEW/4-P30train_test_all.csv", header = TRUE,row.names = 1)
+P30_all_train_test
+P30_all_train_test<-as.matrix(P30_all_train_test)
+
+
+ps30_all_train_test<-read.csv("C:/Users/cevah/Desktop/data_for_registration/test/NEW/5-ps30train_test_all.csv", header = TRUE,row.names = 1)
+ps30_all_train_test
+ps30_all_train_test<-as.matrix(ps30_all_train_test)
+
+
+phi_all_train_test<-read.csv("C:/Users/cevah/Desktop/data_for_registration/test/NEW/6-phitrain_test_all.csv", header = TRUE,row.names = 1)
+phi_all_train_test
+phi_all_train_test<-as.matrix(phi_all_train_test)
+
+BPR_all_train_test<-read.csv("C:/Users/cevah/Desktop/data_for_registration/test/NEW/7-BPRtrain_test_all.csv", header = TRUE,row.names = 1)
+BPR_all_train_test
+BPR_all_train_test<-as.matrix(BPR_all_train_test)
+
+
+W31_all_train_test<-read.csv("C:/Users/cevah/Desktop/data_for_registration/test/NEW/8-W31train_test_all.csv", header = TRUE,row.names = 1)
+W31_all_train_test
+W31_all_train_test<-as.matrix(W31_all_train_test)
+
+
+W32_all_train_test<-read.csv("C:/Users/cevah/Desktop/data_for_registration/test/NEW/9-W32train_test_all.csv", header = TRUE,row.names = 1)
+W32_all_train_test
+W32_all_train_test<-as.matrix(W32_all_train_test)
 
 
 TestBigClassEng
@@ -3129,27 +3758,9 @@ RUL_PREDICTION_low_big_merged_UNIFPCA[testengine,5]
 
 ########################################
 ###tahmin edilen %90 a kadar olan aralık
-c((RUL_PREDICTION_low_big_merged_UNIFPCA[testengine,2]+1):RUL_PREDICTION_low_big_merged_UNIFPCA[testengine,5])
-true90percent_PRED_T24<-T24_all_train_test[(testengine+100),((RUL_PREDICTION_low_big_merged_UNIFPCA[testengine,2]+1)+1):(RUL_PREDICTION_low_big_merged_UNIFPCA[testengine,5]+1)]
-true90percent_PRED_T24<-na.omit(true90percent_PRED_T24)
-length(true90percent_PRED_T24)
-true90percent_PRED_T24<-as.vector(true90percent_PRED_T24)
-true90percent_PRED_T24
-
-RUL_PREDICTION_low_big_merged_UNIFPCA[testengine,2]
-
-predicted90percent_PRED_T24<-predictedcurves_smooth_list_T24_UNIFPCA[[testengine]]$y[(RUL_PREDICTION_low_big_merged_UNIFPCA[testengine,2]+1):(RUL_PREDICTION_low_big_merged_UNIFPCA[testengine,2]+length(true90percent_PRED_T24))]
-predicted90percent_PRED_T24
-
-ERRORcurve<-predicted90percent_PRED_T24-true90percent_PRED_T24
-ERRORSQ<-ERRORcurve^2
-SUMERRORSQ<-sum(ERRORSQ)
-SUMERRORSQmean<-SUMERRORSQ/length(predicted90percent_PRED_T24)
-sqrt(SUMERRORSQmean)
 
 
-
-testengine=82
+testengine=20
 ########################################
 ###tahmin edilen %90 a kadar olan aralık
 c((RUL_PREDICTION_low_big_merged_UNIFPCA[testengine,2]+1):RUL_PREDICTION_low_big_merged_UNIFPCA[testengine,5])
@@ -3158,21 +3769,341 @@ true90percent_PRED_T24<-na.omit(true90percent_PRED_T24)
 length(true90percent_PRED_T24)
 true90percent_PRED_T24<-as.vector(true90percent_PRED_T24)
 true90percent_PRED_T24
-
-RUL_PREDICTION_low_big_merged_UNIFPCA[testengine,2]
-
-
-
 predicted90percent_PRED_T24<-predictedcurves_smooth_list_T24_UNIFPCA[[testengine]]$y[(RUL_PREDICTION_low_big_merged_UNIFPCA[testengine,2]+1):(RUL_PREDICTION_low_big_merged_UNIFPCA[testengine,2]+length(true90percent_PRED_T24))]
 predicted90percent_PRED_T24
-
-
 ERRORcurve<-predicted90percent_PRED_T24-true90percent_PRED_T24
 ERRORSQ<-ERRORcurve^2
 SUMERRORSQ<-sum(ERRORSQ)
-SUMERRORSQ
 SUMERRORSQmean<-SUMERRORSQ/length(predicted90percent_PRED_T24)
-SUMERRORSQmean
 sqrt(SUMERRORSQmean)
 SUMERRORSQmean
 
+
+
+T24RESULTMATRIX<- matrix(NA,82,1)
+for (testengine in c(20,31,34,35,42,68,76,81,82)) {
+  
+  c((RUL_PREDICTION_low_big_merged_UNIFPCA[testengine,2]+1):RUL_PREDICTION_low_big_merged_UNIFPCA[testengine,5])
+  true90percent_PRED_T24<-T24_all_train_test[(testengine+100),((RUL_PREDICTION_low_big_merged_UNIFPCA[testengine,2]+1)+1):(RUL_PREDICTION_low_big_merged_UNIFPCA[testengine,5]+1)]
+  true90percent_PRED_T24<-na.omit(true90percent_PRED_T24)
+  length(true90percent_PRED_T24)
+  true90percent_PRED_T24<-as.vector(true90percent_PRED_T24)
+  true90percent_PRED_T24
+  predicted90percent_PRED_T24<-predictedcurves_smooth_list_T24_UNIFPCA[[testengine]]$y[(RUL_PREDICTION_low_big_merged_UNIFPCA[testengine,2]+1):(RUL_PREDICTION_low_big_merged_UNIFPCA[testengine,2]+length(true90percent_PRED_T24))]
+  predicted90percent_PRED_T24
+  ERRORcurve<-predicted90percent_PRED_T24-true90percent_PRED_T24
+  ERRORSQ<-ERRORcurve^2
+  SUMERRORSQ<-sum(ERRORSQ)
+  SUMERRORSQmean<-SUMERRORSQ/length(predicted90percent_PRED_T24)
+  sqrt(SUMERRORSQmean)
+  SUMERRORSQmean
+  
+  T24RESULTMATRIX[(testengine),1]<-SUMERRORSQmean
+  
+} 
+as.vector(na.omit(T24RESULTMATRIX))
+
+
+true90percent_PRED_T30<-T30_all_train_test[(testengine+100),((RUL_PREDICTION_low_big_merged_UNIFPCA[testengine,2]+1)+1):(RUL_PREDICTION_low_big_merged_UNIFPCA[testengine,5]+1)]
+true90percent_PRED_T30<-na.omit(true90percent_PRED_T30)
+length(true90percent_PRED_T30)
+true90percent_PRED_T30<-as.vector(true90percent_PRED_T30)
+true90percent_PRED_T30
+predicted90percent_PRED_T30<-predictedcurves_smooth_list_T30_UNIFPCA[[testengine]]$y[(RUL_PREDICTION_low_big_merged_UNIFPCA[testengine,2]+1):(RUL_PREDICTION_low_big_merged_UNIFPCA[testengine,2]+length(true90percent_PRED_T30))]
+predicted90percent_PRED_T30
+ERRORcurve<-predicted90percent_PRED_T30-true90percent_PRED_T30
+ERRORSQ<-ERRORcurve^2
+SUMERRORSQ<-sum(ERRORSQ)
+SUMERRORSQmean<-SUMERRORSQ/length(predicted90percent_PRED_T30)
+sqrt(SUMERRORSQmean)
+SUMERRORSQmean
+
+
+T30RESULTMATRIX<- matrix(NA,82,1)
+for (testengine in c(20,31,34,35,42,68,76,81,82)) {
+  
+  c((RUL_PREDICTION_low_big_merged_UNIFPCA[testengine,2]+1):RUL_PREDICTION_low_big_merged_UNIFPCA[testengine,5])
+  true90percent_PRED_T30<-T30_all_train_test[(testengine+100),((RUL_PREDICTION_low_big_merged_UNIFPCA[testengine,2]+1)+1):(RUL_PREDICTION_low_big_merged_UNIFPCA[testengine,5]+1)]
+  true90percent_PRED_T30<-na.omit(true90percent_PRED_T30)
+  length(true90percent_PRED_T30)
+  true90percent_PRED_T30<-as.vector(true90percent_PRED_T30)
+  true90percent_PRED_T30
+  predicted90percent_PRED_T30<-predictedcurves_smooth_list_T30_UNIFPCA[[testengine]]$y[(RUL_PREDICTION_low_big_merged_UNIFPCA[testengine,2]+1):(RUL_PREDICTION_low_big_merged_UNIFPCA[testengine,2]+length(true90percent_PRED_T30))]
+  predicted90percent_PRED_T30
+  ERRORcurve<-predicted90percent_PRED_T30-true90percent_PRED_T30
+  ERRORSQ<-ERRORcurve^2
+  SUMERRORSQ<-sum(ERRORSQ)
+  SUMERRORSQmean<-SUMERRORSQ/length(predicted90percent_PRED_T30)
+  sqrt(SUMERRORSQmean)
+  SUMERRORSQmean
+  
+  T30RESULTMATRIX[(testengine),1]<-SUMERRORSQmean
+  
+} 
+as.vector(na.omit(T30RESULTMATRIX))
+
+true90percent_PRED_T50<-T50_all_train_test[(testengine+100),((RUL_PREDICTION_low_big_merged_UNIFPCA[testengine,2]+1)+1):(RUL_PREDICTION_low_big_merged_UNIFPCA[testengine,5]+1)]
+true90percent_PRED_T50<-na.omit(true90percent_PRED_T50)
+length(true90percent_PRED_T50)
+true90percent_PRED_T50<-as.vector(true90percent_PRED_T50)
+true90percent_PRED_T50
+predicted90percent_PRED_T50<-predictedcurves_smooth_list_T50_UNIFPCA[[testengine]]$y[(RUL_PREDICTION_low_big_merged_UNIFPCA[testengine,2]+1):(RUL_PREDICTION_low_big_merged_UNIFPCA[testengine,2]+length(true90percent_PRED_T50))]
+predicted90percent_PRED_T50
+ERRORcurve<-predicted90percent_PRED_T50-true90percent_PRED_T50
+ERRORSQ<-ERRORcurve^2
+SUMERRORSQ<-sum(ERRORSQ)
+SUMERRORSQmean<-SUMERRORSQ/length(predicted90percent_PRED_T50)
+sqrt(SUMERRORSQmean)
+SUMERRORSQmean
+
+T50RESULTMATRIX<- matrix(NA,82,1)
+for (testengine in c(20,31,34,35,42,68,76,81,82)) {
+  
+  c((RUL_PREDICTION_low_big_merged_UNIFPCA[testengine,2]+1):RUL_PREDICTION_low_big_merged_UNIFPCA[testengine,5])
+  true90percent_PRED_T50<-T50_all_train_test[(testengine+100),((RUL_PREDICTION_low_big_merged_UNIFPCA[testengine,2]+1)+1):(RUL_PREDICTION_low_big_merged_UNIFPCA[testengine,5]+1)]
+  true90percent_PRED_T50<-na.omit(true90percent_PRED_T50)
+  length(true90percent_PRED_T50)
+  true90percent_PRED_T50<-as.vector(true90percent_PRED_T50)
+  true90percent_PRED_T50
+  predicted90percent_PRED_T50<-predictedcurves_smooth_list_T50_UNIFPCA[[testengine]]$y[(RUL_PREDICTION_low_big_merged_UNIFPCA[testengine,2]+1):(RUL_PREDICTION_low_big_merged_UNIFPCA[testengine,2]+length(true90percent_PRED_T50))]
+  predicted90percent_PRED_T50
+  ERRORcurve<-predicted90percent_PRED_T50-true90percent_PRED_T50
+  ERRORSQ<-ERRORcurve^2
+  SUMERRORSQ<-sum(ERRORSQ)
+  SUMERRORSQmean<-SUMERRORSQ/length(predicted90percent_PRED_T50)
+  sqrt(SUMERRORSQmean)
+  SUMERRORSQmean
+  
+  T50RESULTMATRIX[(testengine),1]<-SUMERRORSQmean
+  
+} 
+as.vector(na.omit(T50RESULTMATRIX))
+
+
+true90percent_PRED_P30<-P30_all_train_test[(testengine+100),((RUL_PREDICTION_low_big_merged_UNIFPCA[testengine,2]+1)+1):(RUL_PREDICTION_low_big_merged_UNIFPCA[testengine,5]+1)]
+true90percent_PRED_P30<-na.omit(true90percent_PRED_P30)
+length(true90percent_PRED_P30)
+true90percent_PRED_P30<-as.vector(true90percent_PRED_P30)
+true90percent_PRED_P30
+predicted90percent_PRED_P30<-predictedcurves_smooth_list_P30_UNIFPCA[[testengine]]$y[(RUL_PREDICTION_low_big_merged_UNIFPCA[testengine,2]+1):(RUL_PREDICTION_low_big_merged_UNIFPCA[testengine,2]+length(true90percent_PRED_P30))]
+predicted90percent_PRED_P30
+ERRORcurve<-predicted90percent_PRED_P30-true90percent_PRED_P30
+ERRORSQ<-ERRORcurve^2
+SUMERRORSQ<-sum(ERRORSQ)
+SUMERRORSQmean<-SUMERRORSQ/length(predicted90percent_PRED_P30)
+sqrt(SUMERRORSQmean)
+SUMERRORSQmean
+
+P30RESULTMATRIX<- matrix(NA,82,1)
+for (testengine in c(20,31,34,35,42,68,76,81,82)) {
+  
+  c((RUL_PREDICTION_low_big_merged_UNIFPCA[testengine,2]+1):RUL_PREDICTION_low_big_merged_UNIFPCA[testengine,5])
+  true90percent_PRED_P30<-P30_all_train_test[(testengine+100),((RUL_PREDICTION_low_big_merged_UNIFPCA[testengine,2]+1)+1):(RUL_PREDICTION_low_big_merged_UNIFPCA[testengine,5]+1)]
+  true90percent_PRED_P30<-na.omit(true90percent_PRED_P30)
+  length(true90percent_PRED_P30)
+  true90percent_PRED_P30<-as.vector(true90percent_PRED_P30)
+  true90percent_PRED_P30
+  predicted90percent_PRED_P30<-predictedcurves_smooth_list_P30_UNIFPCA[[testengine]]$y[(RUL_PREDICTION_low_big_merged_UNIFPCA[testengine,2]+1):(RUL_PREDICTION_low_big_merged_UNIFPCA[testengine,2]+length(true90percent_PRED_P30))]
+  predicted90percent_PRED_P30
+  ERRORcurve<-predicted90percent_PRED_P30-true90percent_PRED_P30
+  ERRORSQ<-ERRORcurve^2
+  SUMERRORSQ<-sum(ERRORSQ)
+  SUMERRORSQmean<-SUMERRORSQ/length(predicted90percent_PRED_P30)
+  sqrt(SUMERRORSQmean)
+  SUMERRORSQmean
+  
+  P30RESULTMATRIX[(testengine),1]<-SUMERRORSQmean
+  
+} 
+as.vector(na.omit(P30RESULTMATRIX))
+
+true90percent_PRED_ps30<-ps30_all_train_test[(testengine+100),((RUL_PREDICTION_low_big_merged_UNIFPCA[testengine,2]+1)+1):(RUL_PREDICTION_low_big_merged_UNIFPCA[testengine,5]+1)]
+true90percent_PRED_ps30<-na.omit(true90percent_PRED_ps30)
+length(true90percent_PRED_ps30)
+true90percent_PRED_ps30<-as.vector(true90percent_PRED_ps30)
+true90percent_PRED_ps30
+predicted90percent_PRED_ps30<-predictedcurves_smooth_list_ps30_UNIFPCA[[testengine]]$y[(RUL_PREDICTION_low_big_merged_UNIFPCA[testengine,2]+1):(RUL_PREDICTION_low_big_merged_UNIFPCA[testengine,2]+length(true90percent_PRED_ps30))]
+predicted90percent_PRED_ps30
+ERRORcurve<-predicted90percent_PRED_ps30-true90percent_PRED_ps30
+ERRORSQ<-ERRORcurve^2
+SUMERRORSQ<-sum(ERRORSQ)
+SUMERRORSQmean<-SUMERRORSQ/length(predicted90percent_PRED_ps30)
+sqrt(SUMERRORSQmean)
+SUMERRORSQmean
+
+
+ps30RESULTMATRIX<- matrix(NA,82,1)
+for (testengine in c(20,31,34,35,42,68,76,81,82)) {
+  
+  c((RUL_PREDICTION_low_big_merged_UNIFPCA[testengine,2]+1):RUL_PREDICTION_low_big_merged_UNIFPCA[testengine,5])
+  true90percent_PRED_ps30<-ps30_all_train_test[(testengine+100),((RUL_PREDICTION_low_big_merged_UNIFPCA[testengine,2]+1)+1):(RUL_PREDICTION_low_big_merged_UNIFPCA[testengine,5]+1)]
+  true90percent_PRED_ps30<-na.omit(true90percent_PRED_ps30)
+  length(true90percent_PRED_ps30)
+  true90percent_PRED_ps30<-as.vector(true90percent_PRED_ps30)
+  true90percent_PRED_ps30
+  predicted90percent_PRED_ps30<-predictedcurves_smooth_list_ps30_UNIFPCA[[testengine]]$y[(RUL_PREDICTION_low_big_merged_UNIFPCA[testengine,2]+1):(RUL_PREDICTION_low_big_merged_UNIFPCA[testengine,2]+length(true90percent_PRED_ps30))]
+  predicted90percent_PRED_ps30
+  ERRORcurve<-predicted90percent_PRED_ps30-true90percent_PRED_ps30
+  ERRORSQ<-ERRORcurve^2
+  SUMERRORSQ<-sum(ERRORSQ)
+  SUMERRORSQmean<-SUMERRORSQ/length(predicted90percent_PRED_ps30)
+  sqrt(SUMERRORSQmean)
+  SUMERRORSQmean
+  
+  ps30RESULTMATRIX[(testengine),1]<-SUMERRORSQmean
+  
+} 
+as.vector(na.omit(ps30RESULTMATRIX))
+
+true90percent_PRED_phi<-phi_all_train_test[(testengine+100),((RUL_PREDICTION_low_big_merged_UNIFPCA[testengine,2]+1)+1):(RUL_PREDICTION_low_big_merged_UNIFPCA[testengine,5]+1)]
+true90percent_PRED_phi<-na.omit(true90percent_PRED_phi)
+length(true90percent_PRED_phi)
+true90percent_PRED_phi<-as.vector(true90percent_PRED_phi)
+true90percent_PRED_phi
+predicted90percent_PRED_phi<-predictedcurves_smooth_list_phi_UNIFPCA[[testengine]]$y[(RUL_PREDICTION_low_big_merged_UNIFPCA[testengine,2]+1):(RUL_PREDICTION_low_big_merged_UNIFPCA[testengine,2]+length(true90percent_PRED_phi))]
+predicted90percent_PRED_phi
+ERRORcurve<-predicted90percent_PRED_phi-true90percent_PRED_phi
+ERRORSQ<-ERRORcurve^2
+SUMERRORSQ<-sum(ERRORSQ)
+SUMERRORSQmean<-SUMERRORSQ/length(predicted90percent_PRED_phi)
+sqrt(SUMERRORSQmean)
+SUMERRORSQmean
+
+phiRESULTMATRIX<- matrix(NA,82,1)
+for (testengine in c(20,31,34,35,42,68,76,81,82)) {
+  
+  c((RUL_PREDICTION_low_big_merged_UNIFPCA[testengine,2]+1):RUL_PREDICTION_low_big_merged_UNIFPCA[testengine,5])
+  true90percent_PRED_phi<-phi_all_train_test[(testengine+100),((RUL_PREDICTION_low_big_merged_UNIFPCA[testengine,2]+1)+1):(RUL_PREDICTION_low_big_merged_UNIFPCA[testengine,5]+1)]
+  true90percent_PRED_phi<-na.omit(true90percent_PRED_phi)
+  length(true90percent_PRED_phi)
+  true90percent_PRED_phi<-as.vector(true90percent_PRED_phi)
+  true90percent_PRED_phi
+  predicted90percent_PRED_phi<-predictedcurves_smooth_list_phi_UNIFPCA[[testengine]]$y[(RUL_PREDICTION_low_big_merged_UNIFPCA[testengine,2]+1):(RUL_PREDICTION_low_big_merged_UNIFPCA[testengine,2]+length(true90percent_PRED_phi))]
+  predicted90percent_PRED_phi
+  ERRORcurve<-predicted90percent_PRED_phi-true90percent_PRED_phi
+  ERRORSQ<-ERRORcurve^2
+  SUMERRORSQ<-sum(ERRORSQ)
+  SUMERRORSQmean<-SUMERRORSQ/length(predicted90percent_PRED_phi)
+  sqrt(SUMERRORSQmean)
+  SUMERRORSQmean
+  
+  phiRESULTMATRIX[(testengine),1]<-SUMERRORSQmean
+  
+} 
+as.vector(na.omit(phiRESULTMATRIX))
+
+
+true90percent_PRED_BPR<-BPR_all_train_test[(testengine+100),((RUL_PREDICTION_low_big_merged_UNIFPCA[testengine,2]+1)+1):(RUL_PREDICTION_low_big_merged_UNIFPCA[testengine,5]+1)]
+true90percent_PRED_BPR<-na.omit(true90percent_PRED_BPR)
+length(true90percent_PRED_BPR)
+true90percent_PRED_BPR<-as.vector(true90percent_PRED_BPR)
+true90percent_PRED_BPR
+predicted90percent_PRED_BPR<-predictedcurves_smooth_list_BPR_UNIFPCA[[testengine]]$y[(RUL_PREDICTION_low_big_merged_UNIFPCA[testengine,2]+1):(RUL_PREDICTION_low_big_merged_UNIFPCA[testengine,2]+length(true90percent_PRED_BPR))]
+predicted90percent_PRED_BPR
+ERRORcurve<-predicted90percent_PRED_BPR-true90percent_PRED_BPR
+ERRORSQ<-ERRORcurve^2
+SUMERRORSQ<-sum(ERRORSQ)
+SUMERRORSQmean<-SUMERRORSQ/length(predicted90percent_PRED_BPR)
+sqrt(SUMERRORSQmean)
+SUMERRORSQmean
+
+BPRRESULTMATRIX<- matrix(NA,82,1)
+for (testengine in c(20,31,34,35,42,68,76,81,82)) {
+  
+  c((RUL_PREDICTION_low_big_merged_UNIFPCA[testengine,2]+1):RUL_PREDICTION_low_big_merged_UNIFPCA[testengine,5])
+  true90percent_PRED_BPR<-BPR_all_train_test[(testengine+100),((RUL_PREDICTION_low_big_merged_UNIFPCA[testengine,2]+1)+1):(RUL_PREDICTION_low_big_merged_UNIFPCA[testengine,5]+1)]
+  true90percent_PRED_BPR<-na.omit(true90percent_PRED_BPR)
+  length(true90percent_PRED_BPR)
+  true90percent_PRED_BPR<-as.vector(true90percent_PRED_BPR)
+  true90percent_PRED_BPR
+  predicted90percent_PRED_BPR<-predictedcurves_smooth_list_BPR_UNIFPCA[[testengine]]$y[(RUL_PREDICTION_low_big_merged_UNIFPCA[testengine,2]+1):(RUL_PREDICTION_low_big_merged_UNIFPCA[testengine,2]+length(true90percent_PRED_BPR))]
+  predicted90percent_PRED_BPR
+  ERRORcurve<-predicted90percent_PRED_BPR-true90percent_PRED_BPR
+  ERRORSQ<-ERRORcurve^2
+  SUMERRORSQ<-sum(ERRORSQ)
+  SUMERRORSQmean<-SUMERRORSQ/length(predicted90percent_PRED_BPR)
+  sqrt(SUMERRORSQmean)
+  SUMERRORSQmean
+  
+  BPRRESULTMATRIX[(testengine),1]<-SUMERRORSQmean
+  
+} 
+as.vector(na.omit(BPRRESULTMATRIX))
+
+true90percent_PRED_W31<-W31_all_train_test[(testengine+100),((RUL_PREDICTION_low_big_merged_UNIFPCA[testengine,2]+1)+1):(RUL_PREDICTION_low_big_merged_UNIFPCA[testengine,5]+1)]
+true90percent_PRED_W31<-na.omit(true90percent_PRED_W31)
+length(true90percent_PRED_W31)
+true90percent_PRED_W31<-as.vector(true90percent_PRED_W31)
+true90percent_PRED_W31
+predicted90percent_PRED_W31<-predictedcurves_smooth_list_W31_UNIFPCA[[testengine]]$y[(RUL_PREDICTION_low_big_merged_UNIFPCA[testengine,2]+1):(RUL_PREDICTION_low_big_merged_UNIFPCA[testengine,2]+length(true90percent_PRED_W31))]
+predicted90percent_PRED_W31
+ERRORcurve<-predicted90percent_PRED_W31-true90percent_PRED_W31
+ERRORSQ<-ERRORcurve^2
+SUMERRORSQ<-sum(ERRORSQ)
+SUMERRORSQmean<-SUMERRORSQ/length(predicted90percent_PRED_W31)
+sqrt(SUMERRORSQmean)
+SUMERRORSQmean
+
+W31RESULTMATRIX<- matrix(NA,82,1)
+for (testengine in c(20,31,34,35,42,68,76,81,82)) {
+  
+  c((RUL_PREDICTION_low_big_merged_UNIFPCA[testengine,2]+1):RUL_PREDICTION_low_big_merged_UNIFPCA[testengine,5])
+  true90percent_PRED_W31<-W31_all_train_test[(testengine+100),((RUL_PREDICTION_low_big_merged_UNIFPCA[testengine,2]+1)+1):(RUL_PREDICTION_low_big_merged_UNIFPCA[testengine,5]+1)]
+  true90percent_PRED_W31<-na.omit(true90percent_PRED_W31)
+  length(true90percent_PRED_W31)
+  true90percent_PRED_W31<-as.vector(true90percent_PRED_W31)
+  true90percent_PRED_W31
+  predicted90percent_PRED_W31<-predictedcurves_smooth_list_W31_UNIFPCA[[testengine]]$y[(RUL_PREDICTION_low_big_merged_UNIFPCA[testengine,2]+1):(RUL_PREDICTION_low_big_merged_UNIFPCA[testengine,2]+length(true90percent_PRED_W31))]
+  predicted90percent_PRED_W31
+  ERRORcurve<-predicted90percent_PRED_W31-true90percent_PRED_W31
+  ERRORSQ<-ERRORcurve^2
+  SUMERRORSQ<-sum(ERRORSQ)
+  SUMERRORSQmean<-SUMERRORSQ/length(predicted90percent_PRED_W31)
+  sqrt(SUMERRORSQmean)
+  SUMERRORSQmean
+  
+  W31RESULTMATRIX[(testengine),1]<-SUMERRORSQmean
+  
+} 
+as.vector(na.omit(W31RESULTMATRIX))
+
+true90percent_PRED_W32<-W32_all_train_test[(testengine+100),((RUL_PREDICTION_low_big_merged_UNIFPCA[testengine,2]+1)+1):(RUL_PREDICTION_low_big_merged_UNIFPCA[testengine,5]+1)]
+true90percent_PRED_W32<-na.omit(true90percent_PRED_W32)
+length(true90percent_PRED_W32)
+true90percent_PRED_W32<-as.vector(true90percent_PRED_W32)
+true90percent_PRED_W32
+predicted90percent_PRED_W32<-predictedcurves_smooth_list_W32_UNIFPCA[[testengine]]$y[(RUL_PREDICTION_low_big_merged_UNIFPCA[testengine,2]+1):(RUL_PREDICTION_low_big_merged_UNIFPCA[testengine,2]+length(true90percent_PRED_W32))]
+predicted90percent_PRED_W32
+ERRORcurve<-predicted90percent_PRED_W32-true90percent_PRED_W32
+ERRORSQ<-ERRORcurve^2
+SUMERRORSQ<-sum(ERRORSQ)
+SUMERRORSQmean<-SUMERRORSQ/length(predicted90percent_PRED_W32)
+sqrt(SUMERRORSQmean)
+SUMERRORSQmean
+
+W32RESULTMATRIX<- matrix(NA,82,1)
+for (testengine in c(20,31,34,35,42,68,76,81,82)) {
+  
+  c((RUL_PREDICTION_low_big_merged_UNIFPCA[testengine,2]+1):RUL_PREDICTION_low_big_merged_UNIFPCA[testengine,5])
+  true90percent_PRED_W32<-W32_all_train_test[(testengine+100),((RUL_PREDICTION_low_big_merged_UNIFPCA[testengine,2]+1)+1):(RUL_PREDICTION_low_big_merged_UNIFPCA[testengine,5]+1)]
+  true90percent_PRED_W32<-na.omit(true90percent_PRED_W32)
+  length(true90percent_PRED_W32)
+  true90percent_PRED_W32<-as.vector(true90percent_PRED_W32)
+  true90percent_PRED_W32
+  predicted90percent_PRED_W32<-predictedcurves_smooth_list_W32_UNIFPCA[[testengine]]$y[(RUL_PREDICTION_low_big_merged_UNIFPCA[testengine,2]+1):(RUL_PREDICTION_low_big_merged_UNIFPCA[testengine,2]+length(true90percent_PRED_W32))]
+  predicted90percent_PRED_W32
+  ERRORcurve<-predicted90percent_PRED_W32-true90percent_PRED_W32
+  ERRORSQ<-ERRORcurve^2
+  SUMERRORSQ<-sum(ERRORSQ)
+  SUMERRORSQmean<-SUMERRORSQ/length(predicted90percent_PRED_W32)
+  sqrt(SUMERRORSQmean)
+  SUMERRORSQmean
+  
+  W32RESULTMATRIX[(testengine),1]<-SUMERRORSQmean
+  
+} 
+as.vector(na.omit(W32RESULTMATRIX))
+
+rbind(as.vector(na.omit(T24RESULTMATRIX)),as.vector(na.omit(T30RESULTMATRIX)),as.vector(na.omit(T50RESULTMATRIX)),
+      as.vector(na.omit(P30RESULTMATRIX)),as.vector(na.omit(ps30RESULTMATRIX)),as.vector(na.omit(phiRESULTMATRIX)),
+      as.vector(na.omit(BPRRESULTMATRIX)),as.vector(na.omit(W31RESULTMATRIX)),as.vector(na.omit(W32RESULTMATRIX)))
